@@ -1,0 +1,6 @@
+.about-bg {
+  background-image: url("../src/assets/aboutBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
