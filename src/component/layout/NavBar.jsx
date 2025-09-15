@@ -20,7 +20,7 @@ const NavBar = () => {
             <NavLink
               to="/discover"
               className={({ isActive }) =>
-                `font-[400] text-[16px] text-[#ffffff] hover:font-[700] hover:underline ${
+                `font-[400] text-[16px] text-[#ffffff]  ${
                   isActive ? "font-[700] underline" : ""
                 }`
               }
@@ -30,7 +30,7 @@ const NavBar = () => {
             <NavLink
               to="/about-us"
               className={({ isActive }) =>
-                `font-[400] text-[16px] text-[#ffffff] hover:font-[700] hover:underline ${
+                `font-[400] text-[16px] text-[#ffffff]  ${
                   isActive ? "font-[700] underline" : ""
                 }`
               }
@@ -40,7 +40,7 @@ const NavBar = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `font-[400] text-[16px] text-[#ffffff] hover:font-[700] hover:underline ${
+                `font-[400] text-[16px] text-[#ffffff]  ${
                   isActive ? "font-[700] underline" : ""
                 }`
               }
