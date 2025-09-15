@@ -3,6 +3,10 @@ import React from "react";
 const Hero = () => {
 
   return (
+
+    <div>
+    
+
     <div className="h-[705px] text-[#FFFFFF] flex items-center">
       <div className="layout">
         <div className="max-w-[944px] text-center mx-auto">
@@ -18,6 +22,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
+
     </div>
   );
 };
