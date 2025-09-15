@@ -19,10 +19,10 @@ const WhyChooseUs = () => {
   ]
   return (
     <>
-      <main className="bg-[#FFFFFF]">
+      <main className="bg-[#FFFFFF] ">
     <article className="layout flex flex-col gap-[47px]">
     {/* Header Section */}
-    <section className="flex flex-col items-center  gap-[1px] flex flex-col ">
+    <section className=" items-center  gap-[1px] flex flex-col mt-10">
         <h2 className="font-[700] text-[48px] leading-[67px] tracking-[0%]  ">Why Choose Us?</h2>
         <p className="font-[400] text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">The trusted platform for unforgettable experiences</p>
     </section>

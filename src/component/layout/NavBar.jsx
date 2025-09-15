@@ -9,7 +9,7 @@ const NavBar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="bg-[#0000005C] backdrop-blur-md sticky top-0 z-30">
+    <div className="bg-[#0000005C] backdrop-blur-md sticky top-0 z-30 right-0 left-0">
       <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8">
         <NavLink to="/">
           <img src={logo} alt="Logo" className="w-[120px] md:w-[150px]" />
@@ -38,7 +38,7 @@ const NavBar = () => {
               About Us
             </NavLink>
             <NavLink
-              to="/contact"
+              to="/contact-us"
               className={({ isActive }) =>
                 `font-[400] text-[16px] text-[#ffffff]  ${
                   isActive ? "font-[700] underline" : ""
