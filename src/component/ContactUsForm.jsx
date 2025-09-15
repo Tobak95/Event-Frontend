@@ -2,13 +2,13 @@ import ContactInput from "./ContactInput";
 
 function ContactUsForm() {
   return (
-    <div className="bg-[#F8F6F6] py-6 px-6 mt-8 rounded-sm">
-      <h3 className="text-[#000000] text-[48px] font-bold">Send a Message</h3>
-      <p className="text-[#3F3F3F] text-[20px]">
+    <div className="bg-[#F8F6F6] py-6 px-4 lg:px-12 rounded-sm flex w-full  flex-col lg:w-[48%]">
+      <h3 className="text-[#000000] lg:text-[48px] text-2xl font-bold">Send a Message</h3>
+      <p className="text-[#3F3F3F] lg:text-[20px] text-[16px]">
         Fill out the form and we’ll get back to you.
       </p>
-      <form className="mt-4">
-        <div className="flex flex-col gap-2">
+      <form className="mt-4 w-full">
+        <div className="flex flex-col gap-2 ">
           <ContactInput
             label={"name"}
             name={"Name"}
@@ -38,7 +38,7 @@ function ContactUsForm() {
         </div>
         <button
           type="submit"
-          className="bg-[#006F6A] px-4 py-4 rounded-[8px] text-[#FFFFFF] mt-4 w-full flex cursor-pointer justify-center"
+          className="bg-[#006F6A] px-4 py-4 rounded-[8px] text-[#FFFFFF] mt-8 w-full flex cursor-pointer justify-center"
         >
           Send Message
         </button>

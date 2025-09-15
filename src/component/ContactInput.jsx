@@ -11,7 +11,7 @@ function ContactInput({ label, type, name, placeHolder }) {
         type={type}
         id={label}
         placeholder={placeHolder}
-        className="outline-none py-2 px-2 border border-[#979797] rounded-sm"
+        className="outline-none py-3 px-2 border border-[#979797] rounded-sm"
         required
       />
     </div>
