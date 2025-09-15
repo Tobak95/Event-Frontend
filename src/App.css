@@ -1,4 +1,5 @@
 
+
 *{
     font-family: Helvetica;
 }
@@ -8,6 +9,14 @@
     background-size: cover;
     background-repeat: no-repeat;
 
+.about-bg {
+  background-image: url("../src/assets/aboutBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+  
 .heroBG{
     background-image:url("../src/assets/landingPageBg.jpg") ;
 }
+
