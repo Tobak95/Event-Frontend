@@ -1,0 +1,9 @@
+*{
+    font-family: Helvetica;
+}
+.Discoverimg{
+    background-image: url("../src/assets/Discoverimg.jpg");
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
