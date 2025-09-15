@@ -1,3 +1,4 @@
+
 *{
     font-family: Helvetica;
 }
@@ -6,4 +7,7 @@
     background-position: bottom;
     background-size: cover;
     background-repeat: no-repeat;
+
+.heroBG{
+    background-image:url("../src/assets/landingPageBg.jpg") ;
 }
