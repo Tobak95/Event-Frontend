@@ -1,6 +1,7 @@
 import React from "react";
 
 const Hero = () => {
+
   return (
     <div className="h-[705px] text-[#FFFFFF] flex items-center">
       <div className="layout">
