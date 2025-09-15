@@ -3,12 +3,12 @@
 *{
     font-family: Helvetica;
 }
-.Discoverimg{
+.DiscoverImg{
     background-image: url("../src/assets/Discoverimg.jpg");
     background-position: bottom;
     background-size: cover;
     background-repeat: no-repeat;
-
+}
 .about-bg {
   background-image: url("../src/assets/aboutBg.jpg");
   background-size: cover;

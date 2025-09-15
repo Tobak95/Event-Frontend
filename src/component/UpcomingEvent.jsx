@@ -16,12 +16,12 @@ const UpcomingEvent = () => {
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-center mt-10 gap-5">
+      <div className="flex flex-wrap justify-center gap-[27.5px] mt-10">
         {events.map((event, index) => {
           return (
             <div
               key={index}
-              className="zaa lg:w-[395px] h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
+              className=" lg:w-[395px] h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
             >
               <img
                 src={event.image}
