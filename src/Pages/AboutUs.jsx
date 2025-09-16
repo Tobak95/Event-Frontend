@@ -1,12 +1,17 @@
 import React from "react";
+import Vision from "../component/Vision";
 import NavBar from "../component/layout/NavBar";
+import WhyChooseUs from "../component/WhyChooseUs"
+import Testimonial from "../component/Testimonial";
+import Discover from "../component/Discover";
+import MeetTheTeamSection from "../component/MeetTheTeam";
 
 const AboutUs = () => {
   return (
-    <div>
+    <div className="">
       <div className="about-bg h-screen max-h-[557px]">
         <NavBar />
-        <div className="flex items-center justify-center mt-20">
+        <div className=" flex items-center justify-center mt-20">
           <div>
             <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700] ">
               About Eventra
@@ -18,6 +23,11 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      <Vision />
+      <WhyChooseUs/>
+      <MeetTheTeamSection/>
+      <Testimonial/>
+      <Discover/>
     </div>
   );
 };

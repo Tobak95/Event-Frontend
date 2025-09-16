@@ -90,10 +90,10 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="bg-white py-5">
-      <div className="w-11/12 mx-auto container">
+    <div className="layout bg-white py-5">
+      <div className=" mx-auto container">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-4">
+          <h2 className="text-[25px] md:text-3xl font-bold text-[#000000] mb-4">
             Testimonials
           </h2>
           <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto">

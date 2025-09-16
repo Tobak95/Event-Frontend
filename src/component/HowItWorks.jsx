@@ -27,7 +27,7 @@ const HowItWorks = () => {
         <article className="layout flex flex-col gap-[47px]  w-[]">
           {/* Header section */}
           <section className="flex flex-col items-center gap-[1px]  ">
-            <h2 className="font-[700] text-[48px] leading-[67px] tracking-[0%]  ">
+            <h2 className="font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
               How It Works?
             </h2>
             <p className="font-[400] text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">

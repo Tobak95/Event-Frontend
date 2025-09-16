@@ -2,9 +2,9 @@ import React from 'react'
 
 const Discover = () => {
    return (
-     <div className="bg-cover bg-center py-5 h-[443px]">
+     <div className="layout bg-cover bg-center py-5 ">
        {/* Discover Events section */}
-       <div className="w-11/12 mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
+       <div className=" mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
          <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">
            <div className="space-y-6">
              <h1 className="text-3xl font-bold text-white leading-tight">
