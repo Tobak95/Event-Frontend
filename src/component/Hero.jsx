@@ -21,6 +21,7 @@ export default Hero
           <button className="bg-[#006F6A] w-[290px] h-[57px] mt-10 rounded-[8px]">
             Explore Events
           </button>
+          
     <div>
       <NavBar/>
       <div className="h-[705px] text-[#FFFFFF] flex items-center heroBG bg-no-repeat bg-cover w-full bg-bottom ">
