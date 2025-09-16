@@ -2,7 +2,6 @@ import React from "react";
 import Hero from "../component/Hero";
 import Discover from "../component/Discover";
 import Testimonial from "../component/Testimonial";
-import Footer from "../component/layout/Footer";
 import UpcomingEvent from "../component/UpcomingEvent";
 import EventCategory from "../component/EventCategory";
 import HowItWorks from "../component/HowItWorks";
@@ -18,7 +17,7 @@ const Home = () => {
       <WhyChooseUs />
       <Testimonial />
       <Discover />
-      <Footer />
+      
     </div>
   );
 };

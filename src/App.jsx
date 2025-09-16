@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import SuspenseLoader from "./component/layout/SuspenseLoader";
+import NavBar from "./component/layout/NavBar";
+import Footer from "./component/layout/Footer";
 import "./App.css";
 
 const Home = lazy(() => import("./Pages/Home"));
@@ -17,6 +19,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
+          <Footer />
         </Suspense>
       </Router>
     </>
