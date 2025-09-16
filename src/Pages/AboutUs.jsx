@@ -1,5 +1,10 @@
+
+import React from 'react'
+import Vision from '../component/Vision'
+
 import React from "react";
 import NavBar from "../component/layout/NavBar";
+
 
 const AboutUs = () => {
   return (
@@ -18,6 +23,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };
