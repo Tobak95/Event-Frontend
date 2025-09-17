@@ -12,7 +12,7 @@ const Footer = () => {
     { link: "Events", to: "/events" },
     { link: "How It Works", to: "#" },
     { link: "About Us", to: "/about-us" },
-    { link: "Contact", to: "/contact" },
+    { link: "Contact", to: "/contact-us" },
   ];
 
   const support = ["FAQs", "Help Center", "Terms of Service", "Privacy Policy"];
@@ -20,16 +20,19 @@ const Footer = () => {
   return (
     <div className="bg-[#006F6A] md:px-[70px] pt-[50px] pb-[20px]">
       <footer className="layout flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 ">
-        <div>
-          <img src={logo} alt="Logo" className="mb-2" />
-          <p className="max-w-[440px] w-full font-[400] text-center md:text-start p-2 text-[16px] md:text-[20px] text-[#FFFFFF] mb-6">
+        <div className="">
+          <div className="flex justify-center lg:justify-start">
+            <img src={logo} alt="Logo" className="mb-2" />
+          </div>
+
+          <p className="max-w-[440px] w-full font-[400] text-center md:text-start p-2 text-[16px] md:text-[20px] text-[#FFFFFF] lg:mb-6">
             EVENTRA connects you to unforgettable events and experiences.
             Discover, book, and enjoy with ease, anytime and anywhere.
           </p>
-          <p className="text-[#F1F1F1] font-[700] text-center md:text-start text-[16px] md:text-[20px] mb-2">
+          <p className="hidden lg:block lg:text-[#F1F1F1] font-[700] text-center md:text-start text-[16px] md:text-[20px] mb-2">
             Follow Us
           </p>
-          <div className="flex items-center justify-center md:justify-start gap-3">
+          <div className="hidden lg:flex items-center justify-center md:justify-start gap-3">
             <img src={icon1} alt="WhatsApp" />
             <img src={icon2} alt="LinkedIn" />
             <img src={icon3} alt="Instagram" />
@@ -77,9 +80,20 @@ const Footer = () => {
               </li>
             </ul>
           ))}
+
+          <p className="lg:hidden text-[20px] md:text-[24px] text-center md:text-start text-[#FFFFFF] font-[700] mb-2 mt-5">
+            Follow Us
+          </p>
+          <div className="lg:hidden flex items-center justify-center md:justify-start gap-3 mt-2 ">
+            <img src={icon1} alt="WhatsApp" />
+            <img src={icon2} alt="LinkedIn" />
+            <img src={icon3} alt="Instagram" />
+            <img src={icon4} alt="Twitter" />
+          </div>
         </div>
       </footer>
-      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] ">
+      <hr className="lg:hidden mt-10 text-[#FFFFFF]" />
+      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] mt-10">
         &copy; 2025 Eventra - All Rights Reserved
       </p>
     </div>

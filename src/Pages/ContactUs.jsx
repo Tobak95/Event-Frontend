@@ -2,15 +2,18 @@ import backgroundImage from "../assets/backgroundImage.jpg";
 import ContactInfo from "../component/ContactInfo";
 import ContactUsForm from "../component/ContactUsForm";
 import HeroSectionCard from "../component/HeroSectionCard";
+
+
 const ContactUs = () => {
   return (
     <>
+      
       <HeroSectionCard
         backgroundImage={backgroundImage}
         p={`We’d love to hear from you. Whether it’s about our events,
-            partnerships, or media; reach out below.`}
-        h2={"Contact Us"}
-      />
+          partnerships, or media; reach out below.`}
+          h2={"Contact Us"}
+          />
       <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-6 max-w-[1440px] mx-auto mt-8">
         <ContactUsForm />
         <ContactInfo />
