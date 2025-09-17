@@ -39,7 +39,7 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
   ];
   return (
     <div className="">
-      <div className="flex flex-col-reverse lg:flex-row rounded-2xl overflow-hidden bg-white  shadow border border-gray-200">
+      <div className="flex flex-col-reverse lg:flex-row rounded-2xl overflow-hidden bg-white  border border-[#6BABA9] border-b-[6.27px]">
         <div className="flex flex-col justify-between p-4 flex-1 w-full lg:w-[50%]">
           <div>
             <h2 className="text-xl font-bold text-[#000000]">{h2}</h2>
