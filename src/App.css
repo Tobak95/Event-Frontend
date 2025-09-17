@@ -1,0 +1,22 @@
+* {
+  font-family: Helvetica;
+}
+.DiscoverImg {
+  background-image: url("../src/assets/Discoverimg.jpg");
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.about-bg {
+  background-image: url("../src/assets/aboutBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.heroBG {
+  background-image: url("../src/assets/landingPageBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
