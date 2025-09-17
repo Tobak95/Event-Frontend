@@ -8,24 +8,22 @@ const Vision = () => {
     <div className='mt-10 layout'>
         <div className='w-[95%] md:w-11/12 container mx-auto flex flex-col md:flex-row gap-5 md:h-[400px] lg:h-[500px]'>
             {/* Dominate */}
-            <div className='md:h-[100%] md:w-[45%]'>
+            <div className='md:h-[100%] md:w-[45%] flex flex-col gap-4 md:gap-2'>
                 {/* text */}
                 <div className='md:h-[35%] font-bold text-center flex flex-col gap-2'>
                     <h1 className='text-[rgba(74,74,74,1)] text-xl lg:text-4xl'>Your Vision. Our expertise.</h1>
                     <h1 className='text-[rgba(74,74,74,1)] text-xl lg:text-4xl'> Extraordinary events.</h1>
                     <h1 className='text-[rgba(237,186,55,1)] text-xl lg:text-4xl'>Dominate the scene.</h1>
-
-                    
                 </div>
                 {/* image */}
-                <img className='rounded-xl md:h-[65%] md:w-full object-cover' src={dominate} alt="" />
+                <img className='rounded-xl md:h-[65%] h-[280px] md:w-full object-cover' src={dominate} alt="" />
             </div>
             {/* Manage */}
             <div className='md:h-[100%] md:w-[55%]'>
                 {/* image */}
                 <div className='flex flex-col md:flex-row gap-3 md:h-[55%]'>
-                    <img className='rounded-lg h-full w-full object-cover' src={manage1} alt="" />
-                    <img className='rounded-lg h-full w-full object-cover' src={manage2} alt="" />
+                    <img className='rounded-lg md:h-full h-[300px] w-full object-cover' src={manage1} alt="" />
+                    <img className='rounded-lg md:h-full h-[300px] w-full object-cover' src={manage2} alt="" />
                 </div>
                 {/* text */}
                 <div className='md:h-[45%] flex flex-col md:justify-center text-center gap-5'>
