@@ -96,7 +96,7 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
 function Discover() {
   const cardData = [
     {
-      h2: "Rhythm & Soul Tour: ",
+      h2: "Rhythm & Soul Tour:",
       pTag1: "Eternal Vibes",
       location: "Eko Atlantic City (Lagos, Nigeria)",
       time: "9:00 PM - 12:00PM",
