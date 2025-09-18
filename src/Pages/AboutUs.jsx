@@ -5,6 +5,7 @@ import WhyChooseUs from "../component/WhyChooseUs"
 import Testimonial from "../component/Testimonial";
 import Discover from "../component/Discover";
 import MeetTheTeamSection from "../component/MeetTheTeam";
+import Footer from "../component/layout/Footer";
 
 const AboutUs = () => {
   return (
@@ -28,6 +29,7 @@ const AboutUs = () => {
       <MeetTheTeamSection/>
       <Testimonial/>
       <Discover/>
+      <Footer/>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowForward } from "react-icons/io5";
+import Footer from "../component/layout/Footer";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
@@ -96,6 +97,7 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
 function Discover() {
   const cardData = [
     {
+      id: 1,
       h2: "Rhythm & Soul Tour: ",
       pTag1: "Eternal Vibes",
       location: "Eko Atlantic City (Lagos, Nigeria)",
@@ -105,6 +107,7 @@ function Discover() {
       price: "$90.00",
     },
     {
+      id: 2,
       h2: "The Vibe Tour:",
       pTag1: "Genesis Night",
       location: "Teslim Balogun Stadium (Lagos, Nigeria)",
@@ -114,6 +117,7 @@ function Discover() {
       price: "$135.00",
     },
     {
+      id: 3,
       h2: "Visions in Motion Tour:",
       pTag1: "Bridge of Culture",
       location: "National Museum Lagos (Nigeria)",
@@ -123,6 +127,7 @@ function Discover() {
       price: "$50.00",
     },
     {
+      id: 4,
       h2: "Rhythm & Soul Tour:",
       pTag1: "Eternal Vibes",
       location: "Eko Atlantic City (Lagos, Nigeria)",
@@ -132,6 +137,7 @@ function Discover() {
       price: "$90.00",
     },
     {
+      id: 5,
       h2: "Global Takeover Tour:",
       pTag1: "Coastline Heat",
       location: "Teslim Balogun Stadium (Lagos, Nigeria)",
@@ -141,6 +147,7 @@ function Discover() {
       price: "$120.00",
     },
     {
+      id: 6,
       h2: "The Vibe Tour: The:",
       pTag1: "Genesis Night",
       location: "Teslim Balogun Stadium (Lagos, Nigeria)",
@@ -150,6 +157,7 @@ function Discover() {
       price: "$135.00",
     },
     {
+      id: 7,
       h2: "Rhythm & Soul Tour:",
       pTag1: "Eternal Vibes",
       location: "Teslim Balogun Stadium (Lagos, Nigeria)",
@@ -159,6 +167,7 @@ function Discover() {
       price: "$90.00",
     },
     {
+      id: 8,
       h2: "Gospel Vibes Tour:",
       pTag1: "Praise On The Nile",
       location: "House on the Rock Cathedral ",
@@ -197,7 +206,7 @@ function Discover() {
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full px-2 lg:w-[80%] mx-auto gap-12 ">
           {cardData.map((data) => (
             <Card
-              key={data.h2}
+              key={data.id}
               date={data.date}
               h2={data.h2}
               img={data.img}

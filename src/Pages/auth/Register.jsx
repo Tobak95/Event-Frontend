@@ -2,170 +2,214 @@ import { useState } from "react";
 import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
 import signup from "../../assets/SignUp.jpg";
 import google from "../../assets/google.png";
-import Brandlogo from "../../assets/logo.png";
+import Brandlogo from "../../assets/logo2.png";
 import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../Utils/axiosInstance";
+import { signUpSchema } from "../../Utils/formValidator";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { PiWarningCircle } from "react-icons/pi";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    agreeToTerms: false,
-  });
+  // const [formData, setFormData] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   password: "",
+  //   phoneNumber: "",
+  //   confirmPassword: "",
+  //   agreeToTerms: false,
+  // });
+  //
+  // const [errors, setErrors] = useState({});
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+  // const navigate = useNavigate();
+
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
+
+  //   if (errors[name]) {
+  //     setErrors((prev) => ({ ...prev, [name]: "" }));
+  //   }
+  // };
+
+  // const validateForm = () => {
+  //   const newErrors = {};
+
+  //   if (!formData.firstname.trim()) {
+  //     newErrors.firstname = "First name is required";
+  //   }
+
+  //   if (!formData.lastname.trim()) {
+  //     newErrors.lastname = "Last name is required";
+  //   }
+
+  //   if (!formData.email.trim()) {
+  //     newErrors.email = "Email is required";
+  //   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+  //     newErrors.email = "Please enter a valid email address";
+  //   }
+  //   if (!formData.phoneNumber.trim()) {
+  //     newErrors.phoneNumber = "Phone number  is required";
+  //   } else if (formData.phoneNumber.length > 12) {
+  //     newErrors.phoneNumber = "Please enter a valid phone number ";
+  //   }
+
+  //   if (!formData.password) {
+  //     newErrors.password = "Password is required";
+  //   } else if (formData.password.length < 6) {
+  //     newErrors.password = "Password must be at least 6 characters";
+  //   }
+
+  //   if (!formData.confirmPassword) {
+  //     newErrors.confirmPassword = "Please confirm your password";
+  //   } else if (formData.password !== formData.confirmPassword) {
+  //     newErrors.confirmPassword = "Passwords do not match";
+  //   }
+
+  //   if (!formData.agreeToTerms) {
+  //     newErrors.agreeToTerms = "You must agree to the terms and conditions";
+  //   }
+
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
+
+  // const handleSubmit = async (e, data) => {
+  //   e.preventDefault();
+
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+
+  //   setIsLoading(true);
+  //
+
+  //   setTimeout(() => {
+  //     setShowSuccessModal(true);
+  //     setIsLoading(false);
+  //   }, 1000);
+  // };
+
+  // // const handleSignUp = async (data) => {
+
+  // // };
+
+  // const handleGoogleSignUp = () => {
+  //   console.log("Google sign-up clicked");
+  // };
+
+  // const handleCloseModal = () => {
+  //   setShowSuccessModal(false);
+  // };
+
+  // const handleSignIn = () => {
+  //   setShowSuccessModal(false);
+  //   navigate("/login");
+  // };
+
+  // const SuccessModal = () => {
+  //   if (!showSuccessModal) return null;
+
+  //   return (
+  //     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  //       <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
+  //         <button
+  //           onClick={handleCloseModal}
+  //           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+  //         >
+  //           <X className="h-5 w-5" />
+  //         </button>
+
+  //         {/* Modal Content */}
+  //         <div className="text-center">
+  //           <div className="flex justify-center mb-4">
+  //             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+  //               <CheckCircle className="h-10 w-10 text-green-600" />
+  //             </div>
+  //           </div>
+
+  //           <h3 className="text-xl font-semibold text-gray-900 mb-2">
+  //             Account Created Successfully!
+  //           </h3>
+
+  //           <div className="mt-4">
+  //             <p className="text-sm text-gray-600 mb-1">
+  //               Thank you for registering with Eventra.
+  //             </p>
+  //             <p className="text-sm text-gray-600">
+  //               Please check your email at{" "}
+  //               <span className="font-medium text-[#006F6A]">
+  //                 {formData.email}
+  //               </span>{" "}
+  //               to verify your account.
+  //             </p>
+  //           </div>
+
+  //           <div className="mt-6 flex flex-col gap-3">
+  //             <button
+  //               onClick={handleSignIn}
+  //               className="w-full px-4 py-3 bg-[#006F6A] text-white rounded-lg font-medium hover:bg-[#005a55] transition-colors"
+  //             >
+  //               Continue to Sign In
+  //             </button>
+
+  //             <button
+  //               onClick={handleCloseModal}
+  //               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+  //             >
+  //               Close
+  //             </button>
+  //           </div>
+
+  //           <div className="mt-4 text-xs text-gray-500">
+  //             Didn't receive the email?{" "}
+  //             <button className="text-[#006F6A] hover:underline">Resend</button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // };
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
+  const redirect = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signUpSchema),
+  });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
-
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Please confirm your password";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    if (!formData.agreeToTerms) {
-      newErrors.agreeToTerms = "You must agree to the terms and conditions";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
+  const handleRegister = async (data) => {
     setIsLoading(true);
-
-    setTimeout(() => {
-      setShowSuccessModal(true);
+    try {
+      const response = await axiosInstance.post("/auth/register", { ...data });
+      if (response.status === 201) {
+        localStorage.setItem("email", email);
+        console.log(response.data);
+        redirect("/verify");
+      }
+    } catch (error) {
+      setErrorMsg(error?.response?.data?.message);
+      console.log(error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
-  };
-
-  const handleGoogleSignUp = () => {
-    console.log("Google sign-up clicked");
-  };
-
-  const handleCloseModal = () => {
-    setShowSuccessModal(false);
-  };
-
-  const handleSignIn = () => {
-    setShowSuccessModal(false);
-    navigate("/login");
-  };
-
-  const SuccessModal = () => {
-    if (!showSuccessModal) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
-          <button
-            onClick={handleCloseModal}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
-
-          {/* Modal Content */}
-          <div className="text-center">
-            <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="h-10 w-10 text-green-600" />
-              </div>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Account Created Successfully!
-            </h3>
-
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-1">
-                Thank you for registering with Eventra.
-              </p>
-              <p className="text-sm text-gray-600">
-                Please check your email at{" "}
-                <span className="font-medium text-[#006F6A]">
-                  {formData.email}
-                </span>{" "}
-                to verify your account.
-              </p>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <button
-                onClick={handleSignIn}
-                className="w-full px-4 py-3 bg-[#006F6A] text-white rounded-lg font-medium hover:bg-[#005a55] transition-colors"
-              >
-                Continue to Sign In
-              </button>
-
-              <button
-                onClick={handleCloseModal}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-              >
-                Close
-              </button>
-            </div>
-
-            <div className="mt-4 text-xs text-gray-500">
-              Didn't receive the email?{" "}
-              <button className="text-[#006F6A] hover:underline">Resend</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    }
   };
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col lg:flex-row">
       {/* Modal */}
-      <SuccessModal />
+      {/* <SuccessModal /> */}
 
       {/* Form  */}
       <div className="w-full lg:w-1/2 bg-white flex flex-col justify-center py-6 px-4 sm:px-6 lg:px-16 mt-10 lg:mt-0">
@@ -190,7 +234,10 @@ const Register = () => {
             out on the moments that matter.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <form
+            onSubmit={handleSubmit(handleRegister)}
+            className="mt-6 space-y-4"
+          >
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#1B1B1B]">
@@ -198,18 +245,17 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
-                    name="firstName"
+                    id="firstname"
                     type="text"
-                    value={formData.firstName}
-                    onChange={handleChange}
+                    {...register("firstname")}
                     className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
-                      errors.firstName ? "border-red-500" : "border-gray-300"
+                      errors.firstname ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter Name"
                   />
-                  {errors.firstName && (
+                  {errors.firstname && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.firstName}
+                      {errors.firstname.message}
                     </p>
                   )}
                 </div>
@@ -221,18 +267,17 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
-                    name="lastName"
+                    id="lastname"
                     type="text"
-                    value={formData.lastName}
-                    onChange={handleChange}
+                    {...register("lastname")}
                     className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
-                      errors.lastName ? "border-red-500" : "border-gray-300"
+                      errors.lastname ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter Name"
                   />
-                  {errors.lastName && (
+                  {errors.lastname && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.lastName}
+                      {errors.lastname.message}
                     </p>
                   )}
                 </div>
@@ -245,17 +290,39 @@ const Register = () => {
               </label>
               <div className="mt-1">
                 <input
-                  name="email"
+                  id="email"
                   type="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  {...register("email")}
                   className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
                     errors.email ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Enter your Email"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#1B1B1B]">
+                Phone Number
+              </label>
+              <div className="mt-1">
+                <input
+                  id="phoneNumber"
+                  type="text"
+                  {...register("phoneNumber")}
+                  className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                    errors.phoneNumber ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Enter your phone number"
+                />
+                {errors.phoneNumber && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.phoneNumber.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -266,10 +333,9 @@ const Register = () => {
               </label>
               <div className="mt-1 relative">
                 <input
-                  name="password"
+                  id="password"
                   type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={handleChange}
+                  {...register("password")}
                   className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
                     errors.password ? "border-red-500" : "border-gray-300"
                   }`}
@@ -289,7 +355,9 @@ const Register = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -300,10 +368,9 @@ const Register = () => {
               </label>
               <div className="mt-1 relative">
                 <input
-                  name="confirmPassword"
+                  id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
+                  {...register("confirmPassword")}
                   className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
                     errors.confirmPassword
                       ? "border-red-500"
@@ -326,7 +393,7 @@ const Register = () => {
                 </div>
                 {errors.confirmPassword && (
                   <p className="mt-1 text-sm text-red-600">
-                    {errors.confirmPassword}
+                    {errors.confirmPassword.message}
                   </p>
                 )}
               </div>
@@ -334,13 +401,9 @@ const Register = () => {
 
             <div className="flex items-start pt-1">
               <input
-                name="agreeToTerms"
+                id="agreeToTerms"
                 type="checkbox"
-                checked={formData.agreeToTerms}
-                onChange={handleChange}
-                className={`h-4 w-4 mt-0.5 cursor-pointer rounded text-green-600 focus:ring-green-500 accent-green-600 ${
-                  errors.agreeToTerms ? "border-red-500" : "border-gray-300"
-                }`}
+                className="h-4 w-4 mt-0.5 cursor-pointer rounded"
               />
               <p className="ml-2 text-xs leading-4">
                 I agree to{" "}
@@ -348,8 +411,14 @@ const Register = () => {
                 <span className="text-[#2B8783]">Privacy Policies</span>
               </p>
             </div>
-            {errors.agreeToTerms && (
+            {/* {errors.agreeToTerms && (
               <p className="text-sm text-red-600">{errors.agreeToTerms}</p>
+            )} */}
+            {errorMsg && (
+              <div className="w-full rounded-xl py-2 my-2.5 px-4 bg-[#ff37370d] border-[#ff3737] text-[#ff3737] flex items-center gap-3">
+                <PiWarningCircle size={22} />
+                <p>{errorMsg}</p>
+              </div>
             )}
 
             <div className="pt-2">
@@ -376,7 +445,6 @@ const Register = () => {
             <div className="mt-4">
               <button
                 type="button"
-                onClick={handleGoogleSignUp}
                 className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors"
               >
                 <div className="flex gap-2 cursor-pointer items-center">
