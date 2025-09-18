@@ -6,7 +6,7 @@ import { BounceLoader } from "react-spinners";
 import successIcon from "../../assets/SuccessIcon.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { ImCancelCircle } from "react-icons/im";
-import { useParams } from "react-router-dom";
+
 
 const VerificationFromEmail = () => {
   const { token } = useParams();
