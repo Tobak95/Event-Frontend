@@ -6,6 +6,7 @@ import { BounceLoader } from "react-spinners";
 import successIcon from "../../assets/SuccessIcon.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { ImCancelCircle } from "react-icons/im";
+import { useParams } from "react-router-dom";
 
 const VerificationFromEmail = () => {
   const { token } = useParams();
@@ -27,10 +28,9 @@ const VerificationFromEmail = () => {
 
   const verifyToken = async () => {
     try {
-      const response = await axiosInstance.post(
-        `/auth/verify-email/${token}`,
-        token
-      );
+      const response = await axiosInstance.post(`/auth/verify-email/${token}`, {
+        token,
+      });
       if (response.status === 200) {
         setStatus("success");
       }
