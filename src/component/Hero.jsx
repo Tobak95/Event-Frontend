@@ -4,8 +4,8 @@ import NavBar from "../component/layout/NavBar";
 const Hero = () => {
   return (
     <div>
-      <NavBar/>
-      <div className="h-[705px] text-[#FFFFFF] flex items-center heroBG bg-no-repeat bg-cover w-full bg-bottom ">
+      <div className="h-[705px]  text-[#FFFFFF]  items-center heroBG  bg-bottom ">
+        <NavBar />
         <div className="layout ">
           <div className="max-w-[944px] text-center mx-auto">
             <h1 className="font-bold text-[35px] lg:text-[64px]">

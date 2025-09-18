@@ -93,7 +93,7 @@ const NavBar = () => {
               About Us
             </NavLink>
             <NavLink
-              to="/contact"
+              to="/contact-us"
               onClick={toggleMenu}
               className={({ isActive }) =>
                 `font-[400] text-[18px] text-[#ffffff] hover:font-[700] hover:underline ${
@@ -110,9 +110,12 @@ const NavBar = () => {
             >
               Sign in
             </NavLink>
-            <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
-              Get Started
-            </button>
+
+            <Link to={"/login"}>
+              <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
+                Get Started
+              </button>
+            </Link>
           </div>
         )}
       </nav>
