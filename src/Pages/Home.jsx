@@ -6,6 +6,7 @@ import UpcomingEvent from "../component/UpcomingEvent";
 import EventCategory from "../component/EventCategory";
 import HowItWorks from "../component/HowItWorks";
 import WhyChooseUs from "../component/WhyChooseUs";
+import Footer from "../component/layout/Footer"
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <WhyChooseUs />
       <Testimonial />
       <Discover />
+      <Footer/>
       
     </div>
   );
