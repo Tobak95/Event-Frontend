@@ -31,7 +31,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/verify" element={<VerifyEmail />} />
-            <Route path="/verification" element={<VerificationFromEmail />} />
+            <Route
+              path="/verify-email/:token"
+              element={<VerificationFromEmail />}
+            />
           </Routes>
         </Suspense>
       </Router>

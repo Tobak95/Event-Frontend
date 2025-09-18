@@ -51,7 +51,7 @@ const VerificationFromEmail = () => {
         img={<BounceLoader />}
         hText="Verifying......  Please hold"
         pText="Email Is Verifying..............."
-        btn="verifying.................."
+        btn="verifying............"
         goTo=""
       />
     );
@@ -60,8 +60,8 @@ const VerificationFromEmail = () => {
     return (
       <ModalsInput
         img={successIcon}
-        hText="Email vertification sucessful"
-        pText="Your email has sucessfully been verified"
+        hText="Email verification successful"
+        pText="Your email has successfully been verified"
         btn="Proceed to login"
         goTo="/login"
       />
@@ -76,6 +76,7 @@ const VerificationFromEmail = () => {
         pText="Invalid or expired token"
         btn="Resend verification email"
         goTo=""
+        click={handleResendEmail}
       />
     </div>
   );
