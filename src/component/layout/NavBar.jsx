@@ -14,7 +14,7 @@ const NavBar = () => {
   });
 
   const handleLogout = () => {
-    setUser(!user);
+    setUser(null);
     setDropdown(false);
   };
 
