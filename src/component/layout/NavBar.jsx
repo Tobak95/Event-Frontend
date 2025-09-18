@@ -93,7 +93,7 @@ const NavBar = () => {
               About Us
             </NavLink>
             <NavLink
-              to="/contact"
+              to="/contact-us"
               onClick={toggleMenu}
               className={({ isActive }) =>
                 `font-[400] text-[18px] text-[#ffffff] hover:font-[700] hover:underline ${
