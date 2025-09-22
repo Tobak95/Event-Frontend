@@ -27,10 +27,9 @@ const VerificationFromEmail = () => {
 
   const verifyToken = async () => {
     try {
-      const response = await axiosInstance.post(
-        `/auth/verify-email/${token}`,
-        token
-      );
+      const response = await axiosInstance.post(`/auth/verify-email/${token}`, {
+        token,
+      });
       if (response.status === 200) {
         setStatus("success");
       }
@@ -47,21 +46,23 @@ const VerificationFromEmail = () => {
 
   if (status === "verifying") {
     return (
-      <ModalsInput
-        img={<BounceLoader />}
-        hText="Verifying......  Please hold"
-        pText="Email Is Verifying..............."
-        btn="verifying.................."
-        goTo=""
-      />
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-full max-w-[505px] py-[29px] shadow-lg text-center ">
+          <BounceLoader className="mx-auto my-2" />
+          <h4 className="text-xl lg:text-[30px] font-semibold">
+            verifying.....
+          </h4>
+          <p className="text-black text-lg">Please Wait</p>
+        </div>
+      </div>
     );
   }
   if (status === "success") {
     return (
       <ModalsInput
         img={successIcon}
-        hText="Email vertification sucessful"
-        pText="Your email has sucessfully been verified"
+        hText="Email verification successful"
+        pText="Your email has successfully been verified"
         btn="Proceed to login"
         goTo="/login"
       />
@@ -76,6 +77,7 @@ const VerificationFromEmail = () => {
         pText="Invalid or expired token"
         btn="Resend verification email"
         goTo=""
+        click={handleResendEmail}
       />
     </div>
   );

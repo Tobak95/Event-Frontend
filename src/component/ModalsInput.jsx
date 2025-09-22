@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import successIcon from "../assets/SuccessIcon.png";
 
-const ModalsInput = ({ hText, pText, btnText, goTo, img }) => {
+const ModalsInput = ({ hText, pText, btnText, goTo, img, click }) => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="max-w-[516px] mx-auto bg-white py-[29px] px-[26px] rounded-lg shadow-lg">
@@ -20,7 +20,10 @@ const ModalsInput = ({ hText, pText, btnText, goTo, img }) => {
 
         <div className="max-w-[454px] my-2">
           <Link to={goTo}>
-            <button className="w-full bg-[#006F6A] rounded-[8px] text-[#FFFFFF] text-center px-[12px] py-[10px]">
+            <button
+              onClick={click}
+              className="w-full bg-[#006F6A] rounded-[8px] text-[#FFFFFF] text-center px-[12px] py-[10px]"
+            >
               {btnText}
             </button>
           </Link>
