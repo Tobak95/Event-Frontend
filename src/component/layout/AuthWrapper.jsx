@@ -3,7 +3,7 @@ import partySpray from "../../assets/partySpray.jpg"
 
 const AuthWrapper = () => {
   return (
-    <div className=" lg:max-w-[730px] h-[1024px] rounded-[10px]">
+    <div className=" lg:max-w-[730px] h-[95vh] rounded-[10px]">
       <img
         src={partySpray}
         alt="AuthWrapper"
