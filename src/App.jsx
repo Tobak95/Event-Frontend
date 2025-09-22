@@ -16,6 +16,7 @@ const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
+const EventDetails = lazy(() => import("./Pages/EventDetails"));
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               path="/verify-email/:token"
               element={<VerificationFromEmail />}
             />
+            <Route path="EventDetails" element={<EventDetails />} />
           </Routes>
         </Suspense>
       </Router>
