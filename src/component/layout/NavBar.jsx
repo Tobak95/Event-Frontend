@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import icon from "../../assets/icon.png";
+import icon from "../../assets/Icon.png";
 import drop from "../../assets/dropdown.png";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
