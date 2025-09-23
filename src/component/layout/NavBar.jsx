@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import icon from "../../assets/icon.png";
 import drop from "../../assets/dropdown.png";
@@ -8,6 +8,7 @@ import drop from "../../assets/dropdown.png";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const redirect = useNavigate();
   const [user, setUser] = useState({
     firstName: "David",
     lastName: "Saskey",
@@ -16,6 +17,7 @@ const NavBar = () => {
   const handleLogout = () => {
     setUser(null);
     setDropdown(false);
+    // redirect("/login");
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -71,7 +73,10 @@ const NavBar = () => {
                   >
                     Sign in
                   </NavLink>
-                  <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
+                  <button
+                    onClick={() => redirect("/register")}
+                    className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]"
+                  >
                     Get Started
                   </button>
                 </div>
@@ -141,25 +146,60 @@ const NavBar = () => {
               >
                 Contact
               </NavLink>
-              <NavLink
-                to="/login"
-                onClick={toggleMenu}
-                className="font-[700] text-[18px] text-[#FFFFFF]"
-              >
-                Sign in
-              </NavLink>
 
-              <Link to={"/login"}>
-                <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
-                  Get Started
-                </button>
-              </Link>
+              {!user ? (
+                <div className="flex flex-col items-center gap-3">
+                  <NavLink
+                    to="/login"
+                    onClick={toggleMenu}
+                    className="font-[700] text-[18px] text-[#FFFFFF]"
+                  >
+                    Sign in
+                  </NavLink>
+
+                  <Link to={"/login"}>
+                    <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
+                      Get Started
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="relative">
+                  <div
+                    onClick={() => setDropdown(!dropdown)}
+                    className="flex items-center gap-1 cursor-pointer"
+                  >
+                    <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-full flex items-center justify-center">
+                      <p className="text-[10px] font-[400] text-[#006F6A]">
+                        {user.firstName.charAt(0)}.{user.lastName.charAt(0)}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <p className="font-[500] text-[16px] text-[#FFFFFF] ">
+                        {user.firstName}.{user.lastName.charAt(0).toUpperCase()}
+                      </p>
+                      <img src={drop} alt="" className="w-5 " />
+                    </div>
+                  </div>
+
+                  {dropdown && (
+                    <div className="absolute top-full text-center mt-2 right-0 bg-[#FFFFFF] w-[100px] rounded-[12px] text-[16px] font-[400] shadow-md">
+                      <NavLink
+                        className="text-[#E21A1A] block p-3"
+                        onClick={handleLogout}
+                      >
+                        Log Out
+                      </NavLink>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </nav>
       </div>
       {dropdown && (
-        <div className="bg-[#FFFFFF] w-[167px] h-[137px] rounded-[12px] text-[14px] font-[400] absolute top-[100px] right-[50px]">
+        <div className="hidden md:block bg-[#FFFFFF] w-[167px] h-[137px] rounded-[12px] text-[14px] font-[400] absolute top-[100px] right-[50px]">
           <NavLink className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3 ">
             My Tickets
           </NavLink>
