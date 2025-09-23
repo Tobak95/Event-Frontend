@@ -24,11 +24,17 @@ const Login = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     setErrorMessage("");
-    // Your login logic here
+    // console.log("login data:", { data });
+
     try {
       const response = await axiosInstance.post("/auth/login");
-    } catch (error) {}
-    setSubmitting(false);
+      console.log(response.data);
+    } catch (error) {
+      // console.error(error);
+      // toast.error(error?.response?.data?.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
