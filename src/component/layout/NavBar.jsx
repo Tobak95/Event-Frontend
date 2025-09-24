@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "../../assets/logo.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import icon from "../../assets/Icon.png";
 import icon2 from "../../assets/Icon2.png";
 import drop from "../../assets/dropdown.png";
-import { useNavigate, useLocation } from "react-router-dom";
 import drop2 from "../../assets/dropdown2.png";
 import { useAppContext } from "../../Hooks/useAppContext";
 
 const NavBar = ({
-  bgColor = "bg-[#0000005C]",
   logoSrc = logo,
   textColor = "text-[#ffffff]",
   menuColor = "#ffffff",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { user, logout } = useAppContext();
+  const dropdownRef = useRef(null);
 
   const location = useLocation();
+  const redirect = useNavigate();
 
   let usernameColor = "text-[#ffffff]";
   let iconLogo = icon;
@@ -31,37 +32,55 @@ const NavBar = ({
     dropDown = drop2;
   }
 
-  const redirect = useNavigate();
-
   const handleLogout = () => {
     logout();
     setDropdown(false);
     redirect("/login");
   };
+
+  // ✅ Detect scrolling for background
   useEffect(() => {
-    if (!user) {
-      redirect("/")
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // ✅ Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdown(false);
+      }
     }
-  }, [user, redirect]);
+    if (dropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdown]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <div className="relative">
+      {/* ✅ Fixed navbar */}
       <div
-        className={`${bgColor} backdrop-blur-md sticky top-0 z-30 right-0 left-0`}
+        className={`fixed top-0 left-0 w-full z-30 backdrop-blur-md transition-colors duration-300 
+        ${isScrolled ? "bg-black/70" : "bg-black/50"}`}
       >
         <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8">
           <NavLink to="/">
             <img src={logoSrc} alt="Logo" className="w-[120px] md:w-[150px]" />
           </NavLink>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-15">
             <div className="flex items-center gap-10">
               <NavLink
                 to="/discover"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor}  ${
+                  `font-[400] text-[16px] ${textColor} ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -71,7 +90,7 @@ const NavBar = ({
               <NavLink
                 to="/about-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor}  ${
+                  `font-[400] text-[16px] ${textColor} ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -81,7 +100,7 @@ const NavBar = ({
               <NavLink
                 to="/contact-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor}  ${
+                  `font-[400] text-[16px] ${textColor} ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -89,6 +108,8 @@ const NavBar = ({
                 Contact
               </NavLink>
             </div>
+
+            {/* ✅ User Section */}
             <div className="flex items-center gap-4">
               <Link to={"/tickets"}>
                 <img src={iconLogo} alt="" />
@@ -109,32 +130,60 @@ const NavBar = ({
                   </button>
                 </div>
               ) : (
-                <div
-                  onClick={() => setDropdown(true)}
-                  className="flex items-center gap-1 cursor-pointer"
-                >
-                  <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-[200px] flex items-center justify-center">
-                    <p className="text-[10px] font-[400] text-[#006F6A]">
-                      {user.firstname?.charAt(0)}.{user.lastname?.charAt(0)}
-                    </p>
+                <div ref={dropdownRef} className="relative">
+                  {/* ✅ Toggle dropdown */}
+                  <div
+                    onClick={() => setDropdown((prev) => !prev)}
+                    className="flex items-center gap-1 cursor-pointer"
+                  >
+                    <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-full flex items-center justify-center">
+                      <p className="text-[10px] font-[400] text-[#006F6A]">
+                        {user.firstname?.charAt(0)}.{user.lastname?.charAt(0)}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <p className={`font-[500] text-[16px] ${usernameColor}`}>
+                        {user.firstname}.
+                        {user.lastname?.charAt(0).toUpperCase()}
+                      </p>
+                      <img src={dropDown} alt="" className="w-5 h-3" />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <p className={`font-[500] text-[16px] ${usernameColor}`}>
-                      {user.firstname}.{user.lastname?.charAt(0).toUpperCase()}
-                    </p>
-                    <img src={dropDown} alt="" className="w-5 h-3 " />
-                  </div>
+
+                  {/* ✅ Dropdown Menu */}
+                  {dropdown && (
+                    <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-[12px] w-[160px] py-2">
+                      <NavLink
+                        to="/tickets"
+                        className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
+                        onClick={() => setDropdown(false)}
+                      >
+                        My Tickets
+                      </NavLink>
+                      <NavLink
+                        to="/reset-password"
+                        className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
+                        onClick={() => setDropdown(false)}
+                      >
+                        Reset Password
+                      </NavLink>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                      >
+                        Log Out
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="flex gap-5 md:hidden">
-            <img src={iconLogo} alt="" className="block " />
-            <button
-              onClick={toggleMenu}
-              className=" md:hidden text-white text-2xl cursor-pointer"
-            >
+            <img src={iconLogo} alt="" className="block" />
+            <button onClick={toggleMenu} className="md:hidden text-2xl">
               {isOpen ? (
                 <FaTimes color={menuColor} />
               ) : (
@@ -142,107 +191,8 @@ const NavBar = ({
               )}
             </button>
           </div>
-
-          {isOpen && (
-            <div className="absolute top-[100px] left-0 w-full bg-[#000000d9] flex flex-col items-center gap-6 py-8 md:hidden">
-              <NavLink
-                to="/discover"
-                onClick={toggleMenu}
-                className={({ isActive }) =>
-                  `font-[400] text-[18px] text-[#ffffff] hover:font-[700] hover:underline ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
-                }
-              >
-                Discover Events
-              </NavLink>
-              <NavLink
-                to="/about-us"
-                onClick={toggleMenu}
-                className={({ isActive }) =>
-                  `font-[400] text-[18px] text-[#ffffff] hover:font-[700] hover:underline ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
-                }
-              >
-                About Us
-              </NavLink>
-              <NavLink
-                to="/contact-us"
-                onClick={toggleMenu}
-                className={({ isActive }) =>
-                  `font-[400] text-[18px] text-[#ffffff] hover:font-[700] hover:underline ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
-                }
-              >
-                Contact
-              </NavLink>
-
-              {!user ? (
-                <div className="flex flex-col items-center gap-3">
-                  <NavLink
-                    to="/login"
-                    onClick={toggleMenu}
-                    className="font-[700] text-[18px] text-[#FFFFFF]"
-                  >
-                    Sign in
-                  </NavLink>
-
-                  <Link to={"/login"}>
-                    <button className="bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]">
-                      Get Started
-                    </button>
-                  </Link>
-                </div>
-              ) : (
-                <div className="relative">
-                  <div
-                    onClick={() => setDropdown(!dropdown)}
-                    className="flex items-center gap-1 cursor-pointer"
-                  >
-                    <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-full flex items-center justify-center">
-                      <p className="text-[10px] font-[400] text-[#006F6A]">
-                        {user.firstName.charAt(0)}.{user.lastName.charAt(0)}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <p className="font-[500] text-[16px] text-[#FFFFFF] ">
-                        {user.firstName}.{user.lastName.charAt(0).toUpperCase()}
-                      </p>
-                      <img src={drop} alt="" className="w-5 " />
-                    </div>
-                  </div>
-
-                  {dropdown && (
-                    <div className="absolute top-full text-center mt-2 right-0 bg-[#FFFFFF] w-[100px] rounded-[12px] text-[16px] font-[400] shadow-md">
-                      <NavLink
-                        className="text-[#E21A1A] block p-3"
-                        onClick={handleLogout}
-                      >
-                        Log Out
-                      </NavLink>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
         </nav>
       </div>
-      {dropdown && (
-        <div className="hidden md:block bg-[#FFFFFF] w-[167px] h-[137px] rounded-[12px] text-[14px] font-[400] absolute top-[100px] right-[50px]">
-          <NavLink className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3 ">
-            My Tickets
-          </NavLink>
-          <NavLink to={"/reset-password"} className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3">
-            Reset Password
-          </NavLink>
-          <NavLink className="text-[#E21A1A] block p-3" onClick={handleLogout}>
-            Log Out
-          </NavLink>
-        </div>
-      )}
     </div>
   );
 };

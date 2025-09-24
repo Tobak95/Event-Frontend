@@ -18,7 +18,7 @@ const Home = () => {
       <WhyChooseUs />
       <Testimonial />
       <Discover />
-      <Footer />
+   
     </div>
   );
 };

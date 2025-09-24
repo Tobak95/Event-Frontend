@@ -243,7 +243,7 @@ function Discover() {
           </div>
         </div>
       </div>
-      <Footer />
+   
     </>
   );
 }
