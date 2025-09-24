@@ -3,10 +3,17 @@ import logo from "../../assets/logo.png";
 import { NavLink, Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import icon from "../../assets/Icon.png";
+import icon2 from "../../assets/Icon2.png";
 import drop from "../../assets/dropdown.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import drop2 from "../../assets/dropdown2.png";
 
-const NavBar = () => {
+const NavBar = ({
+  bgColor = "bg-[#0000005C]",
+  logoSrc = logo,
+  textColor = "text-[#ffffff]",
+  menuColor = "#ffffff",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const redirect = useNavigate();
@@ -14,6 +21,18 @@ const NavBar = () => {
     firstName: "David",
     lastName: "Saskey",
   });
+
+  const location = useLocation();
+
+  let usernameColor = "text-[#ffffff]";
+  let iconLogo = icon;
+  let dropDown = drop;
+
+  if (location.pathname === "/tickets") {
+    usernameColor = "text-[#1b1b1b]";
+    iconLogo = icon2;
+    dropDown = drop2;
+  }
 
   const handleLogout = () => {
     setUser(null);
@@ -25,10 +44,12 @@ const NavBar = () => {
 
   return (
     <div className="relative">
-      <div className="bg-[#0000005C] backdrop-blur-md sticky top-0 z-30 right-0 left-0">
+      <div
+        className={`${bgColor} backdrop-blur-md sticky top-0 z-30 right-0 left-0`}
+      >
         <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8">
           <NavLink to="/">
-            <img src={logo} alt="Logo" className="w-[120px] md:w-[150px]" />
+            <img src={logoSrc} alt="Logo" className="w-[120px] md:w-[150px]" />
           </NavLink>
 
           <div className="hidden md:flex items-center gap-15">
@@ -36,7 +57,7 @@ const NavBar = () => {
               <NavLink
                 to="/discover"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] text-[#ffffff]  ${
+                  `font-[400] text-[16px] ${textColor}  ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -46,7 +67,7 @@ const NavBar = () => {
               <NavLink
                 to="/about-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] text-[#ffffff]  ${
+                  `font-[400] text-[16px] ${textColor}  ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -56,7 +77,7 @@ const NavBar = () => {
               <NavLink
                 to="/contact-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] text-[#ffffff]  ${
+                  `font-[400] text-[16px] ${textColor}  ${
                     isActive ? "font-[700] underline" : ""
                   }`
                 }
@@ -65,12 +86,12 @@ const NavBar = () => {
               </NavLink>
             </div>
             <div className="flex items-center gap-4">
-              <img src={icon} alt="" />
+              <img src={iconLogo} alt="" />
               {!user ? (
                 <div className="flex items-center gap-4">
                   <NavLink
                     to="/login"
-                    className="font-[700] text-[16px] text-[#FFFFFF]"
+                    className={`font-[700] text-[18px] ${usernameColor}`}
                   >
                     Sign in
                   </NavLink>
@@ -92,10 +113,10 @@ const NavBar = () => {
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <p className="font-[500] text-[16px] text-[#FFFFFF] ">
+                    <p className={`font-[500] text-[16px] ${usernameColor}`}>
                       {user.firstName}.{user.lastName.charAt(0).toUpperCase()}
                     </p>
-                    <img src={drop} alt="" className="w-5 " />
+                    <img src={dropDown} alt="" className="w-5 " />
                   </div>
                 </div>
               )}
@@ -103,12 +124,16 @@ const NavBar = () => {
           </div>
 
           <div className="flex gap-5 md:hidden">
-            <img src={icon} alt="" className="block " />
+            <img src={iconLogo} alt="" className="block " />
             <button
               onClick={toggleMenu}
-              className="md:hidden text-white text-2xl cursor-pointer"
+              className=" md:hidden text-white text-2xl cursor-pointer"
             >
-              {isOpen ? <FaTimes /> : <FaBars />}
+              {isOpen ? (
+                <FaTimes color={menuColor} />
+              ) : (
+                <FaBars color={menuColor} />
+              )}
             </button>
           </div>
 
