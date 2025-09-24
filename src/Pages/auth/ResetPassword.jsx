@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { resetPasswordSchema } from "../../Utils/formValidator";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { useParams } from "react-router-dom";
 
 const ResetPassword = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const { token } = useParams();
 
   const {
     register,
