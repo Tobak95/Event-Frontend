@@ -12,11 +12,5 @@ createRoot(document.getElementById("root")).render(
       <App />
       <ToastContainer position="top-center" />
     </AppProvider>
-
-
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <App />
-
   </StrictMode>
 );
