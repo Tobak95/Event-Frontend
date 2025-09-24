@@ -13,7 +13,7 @@ function HeroSectionCard({ backgroundImage, h2, p }) {
       }}
       className="relative"
     >
-      <Nav />
+    
       <div className="absolute inset-0 bg-[#00000073]" />
       <div
         className={`flex flex-col items-center justify-center 
