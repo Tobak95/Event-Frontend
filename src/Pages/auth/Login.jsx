@@ -33,7 +33,6 @@ const Login = () => {
     // console.log("login data:", { data });
 
     try {
-
       const response = await axiosInstance.post("/auth/login", { ...data });
       const { data: mydata } = response;
       if (mydata === 200) {
@@ -48,15 +47,14 @@ const Login = () => {
     }
     setSubmitting(false);
 
-      const response = await axiosInstance.post("/auth/login");
-      console.log(response.data);
-    } catch (error) {
-      // console.error(error);
-      // toast.error(error?.response?.data?.message);
-    } finally {
-      setSubmitting(false);
-    }
-
+    //   const response = await axiosInstance.post("/auth/login");
+    //   console.log(response.data);
+    // } catch (error) {
+    //   // console.error(error);
+    //   // toast.error(error?.response?.data?.message);
+    // } finally {
+    //   setSubmitting(false);
+    // }
   };
 
   return (
