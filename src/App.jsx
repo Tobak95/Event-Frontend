@@ -6,6 +6,7 @@ import Footer from "./component/layout/Footer";
 import "./App.css";
 
 const Home = lazy(() => import("./Pages/Home"));
+const HomeLoggedIn = lazy(() => import("./Pages/HomeLoggedIn"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
 const Discover = lazy(() => import("./Pages/Discover"));
@@ -27,6 +28,7 @@ function App() {
         <Suspense fallback={<SuspenseLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<HomeLoggedIn />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/discover" element={<Discover />} />

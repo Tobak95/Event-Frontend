@@ -1,4 +1,5 @@
 import React from "react";
+import Hero from "../component/Hero";
 import Discover from "../component/Discover";
 import Testimonial from "../component/Testimonial";
 import UpcomingEvent from "../component/UpcomingEvent";
@@ -6,15 +7,15 @@ import EventCategory from "../component/EventCategory";
 import HowItWorks from "../component/HowItWorks";
 import WhyChooseUs from "../component/WhyChooseUs";
 import Footer from "../component/layout/Footer";
-import NavBar from "../component/layout/NavBar";
+import Nav from "../component/layout/Nav";
 
-const Home = () => {
+const HomeLoggedIn = () => {
   return (
     <div>
       <div>
         <div className="relative h-[705px]  text-[#FFFFFF]  items-center heroBG  bg-bottom ">
           <div className="absolute inset-0 bg-black/50"></div>
-          <NavBar />
+          <Nav />
           <div className="layout relative z-10 ">
             <div className="max-w-[944px] text-center mx-auto">
               <h1 className="font-bold text-[35px] lg:text-[64px] mt-15">
@@ -42,4 +43,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeLoggedIn;

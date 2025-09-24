@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "../component/layout/NavBar";
+import Nav from "../component/layout/Nav";
 import logo2 from "../assets/logo2.png";
 import { BiSearch } from "react-icons/bi";
 import filter from "../assets/filter.png";
@@ -77,7 +77,7 @@ const Tickets = () => {
 
   return (
     <div className="layout">
-      <NavBar
+      <Nav
         bgColor="bg-[#ffffff]"
         logoSrc={logo2}
         textColor="text-[#1b1b1b]"
