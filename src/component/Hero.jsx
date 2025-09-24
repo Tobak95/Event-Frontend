@@ -6,7 +6,7 @@ const Hero = () => {
     <div>
       <div className="relative h-[705px]  text-[#FFFFFF]  items-center heroBG  bg-bottom ">
         <div className="absolute inset-0 bg-black/50"></div>
-        <NavBar />
+       
         <div className="layout relative z-10 ">
           <div className="max-w-[944px] text-center mx-auto">
             <h1 className="font-bold text-[35px] lg:text-[64px] mt-15">
