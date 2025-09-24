@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import { NavLink, Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-
 import icon from "../../assets/Icon.png";
 import icon2 from "../../assets/Icon2.png";
 import drop from "../../assets/dropdown.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import drop2 from "../../assets/dropdown2.png";
-
+import { useAppContext } from "../../Hooks/useAppContext";
 
 const NavBar = ({
   bgColor = "bg-[#0000005C]",
@@ -18,11 +17,7 @@ const NavBar = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const redirect = useNavigate();
-  const [user, setUser] = useState({
-    firstName: "David",
-    lastName: "Saskey",
-  });
+  const { user, logout } = useAppContext();
 
   const location = useLocation();
 
@@ -36,11 +31,18 @@ const NavBar = ({
     dropDown = drop2;
   }
 
+  const redirect = useNavigate();
+
   const handleLogout = () => {
-    setUser(null);
+    logout();
     setDropdown(false);
-    // redirect("/login");
+    redirect("/login");
   };
+  useEffect(() => {
+    if (!user) {
+      redirect("/")
+    }
+  }, [user, redirect]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -88,7 +90,9 @@ const NavBar = ({
               </NavLink>
             </div>
             <div className="flex items-center gap-4">
-              <img src={iconLogo} alt="" />
+              <Link to={"/tickets"}>
+                <img src={iconLogo} alt="" />
+              </Link>
               {!user ? (
                 <div className="flex items-center gap-4">
                   <NavLink
@@ -111,14 +115,14 @@ const NavBar = ({
                 >
                   <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-[200px] flex items-center justify-center">
                     <p className="text-[10px] font-[400] text-[#006F6A]">
-                      {user.firstName.charAt(0)}.{user.lastName.charAt(0)}
+                      {user.firstname?.charAt(0)}.{user.lastname?.charAt(0)}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <p className={`font-[500] text-[16px] ${usernameColor}`}>
-                      {user.firstName}.{user.lastName.charAt(0).toUpperCase()}
+                      {user.firstname}.{user.lastname?.charAt(0).toUpperCase()}
                     </p>
-                    <img src={dropDown} alt="" className="w-5 " />
+                    <img src={dropDown} alt="" className="w-5 h-3 " />
                   </div>
                 </div>
               )}
@@ -231,7 +235,7 @@ const NavBar = ({
           <NavLink className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3 ">
             My Tickets
           </NavLink>
-          <NavLink className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3">
+          <NavLink to={"/reset-password"} className="text-[#000000] block border-b-[0.2px] border-[#000000] p-3">
             Reset Password
           </NavLink>
           <NavLink className="text-[#E21A1A] block p-3" onClick={handleLogout}>

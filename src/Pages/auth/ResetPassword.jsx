@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const ResetPassword = () => {
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const {
@@ -20,12 +20,32 @@ const ResetPassword = () => {
     resolver: yupResolver(resetPasswordSchema),
   });
 
-  const onSubmit = (data) => {
-    setSubmitting(true);
-    setErrorMessage("");
+  //Reset Password
 
-    setSubmitting(false);
+  const handleResetPassword = async (data) => {
+    setSubmitting(true);
+    try {
+      const response = await axiosInstance.post("/auth/reset-password", {
+        token,
+        password: data.password,
+      });
+      if (response.status === 200) {
+        redirect("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(error?.response?.data?.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  // const onSubmit = (data) => {
+  //   setSubmitting(true);
+  //   setErrorMessage("");
+
+  //   setSubmitting(false);
+  // };
 
   return (
     <main className="">
@@ -47,7 +67,7 @@ const ResetPassword = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
+            <form onSubmit={handleSubmit(handleResetPassword)} className="mt-5">
               <div className="flex flex-col my-5 lg:my-0">
                 <label htmlFor="password" className="font-[600]">
                   {" "}

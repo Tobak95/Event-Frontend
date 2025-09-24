@@ -14,6 +14,8 @@ const Register = lazy(() => import("./Pages/auth/Register"));
 const ResetPassword = lazy(() => import("./Pages/auth/ResetPassword"));
 const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
+const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
+const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
@@ -33,7 +35,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify" element={<VerifyEmail />} />
+            <Route path="/check-email" element={<CheckYourEmail />} />
 
             <Route
               path="/verify-email/:token"
