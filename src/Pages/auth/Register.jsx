@@ -176,11 +176,14 @@ const Register = () => {
   //     </div>
   //   );
   // };
+
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [errorMsg, setErrorMsg] = useState("");
   const redirect = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -214,18 +217,6 @@ const Register = () => {
         {/* Form  */}
         <section className=" flex justify-center items-center ">
           <div className="lg:p-10 w-fit lg:w-[527px] shadow lg rounded-lg bg-white">
-            {/* <div className="mb-6">
-                <a href="/">
-                <div className="flex items-center gap-2">
-                <img
-                className="h-7 w-auto"
-                src={Brandlogo}
-                alt="Eventra Logo "
-                />
-                </div>
-                </a>
-                </div> */}
-
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
                 <img src={Brandlogo} alt="" />
