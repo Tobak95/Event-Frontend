@@ -9,174 +9,10 @@ import { signUpSchema } from "../../Utils/formValidator";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { PiWarningCircle } from "react-icons/pi";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  // const [formData, setFormData] = useState({
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   password: "",
-  //   phoneNumber: "",
-  //   confirmPassword: "",
-  //   agreeToTerms: false,
-  // });
-  //
-  // const [errors, setErrors] = useState({});
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [showSuccessModal, setShowSuccessModal] = useState(false);
-  // const navigate = useNavigate();
-
-  // const handleChange = (e) => {
-  //   const { name, value, type, checked } = e.target;
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   }));
-
-  //   if (errors[name]) {
-  //     setErrors((prev) => ({ ...prev, [name]: "" }));
-  //   }
-  // };
-
-  // const validateForm = () => {
-  //   const newErrors = {};
-
-  //   if (!formData.firstname.trim()) {
-  //     newErrors.firstname = "First name is required";
-  //   }
-
-  //   if (!formData.lastname.trim()) {
-  //     newErrors.lastname = "Last name is required";
-  //   }
-
-  //   if (!formData.email.trim()) {
-  //     newErrors.email = "Email is required";
-  //   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-  //     newErrors.email = "Please enter a valid email address";
-  //   }
-  //   if (!formData.phoneNumber.trim()) {
-  //     newErrors.phoneNumber = "Phone number  is required";
-  //   } else if (formData.phoneNumber.length > 12) {
-  //     newErrors.phoneNumber = "Please enter a valid phone number ";
-  //   }
-
-  //   if (!formData.password) {
-  //     newErrors.password = "Password is required";
-  //   } else if (formData.password.length < 6) {
-  //     newErrors.password = "Password must be at least 6 characters";
-  //   }
-
-  //   if (!formData.confirmPassword) {
-  //     newErrors.confirmPassword = "Please confirm your password";
-  //   } else if (formData.password !== formData.confirmPassword) {
-  //     newErrors.confirmPassword = "Passwords do not match";
-  //   }
-
-  //   if (!formData.agreeToTerms) {
-  //     newErrors.agreeToTerms = "You must agree to the terms and conditions";
-  //   }
-
-  //   setErrors(newErrors);
-  //   return Object.keys(newErrors).length === 0;
-  // };
-
-  // const handleSubmit = async (e, data) => {
-  //   e.preventDefault();
-
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-
-  //   setIsLoading(true);
-  //
-
-  //   setTimeout(() => {
-  //     setShowSuccessModal(true);
-  //     setIsLoading(false);
-  //   }, 1000);
-  // };
-
-  // // const handleSignUp = async (data) => {
-
-  // // };
-
-  // const handleGoogleSignUp = () => {
-  //   console.log("Google sign-up clicked");
-  // };
-
-  // const handleCloseModal = () => {
-  //   setShowSuccessModal(false);
-  // };
-
-  // const handleSignIn = () => {
-  //   setShowSuccessModal(false);
-  //   navigate("/login");
-  // };
-
-  // const SuccessModal = () => {
-  //   if (!showSuccessModal) return null;
-
-  //   return (
-  //     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  //       <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
-  //         <button
-  //           onClick={handleCloseModal}
-  //           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-  //         >
-  //           <X className="h-5 w-5" />
-  //         </button>
-
-  //         {/* Modal Content */}
-  //         <div className="text-center">
-  //           <div className="flex justify-center mb-4">
-  //             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-  //               <CheckCircle className="h-10 w-10 text-green-600" />
-  //             </div>
-  //           </div>
-
-  //           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-  //             Account Created Successfully!
-  //           </h3>
-
-  //           <div className="mt-4">
-  //             <p className="text-sm text-gray-600 mb-1">
-  //               Thank you for registering with Eventra.
-  //             </p>
-  //             <p className="text-sm text-gray-600">
-  //               Please check your email at{" "}
-  //               <span className="font-medium text-[#006F6A]">
-  //                 {formData.email}
-  //               </span>{" "}
-  //               to verify your account.
-  //             </p>
-  //           </div>
-
-  //           <div className="mt-6 flex flex-col gap-3">
-  //             <button
-  //               onClick={handleSignIn}
-  //               className="w-full px-4 py-3 bg-[#006F6A] text-white rounded-lg font-medium hover:bg-[#005a55] transition-colors"
-  //             >
-  //               Continue to Sign In
-  //             </button>
-
-  //             <button
-  //               onClick={handleCloseModal}
-  //               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-  //             >
-  //               Close
-  //             </button>
-  //           </div>
-
-  //           <div className="mt-4 text-xs text-gray-500">
-  //             Didn't receive the email?{" "}
-  //             <button className="text-[#006F6A] hover:underline">Resend</button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -199,10 +35,12 @@ const Register = () => {
       if (response.status === 201) {
         localStorage.setItem("email", email);
         console.log(response.data);
+        toast.success("Registration Successful, Kindly check your email for verification")
         redirect("/verify");
       }
     } catch (error) {
       setErrorMsg(error?.response?.data?.message);
+      toast.error("Registration failed, Please try again")
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -430,7 +268,11 @@ const Register = () => {
                     disabled={isLoading}
                     className="w-full flex justify-center cursor-pointer py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006F6A] disabled:cursor-not-allowed hover:bg-[#005a55] transition-colors"
                   >
-                    {isLoading ? "Creating Account..." : "Create Account"}
+                    {isLoading ? (
+                      <ClipLoader size={20} color="#FFFFFF" />
+                    ) : (
+                      "Create Account"
+                    )}
                   </button>
                 </div>
               </form>
