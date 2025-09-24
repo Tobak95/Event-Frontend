@@ -3,8 +3,6 @@ import logo from "../../assets/logo.png";
 import { NavLink, Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-import { Link } from "react-router-dom";
-
 import icon from "../../assets/Icon.png";
 import icon2 from "../../assets/Icon2.png";
 import drop from "../../assets/dropdown.png";
