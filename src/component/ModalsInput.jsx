@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import successIcon from "../assets/SuccessIcon.png";
+// import successIcon from "../assets/SuccessIcon.png";
 
 const ModalsInput = ({ hText, pText, btnText, goTo, img, click }) => {
   return (
@@ -22,7 +22,7 @@ const ModalsInput = ({ hText, pText, btnText, goTo, img, click }) => {
           <Link to={goTo}>
             <button
               onClick={click}
-              className="w-full bg-[#006F6A] rounded-[8px] text-[#FFFFFF] text-center px-[12px] py-[10px]"
+              className="w-full bg-[#006F6A]  rounded-[8px] text-[#FFFFFF] text-center px-[12px] py-[10px]"
             >
               {btnText}
             </button>

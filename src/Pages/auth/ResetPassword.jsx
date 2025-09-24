@@ -6,11 +6,10 @@ import { ClipLoader } from "react-spinners";
 import { useForm } from "react-hook-form";
 import { resetPasswordSchema } from "../../Utils/formValidator";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AuthWrapper from "../../component/layout/AuthWrapper";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const ResetPassword = () => {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
   const [submitting, setSubmitting] = useState(false);
 
   const {
@@ -109,12 +108,6 @@ const ResetPassword = () => {
             </form>
           </div>
         </section>
-        {/* Section for Background */}
-        {/* <section>
-          <div className="hidden lg:block">
-            <AuthWrapper />
-          </div>
-        </section> */}
       </article>
     </main>
   );

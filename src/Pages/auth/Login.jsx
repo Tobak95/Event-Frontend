@@ -8,10 +8,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import AuthWrapper from "../../component/layout/AuthWrapper";
 import { FcGoogle } from "react-icons/fc";
 import { axiosInstance } from "../../Utils/axiosInstance";
+import { useAppContext } from "../../Hooks/useAppContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const { login } = useAppContext();
+
+  const redirect = useNavigate();
 
   const {
     register,
@@ -27,6 +33,21 @@ const Login = () => {
     // console.log("login data:", { data });
 
     try {
+
+      const response = await axiosInstance.post("/auth/login", { ...data });
+      const { data: mydata } = response;
+      if (mydata === 200) {
+        console.log(mydata);
+      }
+      login(mydata.token, mydata.user);
+      toast.success("Login Successful");
+      redirect("/");
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(error?.response?.data?.message || "Login Failed");
+    }
+    setSubmitting(false);
+
       const response = await axiosInstance.post("/auth/login");
       console.log(response.data);
     } catch (error) {
@@ -35,6 +56,7 @@ const Login = () => {
     } finally {
       setSubmitting(false);
     }
+
   };
 
   return (

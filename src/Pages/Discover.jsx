@@ -7,6 +7,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowForward } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import Footer from "../component/layout/Footer";
 
 import img1 from "../assets/img1.jpg";
@@ -65,9 +66,11 @@ export const Cards = ({ h2, pTag1, location, time, date, price, img }) => {
 
           <div className="flex items-center justify-between mt-4">
             <span className="text-2xl font-bold">{price}</span>
-            <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">
-              Get Tickets
-            </button>
+            <Link to={"/eventDetails"}>
+              <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">
+                Get Tickets
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -189,9 +192,11 @@ function Discover() {
       <div className="max-w-[1440px] mx-auto py-8 flex-col flex gap-4">
         <div className="w-full lg:w-[80%] mx-auto flex flex-col  lg:flex-row lg:justify-between gap-4 px-4 ">
           <div className="flex gap-2">
-            <p className="bg-[#000000] p-2 lg:py-3 lg:px-4 rounded-lg text-white flex items-center gap-1 text-[12px] ">
-              All Events <MdKeyboardArrowDown size={22} />
-            </p>
+            <Link to={"/mdal1"}>
+              <p className="bg-[#000000] p-2 lg:py-3 lg:px-4 rounded-lg text-white flex items-center gap-1 text-[12px] ">
+                All Events <MdKeyboardArrowDown size={22} />
+              </p>
+            </Link>
             <p className="border border-[#171717] p-2 lg:py-3 lg:px-4 rounded-lg text-black flex items-center gap-1 text-[12px]">
               Price <MdKeyboardArrowDown size={22} />
             </p>
@@ -238,6 +243,7 @@ function Discover() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

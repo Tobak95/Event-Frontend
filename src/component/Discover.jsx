@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Discover = () => {
   return (
-    <div className="layout bg-cover bg-center py-5 ">
+    <div className="layout bg-cover bg-center py-5 mb-10">
       {/* Discover Events section */}
       <div className="mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
         <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">

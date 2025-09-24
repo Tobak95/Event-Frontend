@@ -39,6 +39,8 @@ function App() {
               path="/verify-email/:token"
               element={<VerificationFromEmail />}
             />
+            <Route path="/eventDetails" element={<EventDetails />} />
+
             <Route path="EventDetails" element={<EventDetails />} />
             <Route path="/tickets" element={<Tickets />} />
           </Routes>
