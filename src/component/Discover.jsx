@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Discover = () => {
   return (
-    <div className="layout bg-cover bg-center py-5 ">
+    <div className="layout bg-cover bg-center py-5 mb-10">
       {/* Discover Events section */}
-      <div className=" mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
+      <div className="mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
         <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">
           <div className="space-y-6">
             <h1 className="text-3xl font-bold text-white leading-tight">
@@ -18,11 +18,9 @@ const Discover = () => {
             </p>
           </div>
           <Link to={"/discover"}>
-            <div>
-              <button className="bg-[#006F6A] hover:bg-[#005a55] text-white font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-md">
-                Discover Events
-              </button>
-            </div>
+            <button className="bg-[#006F6A] hover:bg-[#005a55] text-white font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-md">
+              Discover Events
+            </button>
           </Link>
         </div>
       </div>
@@ -31,4 +29,3 @@ const Discover = () => {
 };
 
 export default Discover;
-

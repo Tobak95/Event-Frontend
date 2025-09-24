@@ -13,9 +13,12 @@ const Login = lazy(() => import("./Pages/auth/Login"));
 const Register = lazy(() => import("./Pages/auth/Register"));
 const ResetPassword = lazy(() => import("./Pages/auth/ResetPassword"));
 const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
+const Tickets = lazy(() => import("./Pages/Tickets"));
+
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
+const EventDetails = lazy(() => import("./Pages/EventDetails"));
 
 function App() {
   return (
@@ -31,10 +34,15 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/verify" element={<VerifyEmail />} />
+
             <Route
               path="/verify-email/:token"
               element={<VerificationFromEmail />}
             />
+            <Route path="/eventDetails" element={<EventDetails />} />
+
+            <Route path="EventDetails" element={<EventDetails />} />
+            <Route path="/tickets" element={<Tickets />} />
           </Routes>
         </Suspense>
       </Router>
