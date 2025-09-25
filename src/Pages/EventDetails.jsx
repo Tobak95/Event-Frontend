@@ -39,7 +39,7 @@ Expect an unforgettable evening of smooth vocals, rich instrumentals, and rhythm
 Date: Thursday, September 25th 2025
 Venue: Eko Atlantic City (Lagos, Nigeria)`}
         price={"$90.00"}
-        time={"9:00 PM - 12:00PM WAT"}
+        time={"Sept 25 - 9:00PM WAT"}
         title1={"About this event"}
         title2={"Perks of the Night"}
       />
