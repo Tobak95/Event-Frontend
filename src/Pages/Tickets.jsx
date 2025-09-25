@@ -83,7 +83,7 @@ const Tickets = () => {
         textColor="text-[#1b1b1b]"
         menuColor="black"
       />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-35">
         <h1 className="text-[#000000] text-[23.44px] md:text-[48px] font-[700]">
           My Tickets
         </h1>

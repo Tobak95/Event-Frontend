@@ -199,21 +199,21 @@ const NavBar = ({
             <NavLink
               to="/discover"
               onClick={() => setIsOpen(false)}
-              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+              className="flex justify-center items-center text-[#ffffff] font-bold text-lg w-full"
             >
               Discover Events
             </NavLink>
             <NavLink
               to="/about-us"
               onClick={() => setIsOpen(false)}
-              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+              className="flex justify-center items-center text-[#ffffff] font-bold text-lg w-full"
             >
               About Us
             </NavLink>
             <NavLink
               to="/contact-us"
               onClick={() => setIsOpen(false)}
-              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+              className="flex justify-center items-center text-[#ffffff] font-bold text-lg w-full"
             >
               Contact
             </NavLink>
@@ -224,13 +224,13 @@ const NavBar = ({
                 <NavLink
                   to="/login"
                   onClick={() => setIsOpen(false)}
-                  className="flex justify-center items-center text-white text-lg w-full"
+                  className="flex justify-center items-center font-bold  text-white text-lg w-full"
                 >
                   Sign in
                 </NavLink>
                 <NavLink
                   to="/register"
-                  className="flex justify-center items-center text-white font-bold text-lg w-full"
+                  className="flex justify-center items-center mx-auto bg-[#006F6A] text-[#FFFFFF] text-[14px] font-[700] cursor-pointer w-[146px] h-[49px] rounded-[8px]"
                 >
                   Get Started
                 </NavLink>

@@ -1,5 +1,5 @@
 import { ArrowLeft, Minus, Plus } from "lucide-react";
-import BrandLogo from "../../assets/logo2.png";
+import BrandLogo from "../assets/logo2.png";
 
 const CheckoutOne = () => {
   const ticketTypes = [
