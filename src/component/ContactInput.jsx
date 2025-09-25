@@ -1,4 +1,4 @@
-function ContactInput({ label, type, name, placeHolder }) {
+function ContactInput({ label, type, name, placeHolder, value }) {
   return (
     <div className="flex gap-2 flex-col w-full ">
       <label
@@ -8,6 +8,7 @@ function ContactInput({ label, type, name, placeHolder }) {
         {name}
       </label>
       <input
+        value={value}
         type={type}
         id={label}
         placeholder={placeHolder}

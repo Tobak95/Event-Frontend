@@ -6,7 +6,7 @@ import NavBar from "../component/layout/NavBar";
 
 const HeaderText = ({ title }) => {
   return (
-    <div className="flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-6">
+    <div className="flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-40">
       <p className="text-[#4A4A4A] lg:text-2xl text-base">
         Discover{" "}
         <span className="text-black text-base lg:text-2xl lg:font-bold">
@@ -39,7 +39,7 @@ Expect an unforgettable evening of smooth vocals, rich instrumentals, and rhythm
 Date: Thursday, September 25th 2025
 Venue: Eko Atlantic City (Lagos, Nigeria)`}
         price={"$90.00"}
-        time={"9:00 PM - 12:00PM WAT"}
+        time={"Sept 25 - 9:00PM WAT"}
         title1={"About this event"}
         title2={"Perks of the Night"}
       />

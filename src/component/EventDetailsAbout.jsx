@@ -7,8 +7,10 @@ import img3 from "../assets/img3.jpg";
 const Words = ({ title, paragraph }) => {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-2xl text-[#1B1B1B] font-bold">{title}</h2>
-      <p>{paragraph}</p>
+      <h2 className="text-2xl text-[#1B1B1B] font-bold text-center lg:text-start">
+        {title}
+      </h2>
+      <p className="text-center lg:text-start ">{paragraph}</p>
     </div>
   );
 };
@@ -102,14 +104,17 @@ function EventDetailsAbout({
 
           <Words paragraph={paragraph2} title={title2} />
         </div>
-        <div className="flex items-center justify-between lg:w-[40%] border border-[#E5E5E5] p-4 rounded-[10px] gap-4">
+        <div className="flex items-center justify-between w-full lg:w-[40%] border border-[#E5E5E5] p-4 rounded-[10px] gap-4">
           <div className="flex flex-col lg:gap-4">
-            <p className="text-2xl lg:text-4xl text-[#1B1B1B] font-bold">
-              {price}
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="hidden lg:block lg:text-2xl"> From</span>
+              <p className="text-2xl lg:text-4xl text-[#1B1B1B] font-bold">
+                {price}
+              </p>
+            </div>
             <p className="text-[12px] lg:text-[18px]">{time}</p>
           </div>
-          <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-2 px-2 rounded-lg">
+          <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
             Get a Ticket
           </button>
         </div>
