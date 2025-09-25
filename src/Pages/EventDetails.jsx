@@ -6,7 +6,7 @@ import NavBar from "../component/layout/NavBar";
 
 const HeaderText = ({ title }) => {
   return (
-    <div className="flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-6">
+    <div className="flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-40">
       <p className="text-[#4A4A4A] lg:text-2xl text-base">
         Discover{" "}
         <span className="text-black text-base lg:text-2xl lg:font-bold">
