@@ -16,6 +16,7 @@ const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
+const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
 
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
@@ -44,6 +45,7 @@ function App() {
               element={<VerificationFromEmail />}
             />
             <Route path="/eventDetails" element={<EventDetails />} />
+            <Route path="/checkout2" element={<CheckOut2 />} />
 
             <Route path="EventDetails" element={<EventDetails />} />
             <Route path="/tickets" element={<Tickets />} />
