@@ -7,8 +7,10 @@ import img3 from "../assets/img3.jpg";
 const Words = ({ title, paragraph }) => {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-2xl text-[#1B1B1B] font-bold">{title}</h2>
-      <p>{paragraph}</p>
+      <h2 className="text-2xl text-[#1B1B1B] font-bold text-center lg:text-start">
+        {title}
+      </h2>
+      <p className="text-center lg:text-start ">{paragraph}</p>
     </div>
   );
 };
