@@ -139,7 +139,7 @@ const Login = () => {
               <div className="flex justify-center text-[#FFFFFF]">
                 <button
                   disabled={submitting}
-                  className="h-[48px]  bg-[#3D9970] w-full rounded-[15px]"
+                  className="h-[48px]  bg-[#3D9970] w-full rounded-[15px] mt-5"
                 >
                   {submitting ? (
                     <ClipLoader size={20} color="#ffffff" />
@@ -157,7 +157,7 @@ const Login = () => {
                   <h1>Continue with Google</h1>
                 </button>
                 <Link to={"/register"}>
-                  <p className="mt-5 t">
+                  <p className="mt-5 text-center">
                     New User? <span className="text-[#006F6A]">Sign Up</span>{" "}
                   </p>
                 </Link>

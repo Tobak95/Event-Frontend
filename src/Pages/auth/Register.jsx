@@ -51,7 +51,7 @@ const Register = () => {
     <main className=" ">
       {/* Modal */}
       {/* <SuccessModal /> */}
-      <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
+      <article className="grid p-3 lg:p-0 lg:grid-cols-2 lg:h-screen ">
         {/* Form  */}
         <section className=" flex justify-center items-center ">
           <div className="lg:p-10 w-fit lg:w-[527px] shadow lg rounded-lg bg-white">
