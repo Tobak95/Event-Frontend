@@ -13,8 +13,8 @@ const AboutUs = () => {
       {/* ✅ Added padding-top to offset fixed navbar */}
       <div className="about-bg h-screen  pt-[100px]">
         <div className="flex items-center justify-center">
-          <div>
-            <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700] ">
+          <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">
+            <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700]">
               About Eventra
             </h1>
             <p className="text-[#FFFFFF] text-center text-[18px] md:text-[20px] w-full">

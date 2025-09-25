@@ -35,17 +35,17 @@ const NavBar = ({
   const handleLogout = () => {
     logout();
     setDropdown(false);
-    redirect("/login");
+    redirect("/");
   };
 
-  // ✅ Detect scrolling for background
+  ///scrolling
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Close dropdown if clicked outside
+  // Close dropdown if clicked outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -64,7 +64,7 @@ const NavBar = ({
 
   return (
     <div className="relative">
-      {/* ✅ Fixed navbar */}
+      {/*  Fixed navbar */}
       <div
         className={`fixed top-0 left-0 w-full z-30 backdrop-blur-md transition-colors duration-300 
         ${isScrolled ? "bg-black/70" : "bg-black/50"}`}
@@ -109,7 +109,7 @@ const NavBar = ({
               </NavLink>
             </div>
 
-            {/* ✅ User Section */}
+            {/* User Section */}
             <div className="flex items-center gap-4">
               <Link to={"/tickets"}>
                 <img src={iconLogo} alt="" />
@@ -131,7 +131,7 @@ const NavBar = ({
                 </div>
               ) : (
                 <div ref={dropdownRef} className="relative">
-                  {/* ✅ Toggle dropdown */}
+                  {/*  Toggle dropdown */}
                   <div
                     onClick={() => setDropdown((prev) => !prev)}
                     className="flex items-center gap-1 cursor-pointer"
@@ -150,7 +150,7 @@ const NavBar = ({
                     </div>
                   </div>
 
-                  {/* ✅ Dropdown Menu */}
+                  {/*  Dropdown Menu */}
                   {dropdown && (
                     <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-[12px] w-[160px] py-2">
                       <NavLink
@@ -192,6 +192,99 @@ const NavBar = ({
             </button>
           </div>
         </nav>
+        {/*  Mobile Dropdown Menu (renders when isOpen = true) */}
+        {isOpen && (
+          <div className="md:hidden absolute top-[100px] left-0 w-full bg-black/80 backdrop-blur-md z-20 p-6 flex flex-col gap-6">
+            {/* Page Links */}
+            <NavLink
+              to="/discover"
+              onClick={() => setIsOpen(false)}
+              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+            >
+              Discover Events
+            </NavLink>
+            <NavLink
+              to="/about-us"
+              onClick={() => setIsOpen(false)}
+              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              to="/contact-us"
+              onClick={() => setIsOpen(false)}
+              className="flex justify-center items-center text-[#006F6A] font-bold text-lg w-full"
+            >
+              Contact
+            </NavLink>
+
+            {/* ✅ Mobile User Section */}
+            {!user ? (
+              <div className="flex flex-col gap-4 mt-4 ">
+                <NavLink
+                  to="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="flex justify-center items-center text-white text-lg w-full"
+                >
+                  Sign in
+                </NavLink>
+                <NavLink
+                  to="/register"
+                  className="flex justify-center items-center text-white font-bold text-lg w-full"
+                >
+                  Get Started
+                </NavLink>
+              </div>
+            ) : (
+              <div className="mt-4">
+                <button
+                  onClick={() => setDropdown((prev) => !prev)}
+                  className="flex items-center justify-between w-full text-white font-medium"
+                >
+                  {user.firstname}.{user.lastname?.charAt(0).toUpperCase()}
+                  <span>{dropdown ? "▲" : "▼"}</span>
+                </button>
+
+                {/* ✅ Mobile Dropdown (only when dropdown = true) */}
+                {dropdown && (
+                  <div className="absolute right-0 mt-3 bg-white rounded-lg shadow-lg flex flex-col w-[160px] z-40">
+                    <NavLink
+                      to="/tickets"
+                      className="px-4 py-2 text-black hover:bg-gray-100 text-center"
+                      onClick={() => {
+                        setDropdown(false);
+                        setIsOpen(false); // ✅ closes mobile menu if open
+                      }}
+                    >
+                      My Tickets
+                    </NavLink>
+
+                    <NavLink
+                      to="/reset-password"
+                      className="px-4 py-2 text-black hover:bg-gray-100 text-center"
+                      onClick={() => {
+                        setDropdown(false);
+                        setIsOpen(false);
+                      }}
+                    >
+                      Reset Password
+                    </NavLink>
+
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsOpen(false);
+                      }}
+                      className="px-4 py-2 text-red-600 text-center hover:bg-gray-100"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
