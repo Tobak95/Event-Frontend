@@ -5,7 +5,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowForward } from "react-icons/io5";
-import DiscoverModal from "./ModalPages/DiscoverModal";
+// import DiscoverModal from "./ModalPages/DiscoverModal";
 import Card from "../component/DiscoverCard";
 import { PiCalendarDotsThin } from "react-icons/pi";
 
