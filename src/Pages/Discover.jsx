@@ -366,7 +366,7 @@ function Discover() {
                     
 
       <div className="max-w-[1440px] mx-auto py-8 flex-col flex gap-4">
-        <div className="w-full lg:w-[80%] mx-auto flex flex-col  lg:flex-row lg:justify-between gap-4 px-4 ">
+        <div className="container mx-auto flex flex-col  lg:flex-row lg:justify-between gap-4 px-4 ">
           <div className="flex gap-2">
             <Link to={"/mdal1"}>
               <p className="bg-[#000000] p-2 lg:py-3 lg:px-4 rounded-lg text-white flex items-center gap-1 text-[12px] ">
@@ -440,6 +440,7 @@ function Discover() {
       <p className="border-b-1 border-[#C6C6C6] p-2">Hobbies</p>
       </div>
 
+
       <div className="flex justify-between pt-20">
       <button className="clearApplyButton">Clear</button>
       <button className="clearApplyButton">Apply</button>
@@ -497,6 +498,7 @@ function Discover() {
 </dialog>
 
    
+
     </>
   );
 }
