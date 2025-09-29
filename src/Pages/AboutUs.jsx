@@ -10,28 +10,29 @@ import Footer from "../component/layout/Footer";
 const AboutUs = () => {
   return (
     <div className="">
-      <div className="about-bg h-screen max-h-[557px]">
-        <NavBar />
-        <div className=" flex items-center justify-center mt-20">
-          <div>
-            <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700] ">
+      {/* ✅ Added padding-top to offset fixed navbar */}
+      <div className="about-bg  lg:h-[557px]  pt-[100px]">
+        <div className="flex items-center justify-center">
+          <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">
+            <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700]">
               About Eventra
             </h1>
-            <p className="text-[#FFFFFF] text-center text-[18px] md:text-[20px] max-[648.34375px] w-full">
+            <p className="text-[#FFFFFF] text-center text-[18px] md:text-[20px] w-full">
               We’re on a mission to make attending and organizing events
               seamless, <br /> memorable, and inspiring.
             </p>
           </div>
         </div>
       </div>
+
       <Vision />
-      <WhyChooseUs/>
-      <MeetTheTeamSection/>
-      <Testimonial/>
-      <Discover/>
-      <Footer/>
+      <WhyChooseUs />
+      <MeetTheTeamSection />
+      <Testimonial />
+      <Discover />
     </div>
   );
 };
+
 
 export default AboutUs;

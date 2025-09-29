@@ -4,17 +4,15 @@ import ContactUsForm from "../component/ContactUsForm";
 import HeroSectionCard from "../component/HeroSectionCard";
 import Footer from "../component/layout/Footer";
 
-
 const ContactUs = () => {
   return (
     <>
-      
       <HeroSectionCard
         backgroundImage={backgroundImage}
         p={`We’d love to hear from you. Whether it’s about our events,
           partnerships, or media; reach out below.`}
-          h2={"Contact Us"}
-          />
+        h2={"Contact Us"}
+      />
       <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-6 max-w-[1440px] mx-auto mt-8">
         <ContactUsForm />
         <ContactInfo />
@@ -25,12 +23,11 @@ const ContactUs = () => {
           width="100%"
           height="483"
           style={{ border: 0 }}
-          allowfullscreen=""
+          allowFullScreen 
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade" 
         ></iframe>
       </div>
-      <Footer/>
     </>
   );
 };
