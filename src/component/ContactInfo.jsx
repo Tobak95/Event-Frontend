@@ -7,7 +7,7 @@ const Card = ({ title, pTag, link, icon: Icon }) => {
     <div className="w-[322px] flex flex-col justify-center items-center">
       <Icon color="#006F6A" size={30} />
       <h2 className="text-2xl text-[#000000] font-semibold mt-2">{title}</h2>
-      <p className="text-center text-base mt-4 mb-4">{pTag}</p>
+      <p className="text-center text-base mt-4">{pTag}</p>
       <p className="text-[20px] text-[#006F6A] font-semibold">{link}</p>
     </div>
   );
@@ -35,7 +35,7 @@ function ContactInfo() {
     },
   ];
   return (
-    <div className="flex flex-col gap-[29px]">
+    <div className="flex flex-col gap-[39px]">
       {data.map((value) => (
         <Card
           link={value.link}
