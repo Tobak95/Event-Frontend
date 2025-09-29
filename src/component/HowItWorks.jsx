@@ -23,7 +23,7 @@ const HowItWorks = () => {
   ];
   return (
     <>
-      <main className="bg-[#FFFFFF] pt-10">
+      <main className="bg-[#FFFFFF] lg:mt-30">
         <article className="layout flex flex-col gap-[47px]  w-[]">
           {/* Header section */}
           <section className="flex flex-col items-center gap-[1px]  ">

@@ -5,9 +5,10 @@ const Hero = () => {
   return (
     <div>
       <div className="relative h-[705px]  text-[#FFFFFF]  items-center heroBG  bg-bottom ">
-        <div className="layout relative z-10 ">
-          <div className="max-w-[944px] text-center mx-auto">
-            <h1 className="font-bold text-[35px] lg:text-[64px] mt-30 md:mt-30">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="layout relative z-10  ">
+          <div className="max-w-[944px] text-center mx-auto  ">
+            <h1 className="font-bold text-[35px] lg:text-[64px] pt-20 md:mt-30">
               Discover Events That Inspire and Connect
             </h1>
             <p className="text-[24px] mt-4">

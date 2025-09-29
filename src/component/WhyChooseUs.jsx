@@ -32,7 +32,7 @@ const WhyChooseUs = () => {
       <main className="bg-[#FFFFFF]">
         <article className="layout flex flex-col gap-[47px]">
           {/* Header Section */}
-          <section className=" items-center  gap-[1px] flex flex-col mt-10">
+          <section className=" items-center  gap-[1px] flex flex-col lg:mt-30">
             <h2 className="text-center font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
               Why Choose Us?
             </h2>

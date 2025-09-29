@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 
 const Discover = () => {
   return (
-    <div className="layout bg-cover bg-center py-5 mb-10">
+    <div className="layout bg-cover bg-center py-5 lg:mb-30 lg:mt-30">
       {/* Discover Events section */}
-      <div className="mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10">
-        <div className="my-10 text-center space-y-8 max-w-3xl mx-auto">
+      <div className="relative mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10 overflow-hidden">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative z-10 my-10 text-center space-y-8 max-w-3xl mx-auto">
           <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-white leading-tight">
-              Discover Events That Match Your World
-            </h1>
+            <div className="w-[723px]">
+              <h1 className="text-[48px] font-bold text-white leading-tight">
+                Discover Events That Match Your World
+              </h1>
+            </div>
             <p className="text-lg text-white max-w-2xl mx-auto leading-relaxed">
               Step into a space where every moment counts. From live concerts
               and comedy nights to art showcases explore events tailored to your
@@ -18,7 +21,7 @@ const Discover = () => {
             </p>
           </div>
           <Link to={"/discover"}>
-            <button className="bg-[#006F6A] hover:bg-[#005a55] text-white font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-md">
+            <button className="w-[290px] h-[57px] bg-[#006F6A] hover:bg-[#005a55] text-white font-[500] py-3 px-8 rounded-[8px] text-[20px] transition-all duration-300 transform hover:scale-105 shadow-md">
               Discover Events
             </button>
           </Link>

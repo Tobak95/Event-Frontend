@@ -16,20 +16,20 @@ const UpcomingEvent = () => {
         </p>
       </div>
 
-     <div className="flex flex-wrap justify-center gap-[27.5px] mt-10">
+     <div className="flex flex-wrap justify-between gap-[27.5px] mt-10">
         {events.map((event, index) => {
           return (
             <div
               key={index}
-               className=" lg:w-[395px] h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
+               className=" lg:w-[440px] h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
             >
               <img
                 src={event.image}
                 alt="events-pictures"
-                className="object-cover h-[236px] w-[396.32px] rounded-tl-[25.44px] rounded-tr-[25.44px] rounded-bl-[6.69px] rounded-br-[6.69px] "
+                className="object-cover h-[236px] w-full rounded-tl-[25.44px] rounded-tr-[25.44px] rounded-bl-[6.69px] rounded-br-[6.69px] "
               />
 
-              <div className="py-4 pl-4">
+              <div className="py-4 pl-9">
                 <div className="w-[355px]">
                   <h1 className="text-[24px] font-[700]">{event.title}</h1>
                   <div className="flex items-center text-[#777777] font-[400] mt-2">

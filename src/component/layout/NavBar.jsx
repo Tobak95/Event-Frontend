@@ -81,7 +81,7 @@ const NavBar = ({
                 to="/discover"
                 className={({ isActive }) =>
                   `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
+                    isActive ? "font-[900]  underline underline-offset-4" : ""
                   }`
                 }
               >
@@ -91,7 +91,7 @@ const NavBar = ({
                 to="/about-us"
                 className={({ isActive }) =>
                   `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
+                    isActive ? "font-[900]  underline underline-offset-4" : ""
                   }`
                 }
               >
@@ -101,7 +101,7 @@ const NavBar = ({
                 to="/contact-us"
                 className={({ isActive }) =>
                   `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
+                    isActive ? "font-[900] underline underline-offset-4" : ""
                   }`
                 }
               >
