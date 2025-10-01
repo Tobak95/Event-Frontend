@@ -11,7 +11,7 @@ const Vision = () => {
         <div className="lg:w-[599px] md:h-[100%] md:w-[45%]">
           {/* text */}
           <div className=" lg:w-[478px] text-center font-bold">
-            <h1 className="text-[rgba(74,74,74,1)]  text-xl lg:text-4xl">
+            <h1 className="text-[rgba(74,74,74,1)]  text-[24px] lg:text-4xl">
               Your Vision. Our expertise. Extraordinary events
             </h1>
             <h1 className="text-[rgba(237,186,55,1)] text-xl lg:text-4xl">
@@ -48,7 +48,7 @@ const Vision = () => {
               Managed more than 1000+ events that created lasting and still
               creating impressions
             </h1>
-            <div className="flex flex-col md:flex-row gap-4 md:justify-between lg:w-[80%] mx-auto">
+            <div className="flex lg:flex-col md:flex-row gap-4 md:justify-between lg:w-[80%] mx-auto">
               {/* first */}
               <div>
                 <h1 className="text-[rgba(0,78,74,1)] font-bold text-2xl lg:text-4xl">

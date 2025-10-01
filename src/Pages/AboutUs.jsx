@@ -3,7 +3,7 @@ import Vision from "../component/Vision";
 import NavBar from "../component/layout/NavBar";
 import WhyChooseUs from "../component/WhyChooseUs"
 import Testimonial from "../component/Testimonial";
-import Discover from "../component/Discover";
+import Discover from "../component/DiscoverFooter";
 import MeetTheTeamSection from "../component/MeetTheTeam";
 import Footer from "../component/layout/Footer";
 
@@ -36,3 +36,4 @@ const AboutUs = () => {
 
 
 export default AboutUs;
+

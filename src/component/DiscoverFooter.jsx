@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Discover = () => {
+const DiscoverFooter = () => {
   return (
     <div className="layout bg-cover bg-center py-5 lg:mb-30 lg:mt-30">
       {/* Discover Events section */}
@@ -9,8 +9,8 @@ const Discover = () => {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 my-10 text-center space-y-8 max-w-3xl mx-auto">
           <div className="space-y-6">
-            <div className="w-[723px]">
-              <h1 className="text-[48px] font-bold text-white leading-tight">
+            <div className="lg:w-[723px]">
+              <h1 className="text-[20px] lg:text-[48px] font-bold text-white leading-tight">
                 Discover Events That Match Your World
               </h1>
             </div>
@@ -31,4 +31,4 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default DiscoverFooter;
