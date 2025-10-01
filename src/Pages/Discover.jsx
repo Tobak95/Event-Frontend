@@ -6,7 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowForward } from "react-icons/io5";
 // import DiscoverModal from "./ModalPages/DiscoverModal";
-import Card from "../component/DiscoverCard";
+import {Card} from "../component/DiscoverCard";
 import { PiCalendarDotsThin } from "react-icons/pi";
 
 import img1 from "../assets/img1.jpg";
