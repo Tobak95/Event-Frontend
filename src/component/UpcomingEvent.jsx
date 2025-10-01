@@ -21,7 +21,7 @@ const UpcomingEvent = () => {
           return (
             <div
               key={index}
-               className=" lg:w-[440px] h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
+               className="w-full lg:w-[440px] lg:h-[494px] border border-[#6BABA9] rounded-[25px] border-b-[6.27px] "
             >
               <img
                 src={event.image}
@@ -29,7 +29,7 @@ const UpcomingEvent = () => {
                 className="object-cover h-[236px] w-full rounded-tl-[25.44px] rounded-tr-[25.44px] rounded-bl-[6.69px] rounded-br-[6.69px] "
               />
 
-              <div className="py-4 pl-9">
+              <div className="px-2 py-4 lg:pl-9">
                 <div className="w-[355px]">
                   <h1 className="text-[24px] font-[700]">{event.title}</h1>
                   <div className="flex items-center text-[#777777] font-[400] mt-2">
@@ -47,9 +47,9 @@ const UpcomingEvent = () => {
                       <p>{event.time}</p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center font-[700] mt-8">
+                  <div className="px-1 flex justify-between items-center font-[700] mt-8">
                     <h6 className="text-[20px]">{event.price}</h6>
-                    <button className="w-[123px] h-[54px] rounded-[13px] 
+                    <button className="px-1 lg:w-[123px] h-[54px] rounded-[13px] 
                     border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer ">
                       Get Tickets
                     </button>
