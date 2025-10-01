@@ -54,7 +54,7 @@ const Register = () => {
       <article className="grid p-3 lg:p-0 lg:grid-cols-2 lg:h-screen ">
         {/* Form  */}
         <section className=" flex justify-center items-center ">
-          <div className="lg:p-10 w-fit lg:w-[527px] shadow lg rounded-lg bg-white">
+          <div className="lg:p-10 w-fit lg:w-[527px] rounded-lg bg-white">
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
                 <img src={Brandlogo} alt="" />
@@ -240,7 +240,7 @@ const Register = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start pt-1">
+                <div className="flex items-center  pt-1">
                   <input
                     id="agreeToTerms"
                     type="checkbox"

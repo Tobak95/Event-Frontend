@@ -23,7 +23,7 @@ const HowItWorks = () => {
   ];
   return (
     <>
-      <main className="bg-[#FFFFFF] pt-10">
+      <main className="bg-[#FFFFFF] lg:mt-30">
         <article className="layout flex flex-col gap-[47px]  w-[]">
           {/* Header section */}
           <section className="flex flex-col items-center gap-[1px]  ">
@@ -35,20 +35,20 @@ const HowItWorks = () => {
             </p>
           </section>
           {/* Section for How It Works cardS */}
-          <section className="grid gap-[50px] lg:grid-cols-3  lg:h-[259px] ">
+          <section className="grid gap-[50px] lg:grid-cols-3  lg:h-[400px] p-3 ">
             {ItWorks.map((Work) => (
               <div
                 key={Work._id}
                 className="card bg-[#FFFFFF] rounded-[12px]  border-[0.4px] border-[#C6C6C6] shadow-sm  shadow-[#B5B5B526]"
               >
-                <div className="card-body items-center text-center">
+                <div className="w-[349px] h-[138px] card-body flex items-center text-center">
                   <h2 className="bg-[#006F6A] text-white w-[41px] h-[41px] rounded-[80px] items-center text-center  flex justify-center">
                     {Work._id}
                   </h2>
                   <h2 className="card-title font-[500] text-[24px] leading-[100%] tracking-[0%] ">
                     {Work.title}
                   </h2>
-                  <p className=" text-[#4A4A4A] font-[400] text-[16px] leading-[100%] tracking-[0%] ">
+                  <p className=" text-[#4A4A4A] font-[400] text-[16px]  ">
                     {Work.context}
                   </p>
                 </div>

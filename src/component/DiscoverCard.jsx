@@ -1,13 +1,28 @@
 // DiscoverCard.jsx or Card.jsx
-import React from 'react';
+import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { LuCalendarDays, LuClock4 } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 const Card = ({ h2, pTag1, location, time, date, price, img }) => {
   const sizes = [
-    "31px", "20px", "43px", "53px", "64px", "74px",
-    "84px", "94px", "104px", "114px", "124px", "134px",
-    "144px", "154px", "164px", "174px", "184px"
+    "31px",
+    "20px",
+    "43px",
+    "53px",
+    "64px",
+    "74px",
+    "84px",
+    "94px",
+    "104px",
+    "114px",
+    "124px",
+    "134px",
+    "144px",
+    "154px",
+    "164px",
+    "174px",
+    "184px",
   ];
 
   return (
@@ -37,9 +52,12 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
 
           <div className="flex items-center justify-between mt-4">
             <span className="text-2xl font-bold">{price}</span>
-            <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">
-              Get Tickets
-            </button>
+
+            <Link to={"/tickets"}>
+              <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">
+                Get Tickets
+              </button>
+            </Link>
           </div>
         </div>
 
