@@ -90,10 +90,10 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="layout bg-white py-5">
+    <div className="layout bg-white py-5 lg:mt-30">
       <div className=" mx-auto container">
         <div className="text-center mb-12">
-          <h2 className="text-[25px] md:text-3xl font-bold text-[#000000] mb-4">
+          <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] mb-4">
             Testimonials
           </h2>
           <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto">
@@ -140,14 +140,14 @@ const Testimonial = () => {
                   style={{ width: "300px" }}
                 >
                   <div
-                    className="border border-gray-200 rounded-3xl p-6 h-full flex flex-col bg-[#F6F6F6]"
+                    className="border border-gray-200 rounded-3xl w-[347px] p-6 h-full flex flex-col bg-[#F6F6F6]"
                     style={{ minHeight: "340px" }}
                   >
                     <div className="flex items-center mb-4">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-12 h-12 rounded-full object-cover mr-3"
+                        className="w-20 h-20 rounded-full object-cover mr-3 mt-5"
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900">
@@ -171,7 +171,7 @@ const Testimonial = () => {
                     </div>
 
                     {/* Content */}
-                    <p className="text-gray-700 mb-6 flex-grow">
+                    <p className="text-gray-700  flex-grow">
                       "{testimonial.content}"
                     </p>
 
@@ -203,7 +203,7 @@ const Testimonial = () => {
         </div>
 
         {/*Indicator */}
-        <div className="flex justify-center mt-5 space-x-2">
+        <div className="flex justify-center  space-x-3">
           {testimonials.map((_, index) => (
             <button
               key={index}

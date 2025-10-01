@@ -28,4 +28,64 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
+
 }
+
+.discoverFilter{
+  border: 1px solid #8A8A8A;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.discoverFilter:hover {
+  background-color: black;
+  color: white;
+}
+
+.priceButton{
+  border: 1px solid #006F6A;
+  padding: 16px;
+  border-radius: 8px;
+  color:#006F6A;
+  cursor: pointer;
+  width: 100%;
+}
+
+.priceButton:hover{
+  color:white;
+  background-color: #006F6A;
+
+}
+
+.clearApplyButton{
+  border-width: 1px 3px 3px 1px;  
+  border-style: solid;
+  border-color: #006F6A;
+  box-shadow: 1px 1px 3px #006F6A;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.clearApplyButton:hover{
+   color:white;
+  background-color: #006F6A;
+}
+
+.dateButton{
+  color: #5A5A5A;
+  border: 1px solid #006F6A;
+  padding: 10px 20px;
+  border-radius: 10px;
+
+}
+
+.dateButton:hover{
+   color:white;
+  background-color: #006F6A;
+}
+
+

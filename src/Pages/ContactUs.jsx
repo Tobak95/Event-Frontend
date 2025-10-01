@@ -2,13 +2,14 @@ import backgroundImage from "../assets/backgroundImage.jpg";
 import ContactInfo from "../component/ContactInfo";
 import ContactUsForm from "../component/ContactUsForm";
 import HeroSectionCard from "../component/HeroSectionCard";
-import Footer from "../component/layout/Footer";
+import AboutUs from "../assets/aboutUsNewBg.jpg"
+
 
 const ContactUs = () => {
   return (
     <>
       <HeroSectionCard
-        backgroundImage={backgroundImage}
+        backgroundImage={AboutUs}
         p={`We’d love to hear from you. Whether it’s about our events,
           partnerships, or media; reach out below.`}
         h2={"Contact Us"}

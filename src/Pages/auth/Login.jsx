@@ -47,22 +47,14 @@ const Login = () => {
     }
     setSubmitting(false);
 
-    //   const response = await axiosInstance.post("/auth/login");
-    //   console.log(response.data);
-    // } catch (error) {
-    //   // console.error(error);
-    //   // toast.error(error?.response?.data?.message);
-    // } finally {
-    //   setSubmitting(false);
-    // }
   };
 
   return (
     <main className="">
       <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
         {/* Section for form  */}
-        <section className=" flex justify-center items-center ">
-          <div className=" lg:p-10 w-fit lg:w-[527px] shadow lg rounded-lg bg-white">
+        <section className="flex justify-center items-center">
+          <div className=" lg:p-10 w-fit lg:w-[527px]  rounded-lg bg-white">
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
                 <img src={logo2} alt="" />
@@ -149,18 +141,42 @@ const Login = () => {
                 </button>
               </div>
 
-              <div className="mt-5">
-                <button className="flex items-center justify-center gap-2 py-5 border w-full rounded-[15px]">
-                  <div>
-                    <FcGoogle size={16} />
+              <div className="mt-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300" />
                   </div>
-                  <h1>Continue with Google</h1>
-                </button>
-                <Link to={"/register"}>
-                  <p className="mt-5 text-center">
-                    New User? <span className="text-[#006F6A]">Sign Up</span>{" "}
-                  </p>
-                </Link>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-[#000000]">Or</span>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex gap-2 cursor-pointer items-center">
+                      <div className="w-4 h-4 rounded-sm flex items-center justify-center text-xs">
+                        <FcGoogle size={20} />
+                      </div>
+                      <p className="text-[#1B1B1B]">Continue with Google</p>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="mt-4">
+                  <div className="flex gap-1 items-center justify-center text-center">
+                    <p className="text-sm text-[#1B1B1B]">
+                      New User?
+                    </p>
+                    <Link to="/register">
+                      <button className="text-[#006F6A] hover:text-[#005a55] text-sm font-medium cursor-pointer transition-colors">
+                        Sign Up
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

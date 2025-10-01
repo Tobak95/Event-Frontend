@@ -10,8 +10,6 @@ import NavBar from "./component/layout/NavBar";
 import Footer from "./component/layout/Footer";
 import "./App.css";
 
-
-
 const Home = lazy(() => import("./Pages/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
@@ -27,15 +25,8 @@ const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
 const EventDetails = lazy(() => import("./Pages/EventDetails"));
-const CheckoutOne = lazy(() => import("./Pages/CheckoutOne"))
-const PaymentSuccess = lazy(() => import("./Pages/PaymentSuccess"))
-
-
-
-
-
-
-
+const CheckoutOne = lazy(() => import("./Pages/CheckoutOne"));
+const PaymentSuccess = lazy(() => import("./Pages/PaymentSuccess"));
 
 // ✅ Layout wrapper
 const Layout = ({ children }) => {
@@ -107,9 +98,8 @@ function App() {
           />
           <Route path="/eventDetails" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
-          <Route path="/checkout1" element={<CheckoutOne/>}/>
-          <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
-
+          <Route path="/checkout1" element={<CheckoutOne />} />
+          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         </Routes>
       </Suspense>
     </Router>
