@@ -4,7 +4,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { LuCalendarDays, LuClock4 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
-export const Card = ({ h2, pTag1, location, time, date, price, img }) => {
+const Card = ({ h2, pTag1, location, time, date, price, img }) => {
   const sizes = [
     "31px",
     "20px",

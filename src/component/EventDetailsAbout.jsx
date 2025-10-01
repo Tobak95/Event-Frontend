@@ -1,5 +1,5 @@
 import React from "react";
-import { Cards } from "../Pages/Discover";
+import  Card  from "../Pages/Discover";
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
 import img3 from "../assets/img3.jpg";
@@ -55,7 +55,7 @@ const OtherEvents = () => {
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 container mx-auto gap-12 ">
         {cardData.map((data) => (
-          <Cards
+          <Card
             key={data.id}
             date={data.date}
             h2={data.h2}
