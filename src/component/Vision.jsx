@@ -48,7 +48,7 @@ const Vision = () => {
               Managed more than 1000+ events that created lasting and still
               creating impressions
             </h1>
-            <div className="flex lg:flex-col md:flex-row gap-4 md:justify-between lg:w-[80%] mx-auto">
+            <div className="flex lg:flex-row md:flex-row gap-4 md:justify-between lg:w-[80%] mx-auto">
               {/* first */}
               <div>
                 <h1 className="text-[rgba(0,78,74,1)] font-bold text-2xl lg:text-4xl">
