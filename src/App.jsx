@@ -9,6 +9,7 @@ import SuspenseLoader from "./component/layout/SuspenseLoader";
 import NavBar from "./component/layout/NavBar";
 import Footer from "./component/layout/Footer";
 import "./App.css";
+import ScrollToTop from "./component/ScrollToTop";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
@@ -50,6 +51,7 @@ function App() {
   return (
     <Router>
       <Suspense fallback={<SuspenseLoader />}>
+        <ScrollToTop />
         <Routes>
           {/* ✅ Wrap pages with Layout individually */}
           <Route
