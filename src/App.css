@@ -89,3 +89,23 @@
 }
 
 
+/* Add this block to your main CSS file (e.g., globals.css) */
+/* This targets the Swiper pagination element */
+.swiper-pagination {
+  position: absolute;
+  bottom: 0 !important; /* Forces it to the very bottom */
+  left: 0;
+  width: 100%;
+  padding-top: 10px; /* Optional space above dots */
+}
+
+/* Optional: styling for the individual dots */
+.swiper-pagination-bullet {
+  background: #006F6A !important; /* Example: use your primary color */
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background: #006F6A !important;
+  opacity: 1;
+}
