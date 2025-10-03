@@ -93,7 +93,7 @@ const Footer = () => {
         </div>
       </footer>
       <hr className="lg:hidden mt-10 text-[#FFFFFF]" />
-      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] mt-10">
+      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] mt-10 mb-6">
         &copy; 2025 Eventra - All Rights Reserved
       </p>
     </div>

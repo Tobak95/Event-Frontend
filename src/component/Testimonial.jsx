@@ -90,7 +90,7 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="layout bg-white py-5 lg:mt-30">
+    <div className="layout bg-white py-5 lg:mt-20">
       <div className=" mx-auto container">
         <div className="text-center mb-12">
           <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] mb-4">

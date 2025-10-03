@@ -8,6 +8,7 @@ import { IoArrowForward } from "react-icons/io5";
 // import DiscoverModal from "./ModalPages/DiscoverModal";
 import Card from "../component/DiscoverCard";
 import { PiCalendarDotsThin } from "react-icons/pi";
+import Pagination from "../component/layout/Pagination";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
@@ -17,12 +18,15 @@ import img5 from "../assets/img5.jpg";
 import img6 from "../assets/img6.jpg";
 import img7 from "../assets/img7.jpg";
 import img8 from "../assets/img8.jpg";
+import { useEventContext } from "../Hooks/useEventContext";
+import dateFormat from "../Utils/dateFormat";
 
 const Discover = () => {
   const [isOpen, setisOpen] = useState(null);
   const eventCategoryModalRef = useRef(null);
   const priceModalRef = useRef(null);
   const dateModalRef = useRef(null);
+  const { discover, loading, page } = useEventContext();
 
   const handleDiscoverModals = (discoverModalId) => {
     setisOpen(discoverModalId);
@@ -177,39 +181,44 @@ const Discover = () => {
           {/* Section for Discover Card */}
           <section>
             <div className="grid grid-cols-1 lg:grid-cols-2 w-full px-2  mx-auto gap-12">
-              {cardData.map((data) => (
+              {discover.map((data) => (
                 <Card
-                  key={data.id}
-                  date={data.date}
-                  h2={data.h2}
-                  img={data.img}
+                  key={data._id}
+                  date={new Date(data.eventDate).toLocaleDateString("en-us", {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
+                  h2={data.title}
+                  img={data.eventImage}
                   location={data.location}
-                  pTag1={data.pTag1}
                   price={data.price}
-                  time={data.time}
+                  time={dateFormat(data.eventStart)}
+                  time2={dateFormat(data.eventEnd)}
                 />
               ))}
             </div>
+            <Pagination />
 
-            <div className="lg:w-[80%] mx-auto py-6">
+            {/* <div className="lg:w-[80%] mx-auto py-6">
               <div className="flex items-center justify-center gap-2">
                 <IoMdArrowBack color="#BEBEBE" className="cursor-pointer" />
                 {Array.from(
-                  [1, 2, 4].map((val) => (
+                  [1, 2, 3, 4].map((page) => (
                     <div
                       className={` ${
-                        val === 1
+                        page === 1
                           ? " bg-[#96C4C2] border-[#2B8783]"
                           : "bg-[#D6D6D6] border-[#EDEDED]"
                       } flex gap-4  border-4 rounded-full h-[35px] w-[35px] items-center justify-center cursor-pointer`}
                     >
-                      <p className="">{val}</p>
+                      <p className="">{page}</p>
                     </div>
                   ))
                 )}
                 <IoArrowForward />
               </div>
-            </div>
+            </div> */}
           </section>
         </article>
       </main>

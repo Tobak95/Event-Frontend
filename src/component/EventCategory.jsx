@@ -3,7 +3,7 @@ import { Categories } from "../../data";
 
 const EventCategory = () => {
   return (
-    <div className="layout lg:mt-30">
+    <div className="layout lg:mt-20">
       <div className="text-center">
         <h1 className="text-[25px] lg:text-[48px] font-[700]">
           Event Category
