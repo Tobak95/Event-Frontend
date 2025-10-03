@@ -23,8 +23,8 @@ const HowItWorks = () => {
   ];
   return (
     <>
-      <main className="bg-[#FFFFFF] lg:mt-30">
-        <article className="layout flex flex-col gap-[47px]  w-[]">
+      <main className="bg-[#FFFFFF] lg:mt-20">
+        <article className="layout flex flex-col gap-[47px] ">
           {/* Header section */}
           <section className="flex flex-col items-center gap-[1px]  ">
             <h2 className="font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
@@ -35,17 +35,17 @@ const HowItWorks = () => {
             </p>
           </section>
           {/* Section for How It Works cardS */}
-          <section className="grid gap-[50px] lg:grid-cols-3  lg:h-[400px] p-3 ">
+          <section className="grid gap-[50px] lg:grid-cols-3  h-[350px] ">
             {ItWorks.map((Work) => (
               <div
                 key={Work._id}
                 className="card bg-[#FFFFFF] rounded-[12px]  border-[0.4px] border-[#C6C6C6] shadow-sm  shadow-[#B5B5B526]"
               >
-                <div className="w-[349px] h-[138px] card-body flex items-center text-center">
+                <div className="w-[349px] h-[138px] card-body flex mx-auto items-center text-center">
                   <h2 className="bg-[#006F6A] text-white w-[41px] h-[41px] rounded-[80px] items-center text-center  flex justify-center">
                     {Work._id}
                   </h2>
-                  <h2 className="card-title font-[500] text-[24px] leading-[100%] tracking-[0%] ">
+                  <h2 className="card-title font-[500] text-[24px] tracking-[0%] ">
                     {Work.title}
                   </h2>
                   <p className=" text-[#4A4A4A] font-[400] text-[16px]  ">

@@ -4,7 +4,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { LuCalendarDays, LuClock4 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
-const Card = ({ h2, pTag1, location, time, date, price, img }) => {
+const Card = ({ h2, location, time, time2, date, price, img }) => {
   const sizes = [
     "31px",
     "20px",
@@ -31,7 +31,7 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
         <div className="flex flex-col justify-between p-4 flex-1 w-full lg:w-[50%]">
           <div>
             <h2 className="text-xl font-bold text-[#000000]">{h2}</h2>
-            <p className="text-lg font-bold text-[#000000]">{pTag1}</p>
+            {/* <p className="text-lg font-bold text-[#000000]">{pTag1}</p> */}
 
             <div className="mt-3 text-sm text-gray-600 space-y-1">
               <p className="flex items-center gap-1">
@@ -44,14 +44,14 @@ const Card = ({ h2, pTag1, location, time, date, price, img }) => {
                 </p>
                 <p className="flex items-center gap-1">
                   <LuClock4 />
-                  {time}
+                  {time}-{time2}
                 </p>
               </div>
             </div>
           </div>
 
           <div className="flex items-center justify-between mt-4">
-            <span className="text-2xl font-bold">{price}</span>
+            <span className="text-2xl font-bold">${price}</span>
 
             <Link to={"/tickets"}>
               <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">

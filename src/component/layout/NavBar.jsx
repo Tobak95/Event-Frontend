@@ -215,7 +215,7 @@ const NavBar = ({
                             My Tickets
                           </NavLink>
                           <NavLink
-                            to="/reset-password"
+                            to="/forgot-password"
                             className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
                             onClick={() => setDropdown(false)}
                           >
@@ -236,7 +236,9 @@ const NavBar = ({
 
               {/* Mobile Menu Button */}
               <div className="flex gap-5 md:hidden">
-                <img src={iconLogo} alt="" className="block" />
+                <Link to={"/tickets"}>
+                  <img src={iconLogo} alt="" className="block" />
+                </Link>
                 <button onClick={toggleMenu} className="md:hidden text-2xl">
                   {isOpen ? (
                     <FaTimes color={menuColor} />
@@ -248,8 +250,9 @@ const NavBar = ({
             </nav>
             {/*  Mobile Dropdown Menu (renders when isOpen = true) */}
             {isOpen && (
-              <div className="md:hidden absolute top-[100px] left-0 w-full bg-black/80 backdrop-blur-md z-20 p-6 flex flex-col gap-6">
+              <div className="md:hidden absolute top-[100px] left-0 w-full bg-black z-20 p-6 flex flex-col gap-6">
                 {/* Page Links */}
+
                 <NavLink
                   to="/discover"
                   onClick={() => setIsOpen(false)}
@@ -274,7 +277,7 @@ const NavBar = ({
 
                 {/* ✅ Mobile User Section */}
                 {!user ? (
-                  <div className="flex flex-col gap-4 mt-4 ">
+                  <div className="flex flex-col gap-4  ">
                     <NavLink
                       to="/login"
                       onClick={() => setIsOpen(false)}
