@@ -32,13 +32,13 @@ const Vision = () => {
           {/* image */}
           <div className="flex flex-row lg:flex flex-col justify-between md:flex-row  md:h-[50%]">
             <img
-              className="mt-2 w-[200px] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
+              className="mt-2 w-[185px] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
               src={manage1}
               alt=""
             />
 
             <img
-              className="mt-2 w-[200px] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
+              className="mt-2 w-[185px] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
               src={manage2}
               alt=""
             />
