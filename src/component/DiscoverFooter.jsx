@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DiscoverFooter = () => {
   return (
-    <div className="layout bg-cover bg-center py-5 lg:mb-30 lg:mt-30">
+    <div className="layout bg-cover bg-center py-5 mb-10 lg:mb-20 lg:mt-20">
       {/* Discover Events section */}
       <div className="relative mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10 overflow-hidden">
         <div className="absolute inset-0 bg-black/50"></div>

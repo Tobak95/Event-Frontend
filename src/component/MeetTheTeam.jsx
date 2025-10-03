@@ -108,7 +108,7 @@ const MeetTheTeamSection = () => {
       {/* Signature Events */}
       <section className=""></section>
       <div className="max-w-6xl mx-auto px-6 text-center mt-20">
-        <h2 className="text-3xl font-bold text-[#4A4A4A] mb-10">
+        <h2 className="text-[25px] text-black lg:text-[48px] font-bold text-[#4A4A4A] mb-10">
           Signature Events
         </h2>
 

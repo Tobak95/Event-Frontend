@@ -5,11 +5,14 @@ import App from "./App.jsx";
 
 import AppProvider from "./Context/appContext.jsx";
 import { ToastContainer } from "react-toastify";
+import EventProvider from "./Context/EventContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AppProvider>
-      <App />
+      <EventProvider>
+        <App />
+      </EventProvider>
       <ToastContainer position="top-center" />
     </AppProvider>
   </StrictMode>
