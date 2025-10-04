@@ -23,7 +23,7 @@ const ItWorks = [
 
 const HowItWorks = () => {
   return (
-    <main className="bg-[#FFFFFF] lg:mt-20">
+    <main className="bg-[#FFFFFF] mt-10 lg:mt-20">
       <article className="layout flex flex-col gap-[47px] ">
         {/* Header section */}
 
@@ -31,7 +31,10 @@ const HowItWorks = () => {
           <h2 className="font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
             How It Works?
           </h2>
-          <p className="font-[400] text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">
+          <p
+            style={{ fontFamily: " Helvetica" }}
+            className="font-[400] text-[20px] leading-[30%] tracking-[0%] text-[#4A4A4A] "
+          >
             Discover, book, and enjoy with ease
           </p>
         </div>

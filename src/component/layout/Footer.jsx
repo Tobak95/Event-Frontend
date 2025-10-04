@@ -18,8 +18,14 @@ const Footer = () => {
   const support = ["FAQs", "Help Center", "Terms of Service", "Privacy Policy"];
 
   return (
-    <div className="bg-[#006F6A] md:px-[70px] pt-[50px] pb-[20px]">
-      <footer className="layout flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 ">
+    <div
+      style={{ fontFamily: " Helvetica" }}
+      className="bg-[#006F6A] md:px-[70px] pt-[50px] pb-[20px]"
+    >
+      <footer
+        style={{ fontFamily: " Helvetica" }}
+        className="layout flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 "
+      >
         <div className="">
           <div className="flex justify-center lg:justify-start">
             <img src={logo} alt="Logo" className="mb-2" />

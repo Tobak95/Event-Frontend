@@ -90,13 +90,16 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="layout bg-white py-5 lg:mt-20">
+    <div className="layout bg-white py-5 mt-10 lg:mt-20">
       <div className=" mx-auto container">
         <div className="text-center mb-12">
-          <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] mb-4">
+          <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] ">
             Testimonials
           </h2>
-          <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto">
+          <p
+            style={{ fontFamily: " Helvetica" }}
+            className="text-[16px] text-[#4A4A4A] max-w-2xl mx-auto"
+          >
             Trusted by Event Lovers Everywhere
           </p>
         </div>
@@ -141,7 +144,7 @@ const Testimonial = () => {
                 >
                   <div
                     className="border border-gray-200 rounded-3xl w-[347px] p-6 h-full flex flex-col bg-[#F6F6F6]"
-                    style={{ minHeight: "340px" }}
+                    style={{ minHeight: "370px" }}
                   >
                     <div className="flex items-center mb-4">
                       <img
@@ -175,7 +178,7 @@ const Testimonial = () => {
                       "{testimonial.content}"
                     </p>
 
-                    <hr className="border-gray-200 mb-4" />
+                    <hr className="border-gray-200 " />
 
                     {/* Location */}
                     <div className="flex items-center justify-between">
@@ -203,7 +206,7 @@ const Testimonial = () => {
         </div>
 
         {/*Indicator */}
-        <div className="flex justify-center  space-x-3">
+        <div className="flex justify-center  space-x-4">
           {testimonials.map((_, index) => (
             <button
               key={index}

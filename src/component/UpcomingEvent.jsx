@@ -10,7 +10,7 @@ const UpcomingEvent = () => {
   const { isLoading, events, isSubmitting } = useEventContext();
 
   return (
-    <div className="layout mt-20">
+    <div className="layout mt-10 lg:mt-20">
       <div className="lg:max-w-[422px] mx-auto">
         <h1 className="font-bold text-[35px] lg:text-[48px] text-center">
           Upcoming Events
@@ -60,7 +60,7 @@ const UpcomingEvent = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="px-1 flex justify-between items-center font-[700] mt-8">
+                  <div className="px-5 lg:px-1 flex justify-between items-center font-[700] mt-8">
                     <h6 className="text-[20px]">${event.price}</h6>
                     <button
                       className="px-1 lg:w-[123px] h-[54px] rounded-[13px] 

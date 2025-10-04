@@ -11,15 +11,16 @@ const AboutUs = () => {
   return (
     <div className="">
       {/* ✅ Added padding-top to offset fixed navbar */}
-      <div className="about-bg  lg:h-[557px]  pt-[100px]">
-        <div className="flex items-center justify-center">
+      <div className=" relative about-bg  lg:h-[557px]  pt-[100px]">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="flex items-center justify-center relative z-10">
           <div className="my-10 text-center  max-w-3xl mx-auto w-[648px]">
             <h1 className="text-[#FEFCFB] text-[35px] md:text-[45px] lg:text-[64px] text-center font-[700] pt-20">
               About Eventra
             </h1>
             <p className="text-[#FFFFFF] text-center text-[18px] md:text-[20px] w-full">
               We’re on a mission to make attending and organizing events
-              seamless,  memorable, and inspiring.
+              seamless, memorable, and inspiring.
             </p>
           </div>
         </div>
