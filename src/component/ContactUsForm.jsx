@@ -14,12 +14,14 @@ function ContactUsForm() {
             name={"Name"}
             placeHolder={"Enter your name"}
             type={"text"}
+            
           />
           <ContactInput
             label={"email"}
             name={"Email Address"}
             placeHolder={"Enter your email address "}
             type={"email"}
+            className="italic"
           />
           <div className="w-full flex flex-col gap-2 mt-2 ">
             <label

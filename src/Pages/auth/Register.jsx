@@ -83,7 +83,7 @@ const Register = () => {
                         id="firstname"
                         type="text"
                         {...register("firstname")}
-                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                           errors.firstname
                             ? "border-red-500"
                             : "border-gray-300"
@@ -107,7 +107,7 @@ const Register = () => {
                         id="lastname"
                         type="text"
                         {...register("lastname")}
-                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                           errors.lastname ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="Enter Name"
@@ -130,7 +130,7 @@ const Register = () => {
                       id="email"
                       type="email"
                       {...register("email")}
-                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.email ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="Enter your Email"
@@ -151,7 +151,7 @@ const Register = () => {
                       id="phoneNumber"
                       type="text"
                       {...register("phoneNumber")}
-                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.phoneNumber
                           ? "border-red-500"
                           : "border-gray-300"
@@ -175,7 +175,7 @@ const Register = () => {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       {...register("password")}
-                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.password ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="Enter your password"
@@ -210,7 +210,7 @@ const Register = () => {
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       {...register("confirmPassword")}
-                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.confirmPassword
                           ? "border-red-500"
                           : "border-gray-300"

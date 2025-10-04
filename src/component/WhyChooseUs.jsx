@@ -29,14 +29,14 @@ const WhyChooseUs = () => {
   ];
   return (
     <>
-      <main className="bg-[#FFFFFF] lg:mt-[80px]">
+      <main className="bg-[#FFFFFF] mt-10 lg:mt-[80px]">
         <article className="layout flex flex-col gap-[47px] ">
           {/* Header Section */}
-          <section className=" items-center  gap-[1px] flex flex-col ">
-            <h2 className="text-center font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
+          <section className=" items-center  gap-[2px] flex flex-col ">
+            <h2 className="text-center font-[700] text-[25px] lg:text-[48px] leading-[px] tracking-[0%]  ">
               Why Choose Us?
             </h2>
-            <p className="text-center font-[400] text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">
+            <p className="text-center font-[400] text-[18px] lg:text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">
               The trusted platform for unforgettable experiences
             </p>
           </section>
@@ -66,7 +66,7 @@ const WhyChooseUs = () => {
                 </div>
               </div>
             ))}
-            ;
+            
           </section>
         </article>
       </main>
