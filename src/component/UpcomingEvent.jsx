@@ -34,7 +34,7 @@ const UpcomingEvent = () => {
               />
 
               <div className=" lg:px-2 py-4 lg:pl-9">
-                <div className="w-[355px] px-5 lg:px-0">
+                <div className="w-full lg:w-[355px] px-5 lg:px-0">
                   <h1 className="text-[24px] font-[700]">{event.title}</h1>
                   <div className="flex items-center text-[#777777] font-[400] gap-2 mt-2">
                     <GrLocation size={22} />
