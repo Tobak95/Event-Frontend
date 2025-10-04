@@ -50,10 +50,10 @@ const ForgotPassword = () => {
           <img src={logo2} alt="..." className="" />
         </div>
 
-        <article className="min-h-screen flex items-center justify-center  ">
+        <article className="lg:min-h-screen flex items-center justify-center  ">
           <div className="">
-            <div className="bg-white p-5 rounded-lg  w-full max-w-[610px] h-[457px] ">
-              <div className="w-[442px]">
+            <div className="bg-white p-5 rounded-lg  w-full lg:max-w-[610px] h-[457px] ">
+              <div className="lg:w-[442px]">
                 <h1 className="text-[38px] font-[700]  mt-10">
                   Forgot password?
                 </h1>

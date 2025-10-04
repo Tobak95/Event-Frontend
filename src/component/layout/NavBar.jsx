@@ -199,7 +199,7 @@ const NavBar = ({
         </nav>
         {/*  Mobile Dropdown Menu (renders when isOpen = true) */}
         {isOpen && (
-          <div className="md:hidden absolute top-[100px] left-0 w-full bg-black/80 backdrop-blur-md z-20 p-6 flex flex-col gap-6">
+          <div className="md:hidden absolute top-[100px] left-0 w-full bg-black/100 backdrop-blur-md z-20 p-6 flex flex-col gap-6">
             {/* Page Links */}
             <NavLink
               to="/discover"
@@ -225,7 +225,7 @@ const NavBar = ({
 
             {/* ✅ Mobile User Section */}
             {!user ? (
-              <div className="flex flex-col gap-4 mt-4 ">
+              <div className="flex flex-col gap-4 ">
                 <NavLink
                   to="/login"
                   onClick={() => setIsOpen(false)}

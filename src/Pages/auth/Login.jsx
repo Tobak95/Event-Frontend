@@ -11,10 +11,13 @@ import { axiosInstance } from "../../Utils/axiosInstance";
 import { useAppContext } from "../../Hooks/useAppContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const { login } = useAppContext();
 
   const redirect = useNavigate();
@@ -46,7 +49,6 @@ const Login = () => {
       setErrorMessage(error?.response?.data?.message || "Login Failed");
     }
     setSubmitting(false);
-
   };
 
   return (
@@ -60,7 +62,7 @@ const Login = () => {
                 <img src={logo2} alt="" />
               </div>
             </Link>
-            <div className=" lg:w-[455px] lg:mt-25">
+            <div className=" lg:w-[455px] lg:mt-20">
               <h1 className="font-semibold text-[30px] lg:text-[28px]">
                 Welcome Back!
               </h1>
@@ -79,7 +81,7 @@ const Login = () => {
                   id="email"
                   type="email"
                   placeholder="Martinsjemima2021@gmail.com"
-                  className="border border-[#DEDFE0] h-[54.3px] px-2 rounded-[5px] mt-1"
+                  className="border border-[#777777] h-[54.3px] px-2 rounded-[5px] mt-1  focus:border-gray-700 focus:outline-gray-400 placeholder:italic "
                   {...register("email")}
                 />
                 <p className="text-red-500 text-sm mt-1">
@@ -87,17 +89,30 @@ const Login = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col  my-3">
+              <div className="flex flex-col  my-3 relative">
                 <label htmlFor="password" className="font-[600]">
                   Password
                 </label>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your Password"
-                  className="border border-[#DEDFE0] h-[54.3px] px-2 rounded-[5px] mt-1"
+                  className="border border-[#777777] h-[54.3px] px-2 rounded-[5px] mt-1  focus:border-gray-700 focus:outline-gray-400 placeholder:italic"
                   {...register("password")}
                 />
+                <div className="absolute inset-y-1 right-0 pr-5 mt-5 flex items-center">
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
                 <p className="text-red-500 text-sm mt-1">
                   {errors.password?.message}
                 </p>
@@ -122,7 +137,7 @@ const Login = () => {
                 <Link to={"/forgot-password"}>
                   <div className="my-3">
                     <p className="text-[#EC5E5E] font-[600]">
-                      forgot Password?
+                      Forgot Password?
                     </p>
                   </div>
                 </Link>
@@ -131,7 +146,7 @@ const Login = () => {
               <div className="flex justify-center text-[#FFFFFF]">
                 <button
                   disabled={submitting}
-                  className="h-[48px]  bg-[#3D9970] w-full rounded-[15px] mt-5"
+                  className="h-[48px]  bg-[#006F6A] w-full rounded-[10px] mt-5"
                 >
                   {submitting ? (
                     <ClipLoader size={20} color="#ffffff" />
@@ -167,9 +182,7 @@ const Login = () => {
 
                 <div className="mt-4">
                   <div className="flex gap-1 items-center justify-center text-center">
-                    <p className="text-sm text-[#1B1B1B]">
-                      New User?
-                    </p>
+                    <p className="text-sm text-[#1B1B1B]">New User?</p>
                     <Link to="/register">
                       <button className="text-[#006F6A] hover:text-[#005a55] text-sm font-medium cursor-pointer transition-colors">
                         Sign Up

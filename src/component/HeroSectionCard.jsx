@@ -21,7 +21,10 @@ function HeroSectionCard({ backgroundImage, h2, p }) {
         <h2 className="text-5xl lg:text-[64px] font-bold text-[#FEFCFB] text-center lg:mt-20 ">
           {h2}
         </h2>
-        <p className="text-[#F6EEE8] text-base lg:text-[24px] text-center lg:w-[50%] leading-[100%] ">
+        <p
+          style={{ fontFamily: " Helvetica" }}
+          className="text-[#F6EEE8] text-base lg:text-[24px] text-center lg:w-[50%] leading-[100%] "
+        >
           {p}
         </p>
       </div>
