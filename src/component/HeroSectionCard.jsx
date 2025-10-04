@@ -9,11 +9,9 @@ function HeroSectionCard({ backgroundImage, h2, p }) {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#00000073",
-        height: "557px",
       }}
-      className="relative"
+      className="relative h-[450px] lg:h-[577px] "
     >
-      <Nav />
       <div className="absolute inset-0 bg-[#00000073]" />
       <div
         className={`flex flex-col items-center justify-center 
