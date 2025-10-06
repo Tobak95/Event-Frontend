@@ -124,7 +124,7 @@ const Testimonial = () => {
           </button>
 
           {/* Cards */}
-          <div className="flex items-end justify-center w-full h-full relative">
+          <div className="flex items-end justify-center w-full h-[400px] relative">
             {testimonials.map((testimonial, index) => {
               const position = getTestimonialPosition(index);
 
@@ -143,7 +143,7 @@ const Testimonial = () => {
                   style={{ width: "300px" }}
                 >
                   <div
-                    className="border border-gray-200 rounded-3xl w-[347px] p-6 h-full flex flex-col bg-[#F6F6F6]"
+                    className="border border-gray-200 rounded-3xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
                     style={{ minHeight: "370px" }}
                   >
                     <div className="flex items-center mb-4">
@@ -174,7 +174,7 @@ const Testimonial = () => {
                     </div>
 
                     {/* Content */}
-                    <p className="text-gray-700  flex-grow">
+                    <p className="text-gray-700 text-[20px] flex-grow">
                       "{testimonial.content}"
                     </p>
 

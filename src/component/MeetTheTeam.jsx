@@ -80,11 +80,11 @@ const MeetTheTeamSection = () => {
           >
             {team.map((member, idx) => (
               <SwiperSlide key={idx} className="flex flex-col items-center">
-                <div className="w-50 h-50 flex mx-auto relative">
+                <div className="w-[333px] h-[333px] flex mx-auto relative">
                   <img
                     src={elipse}
                     alt=""
-                    className="absolute w-28 right-30 rotate-1"
+                    className="absolute h-75 w-38 top-5 -left-12 rotate-1"
                   />
                   <img
                     src={member.image}
@@ -113,7 +113,7 @@ const MeetTheTeamSection = () => {
         </h2>
 
         <Swiper
-          spaceBetween={20}
+          spaceBetween={10}
           pagination={{ clickable: true }}
           modules={[Pagination]} // ✅ removed Navigation module
           breakpoints={{
