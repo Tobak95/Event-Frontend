@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     <div
       style={{ fontFamily: " Helvetica" }}
-      className="bg-[#006F6A] md:px-[70px] pt-[50px] pb-[20px]"
+      className="bg-[#006F6A]  pt-[50px] pb-[20px]"
     >
       <footer
         style={{ fontFamily: " Helvetica" }}
@@ -65,7 +65,11 @@ const Footer = () => {
               <Link
                 key={index}
                 to={item.to}
-                className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block"
+                className={`text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block  ${
+                  item.link === "Events" || item.link === "How It Works"
+                    ? "cursor-not-allowed"
+                    : ""
+                }`}
               >
                 {item.link}
               </Link>

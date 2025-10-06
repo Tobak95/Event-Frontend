@@ -66,10 +66,11 @@ const NavBar = ({
     <div className="relative">
       {/*  Fixed navbar */}
       <div
-        className={`fixed top-0 left-0 w-full z-30 backdrop-blur-md transition-colors duration-300 
+        className={`fixed top-0 left-0 w-full z-30 shadow-md transition-colors duration-300 
         ${
-          isScrolled ?
-            "bg-black/20 backdrop-blur-md shadow-md" : "bg-transparent backdrop-blur-md"
+          isScrolled
+            ? "bg-black/20 backdrop-blur-md shadow-md"
+            : "bg-transparent "
         }`}
       >
         <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8">

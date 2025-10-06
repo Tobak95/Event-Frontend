@@ -11,13 +11,13 @@ const DiscoverFooter = () => {
       <div className="relative mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10 overflow-hidden ">
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative z-10 lg:my-10 text-center space-y-8 max-w-3xl mx-auto">
-          <div className="w-[303.87px] lg:w-[0]">
+          <div className="">
             <div className="lg:w-[723px]">
               <h1 className="text-[20px] lg:text-[48px] font-[700] text-white leading-tight">
                 Discover Events That Match Your World
               </h1>
             </div>
-            <p className="text-[12.77px] lg:text-lg  max-w-2xl mx-auto leading-relaxed mt-1 lg:mt-0 text-[#CCCCCC]">
+            <p className="text-[12.77px] md:text-[20px] text-center leading-relaxed mt-1 lg:mt-0 text-[#CCCCCC]">
               Step into a space where every moment counts. From live concerts
               and comedy nights to art showcases explore events tailored to your
               interests.

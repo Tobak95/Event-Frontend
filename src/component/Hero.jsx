@@ -1,7 +1,10 @@
 import React from "react";
 import NavBar from "../component/layout/NavBar";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const redirect = useNavigate();
+
   return (
     <div>
       <div className="relative  lg:h-[705px]  text-[#FFFFFF]  items-center heroBG  bg-bottom ">
@@ -15,7 +18,10 @@ const Hero = () => {
               Your complete destination for discovering, booking, and
               experiencing events that truly matter to you.
             </p>
-            <button className="bg-[#006F6A] w-[150px] lg:w-[290px] h-[46px] lg:h-[57px] mb-5 mt-7 lg:mt-10 rounded-[8px]">
+            <button
+              onClick={() => redirect("/discover")}
+              className="bg-[#006F6A] w-[150px] lg:w-[290px] h-[46px] lg:h-[57px] mb-5 mt-7 lg:mt-10 rounded-[8px] cursor-pointer"
+            >
               Explore Events
             </button>
           </div>
