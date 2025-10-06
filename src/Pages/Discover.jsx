@@ -137,13 +137,13 @@ const Discover = () => {
           />
         </section>
         {/* Article for Discovery Page */}
-        <article className="layout gap-[35px] flex flex-col">
+        <article className="layout gap-[35px] flex flex-col mt-5">
           {/* section for discovery filters */}
           <section className="lg:flex items-center justify-between">
             {/* div for Event Category Modal */}
             <div className="flex gap-[10px] lg:pt-3">
               <button
-                className="btn discoverFilter"
+                className="btn discoverFilter bg-[#FFFFFF]"
                 onClick={() => handleDiscoverModals("eventCategoryModal")}
               >
                 All Events
@@ -151,7 +151,7 @@ const Discover = () => {
               </button>
 
               <button
-                className="btn discoverFilter"
+                className="btn discoverFilter bg-[#FFFFFF]"
                 onClick={() => handleDiscoverModals("priceModal")}
               >
                 Price
@@ -159,7 +159,7 @@ const Discover = () => {
               </button>
 
               <button
-                className="btn discoverFilter"
+                className="btn discoverFilter bg-[#FFFFFF]"
                 onClick={() => handleDiscoverModals("dateModal")}
               >
                 Date
@@ -167,15 +167,15 @@ const Discover = () => {
               </button>
             </div>
             {/* div for search  */}
-            <div className="flex items-center pt-4 lg:pt-0 ">
+            <div className="flex items-center pt-4 lg:pt-0  ">
               <input
                 type="search "
                 name="search"
                 id="search"
-                className="border border-[##7E7E7E] lg:w-[386px] w-full rounded-[10px] p-1.5 pl-10 relative"
+                className="border border-[##7E7E7E] lg:w-[386px] w-full rounded-[10px] pl-10 relative p-3 "
                 placeholder="Search Events"
               />
-              <CiSearch className="absolute  pl-3 items-center" size={30} />
+              <CiSearch className="absolute  pl-3 items-center " size={30} />
             </div>
           </section>
           {/* Section for Discover Card */}

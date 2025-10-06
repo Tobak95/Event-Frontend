@@ -40,14 +40,14 @@ const HowItWorks = () => {
         </div>
 
         {/* Section for How It Works cardS */}
-        <section className="grid gap-[50px] lg:grid-cols-3  ">
+        <section className="grid gap-[20px] lg:gap-[50px] lg:grid-cols-3 px-3 lg:px-0  ">
           {ItWorks.map((Work) => (
             <div
               key={Work._id}
-              className="card bg-[#FFFFFF] rounded-[12px] h-[200px] lg:h-[250px]  border-[0.4px] border-[#C6C6C6] shadow-sm  shadow-[#B5B5B526]"
+              className="card  bg-[#FFFFFF] rounded-[12px] h-[250px] lg:h-[250px]  border-[0.4px] border-[#C6C6C6] shadow-sm  "
             >
-              <div className="w-[349px] h-[138px] card-body flex mx-auto items-center text-center">
-                <h2 className="bg-[#006F6A] text-white h-[32px] w-[32px]  lg:w-[41px] lg:h-[41px] rounded-[80px] items-center text-center  flex justify-center">
+              <div className="lg:h-[138px] card-body flex mx-auto items-center text-center mt-8 lg:mt-7">
+                <h2 className="bg-[#006F6A] text-white h-[32px] w-[32px]  lg:w-[41px] lg:h-[41px] rounded-[80px] items-center text-center text-[16px]  flex justify-center">
                   {Work._id}
                 </h2>
                 <h2 className="card-title font-[500] text-[24px] tracking-[0%] ">
