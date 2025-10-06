@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "../component/layout/NavBar";
 import logo2 from "../assets/logo2.png";
-import icon2 from "../assets/icon2.png";
+import icon2 from "../assets/Icon2.png";
 import { BiSearch } from "react-icons/bi";
 import filter from "../assets/filter.png";
 import subtract1 from "../assets/Subtract1.png";
