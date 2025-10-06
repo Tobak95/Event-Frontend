@@ -79,6 +79,11 @@ const Testimonial = () => {
   };
 
   const getTestimonialPosition = (index) => {
+     // For mobile: only show the current testimonial
+    if (window.innerWidth < 768) {
+      return index === currentIndex ? "center" : "hidden";
+    }
+    
     const position =
       (index - currentIndex + testimonials.length) % testimonials.length;
 
@@ -123,8 +128,8 @@ const Testimonial = () => {
             <ChevronRight size={24} className="text-[#006F6A]" />
           </button>
 
-          {/* Cards */}
-          <div className="flex items-end justify-center w-full h-[400px] relative">
+           {/* Cards */}
+          <div className="flex items-center justify-center w-full h-[400px] md:h-[450px] relative">
             {testimonials.map((testimonial, index) => {
               const position = getTestimonialPosition(index);
 
@@ -138,9 +143,8 @@ const Testimonial = () => {
                       ? "md:-rotate-12 left-0 md:left-1/4 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-60 -translate-y-4"
                       : position === "right"
                       ? "md:rotate-12 right-0 md:right-1/4 transform md:translate-x-25 translate-x-8 opacity-80 scale-60 -translate-y-4"
-                      : "left-1/2 transform -translate-x-1/2 z-10 -translate-y-11 scale-60 shadow-lg"
+                      : "left-1/2 transform -translate-x-1/2 z-10 scale-60 md:-translate-y-11 shadow-lg"
                   }`}
-                  style={{ width: "300px" }}
                 >
                   <div
                     className="border border-gray-200 rounded-3xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
