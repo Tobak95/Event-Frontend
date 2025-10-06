@@ -79,7 +79,6 @@ const Testimonial = () => {
   };
 
   const getTestimonialPosition = (index) => {
-     // For mobile: only show the current testimonial
     if (window.innerWidth < 768) {
       return index === currentIndex ? "center" : "hidden";
     }
