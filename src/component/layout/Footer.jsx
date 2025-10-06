@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const quickLinks = [
     { link: "Home", to: "/" },
-    { link: "Events", to: "/events" },
-    { link: "How It Works", to: "#" },
+    { link: "Events", to: "/discover" },
+    { link: "How It Works", to: "#howitworks" },
     { link: "About Us", to: "/about-us" },
     { link: "Contact", to: "/contact-us" },
   ];
@@ -61,19 +61,25 @@ const Footer = () => {
             Quick Links
           </h2>
           <div className="flex flex-col gap-1 items-center md:items-start">
-            {quickLinks.map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className={`text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block  ${
-                  item.link === "Events" || item.link === "How It Works"
-                    ? "cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                {item.link}
-              </Link>
-            ))}
+            {quickLinks.map((item, index) =>
+              item.link === "How It Works" ? (
+                <span
+                  key={index}
+                  className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block cursor-not-allowed opacity-60"
+                >
+                  {item.link}
+                </span>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.to}
+                  className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block hover:text-gray-300"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  {item.link}
+                </Link>
+              )
+            )}
           </div>
         </div>
         <div>

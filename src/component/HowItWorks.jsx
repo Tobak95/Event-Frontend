@@ -23,7 +23,7 @@ const ItWorks = [
 
 const HowItWorks = () => {
   return (
-    <main className="bg-[#FFFFFF] mt-10 lg:mt-20 " id="howitworks">
+    <main className="bg-[#FFFFFF] mt-10 lg:mt-20 ">
       <article className="layout flex flex-col gap-[47px] ">
         {/* Header section */}
 

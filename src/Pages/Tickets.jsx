@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "../component/layout/NavBar";
 import logo2 from "../assets/logo2.png";
+import icon2 from "../assets/icon2.png";
 import { BiSearch } from "react-icons/bi";
 import filter from "../assets/filter.png";
 import subtract1 from "../assets/Subtract1.png";
@@ -82,6 +83,7 @@ const Tickets = () => {
         logoSrc={logo2}
         textColor="text-[#1b1b1b]"
         menuColor="black"
+        iconLogo={icon2}
       />
       <div className="flex items-center justify-between mt-35">
         <h1 className="text-[#000000] text-[23.44px] md:text-[48px] font-[700]">
@@ -153,14 +155,18 @@ const Tickets = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center md:flex-row flex-wrap gap-8 mt-[40px]">
+      <div className="flex flex-col items-center lg:grid lg:grid-cols-2 gap-8 mt-[40px]">
         {filteredTickets.length > 0 ? (
           filteredTickets.map((ticket, index) => (
             <div
               key={index}
-              className="flex flex-col md:flex-row-reverse md:justify-between gap-5 w-[335px] h-[410px] rounded-[19.49px] bg-[#FFFFFF] border-t-0 border-r-[0.77px] border-b-[4.8px] border-l-[0.77px] border-solid border-[#96C4C2] md:w-[670px] md:h-[248.52px] md:p-[12.83px] p-[20px]"
+              className="flex flex-col md:flex-row-reverse md:justify-between gap-5 w-[335px] h-[410px] rounded-[19.49px] bg-[#FFFFFF] border-t-0 border-r-[0.77px] border-b-[4.8px] border-l-[0.77px] border-solid border-[#96C4C2] md:w-[600px] md:h-[248.52px] md:p-[12.83px] p-[20px]"
             >
-              <img src={ticket.img} alt="" />
+              <img
+                src={ticket.img}
+                alt=""
+                className="lg:w-[271.94px] w-[285px]"
+              />
               <div>
                 <div className="flex flex-col gap-2">
                   <h1 className="font-[700] md:text-[24px] text-[21.75px] w-[300px] md:w-[250px] text-[#000000]">
