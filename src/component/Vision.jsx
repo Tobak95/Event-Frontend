@@ -14,7 +14,7 @@ const Vision = () => {
             <h1 className="text-[rgba(74,74,74,1)]  text-[24px] lg:text-4xl">
               Your Vision. Our expertise. Extraordinary events
             </h1>
-            <h1 className="text-[rgba(237,186,55,1)] text-xl lg:text-4xl">
+            <h1 className="text-[rgba(237,186,55,1)] text-xl lg:text-4xl mt-2">
               Dominate the scene
             </h1>
           </div>

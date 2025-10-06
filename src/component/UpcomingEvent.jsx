@@ -10,17 +10,17 @@ const UpcomingEvent = () => {
   const { isLoading, events, isSubmitting } = useEventContext();
 
   return (
-    <div className="layout mt-10 lg:mt-20">
+    <div className="layout mt-5 lg:mt-20">
       <div className="lg:max-w-[422px] mx-auto">
-        <h1 className="font-bold text-[35px] lg:text-[48px] text-center">
+        <h1 className="font-bold text-[23px] lg:text-[48px] text-center">
           Upcoming Events
         </h1>
-        <p className="lg:text-[20px] text-center">
+        <p className="lg:text-[20px] text-center text-[#777777]">
           Stay ahead with what’s happening next
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-between gap-[27.5px] mt-10">
+      <div className="flex flex-wrap justify-between gap-[27.5px] mt-5 lg:mt-10">
         {events.map((event, index) => {
           return (
             <div
@@ -33,8 +33,8 @@ const UpcomingEvent = () => {
                 className="object-cover h-[236px] w-full rounded-tl-[25.44px] rounded-tr-[25.44px] rounded-bl-[6.69px] rounded-br-[6.69px] "
               />
 
-              <div className=" lg:px-2 py-4 lg:pl-9">
-                <div className="w-full lg:w-[355px] px-5 lg:px-0">
+              <div className=" lg:px-2 py-4 lg:pl-7">
+                <div className="w-full lg:w-[385px] px-5 lg:px-0">
                   <h1 className="text-[24px] font-[700]">{event.title}</h1>
                   <div className="flex items-center text-[#777777] font-[400] gap-2 mt-2">
                     <GrLocation size={22} />
@@ -60,11 +60,13 @@ const UpcomingEvent = () => {
                       </p>
                     </div>
                   </div>
-                  <div className=" lg:px-1 flex justify-between items-center font-[700] mt-8">
+
+
+                  <div className="w-full lg:px-1 flex justify-between items-center font-[700] mt-8">
                     <h6 className="text-[20px]">${event.price}</h6>
                     <button
-                      className="px-1 lg:w-[123px] h-[54px] rounded-[13px] 
-                    border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer "
+                      className="px-3 lg:px-1 lg:w-[123px] h-[54px] rounded-[13px] 
+                    border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer"
                     >
                       Get Tickets
                     </button>

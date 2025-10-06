@@ -29,28 +29,35 @@ const Card = ({ h2, location, time, time2, date, price, img }) => {
     <div className="">
       <div className="flex flex-col-reverse lg:flex-row rounded-2xl overflow-hidden bg-white border border-[#6BABA9] border-b-[6.27px]">
         <div className="flex flex-col justify-between p-4 flex-1 w-full lg:w-[50%]">
+
           <div>
+            <div>
+              
             <h2 className="text-xl font-bold text-[#000000]">{h2}</h2>
+           
+            </div>
             {/* <p className="text-lg font-bold text-[#000000]">{pTag1}</p> */}
 
-            <div className="mt-3 text-sm text-gray-600 space-y-1">
-              <p className="flex items-center gap-1">
+            <div className="mt-3 text-sm text-gray-600 space-y-3">
+              <p className="flex items-center gap-1 mt-">
                 <CiLocationOn /> {location}
               </p>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center gap-8">
                 <p className="flex items-center gap-1">
-                  <LuCalendarDays />
-                  {date}
+                  <LuCalendarDays size={15} />
+                  <div className="mt-1">{date}</div>
                 </p>
                 <p className="flex items-center gap-1">
                   <LuClock4 />
-                  {time}-{time2}
+                  <div className="mt-1">
+                    {time}-{time2}
+                  </div>
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center justify-between lg:justify-start lg:gap-20  mt-4">
             <span className="text-2xl font-bold">${price}</span>
 
             <Link to={"/tickets"}>
