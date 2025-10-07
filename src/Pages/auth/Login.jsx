@@ -53,10 +53,10 @@ const Login = () => {
   };
 
   return (
-    <main className="">
+    <main className="h-">
       <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
         {/* Section for form  */}
-        <section className="flex justify-center items-center">
+        <section className="flex justify-center items-center h-screen">
           <div className=" lg:p-10 w-fit lg:w-[527px]  rounded-lg bg-white">
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
