@@ -1,5 +1,5 @@
 import React from "react";
-import  Card  from "../Pages/Discover";
+import Card from "../component/DiscoverCard";
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
 import img3 from "../assets/img3.jpg";
@@ -25,7 +25,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 12:00PM",
       date: "Sept 25, 2025",
       img: img1,
-      price: "$90.00",
+      price: "90.00",
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 11:00PM",
       date: "Nov 5, 2025",
       img: img2,
-      price: "$135.00",
+      price: "135.00",
     },
     {
       id: 3,
@@ -45,7 +45,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 11:00PM",
       date: "Nov 5, 2025",
       img: img3,
-      price: "$50.00",
+      price: "50.00",
     },
   ];
   return (
@@ -121,7 +121,7 @@ function EventDetailsAbout({
       </div>
       <Map />
 
-      <div className="divider hidden lg:block" />
+      {/* <div className="divider hidden lg:block" /> */}
 
       <OtherEvents />
     </div>

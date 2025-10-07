@@ -41,7 +41,7 @@ Venue: Eko Atlantic City (Lagos, Nigeria)`}
         price={"$90.00"}
         time={"Sept 25 - 9:00PM WAT"}
         title1={"About this event"}
-        title2={"Perks of the Night"}
+        title2={"Key Highlights"}
       />
 
       <Footer />

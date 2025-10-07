@@ -9,9 +9,15 @@ const DiscoverFooter = () => {
     >
       {/* Discover Events section */}
       <div className="relative mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10 overflow-hidden ">
+
+        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="relative z-10 lg:my-10 text-center space-y-8 max-w-3xl mx-auto">
+          <div className="">
+
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 my-10 text-center space-y-8 max-w-3xl mx-auto">
           <div className="w-[303.87px] lg:w-[0]">
+
             <div className="lg:w-[723px]">
               <h1 className="text-[20px] lg:text-[48px] font-[700] text-white leading-tight">
                 Discover Events That Match Your World

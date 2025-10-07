@@ -27,22 +27,19 @@ const Card = ({ h2, location, time, time2, date, price, img }) => {
 
   return (
     <div className="">
-      <div className="flex flex-col-reverse lg:flex-row rounded-2xl overflow-hidden bg-white border border-[#6BABA9] border-b-[6.27px]">
+      <div className="flex flex-col-reverse lg:w-[600px] lg:h-[235px] lg:flex-row rounded-2xl overflow-hidden bg-white border border-[#6BABA9] border-b-[6.27px]">
         <div className="flex flex-col justify-between p-4 flex-1 w-full lg:w-[50%]">
-
           <div>
             <div>
-              
-            <h2 className="text-xl font-bold text-[#000000]">{h2}</h2>
-           
+              <h2 className="text-xl font-bold text-[#000000]">{h2}</h2>
             </div>
             {/* <p className="text-lg font-bold text-[#000000]">{pTag1}</p> */}
 
             <div className="mt-3 text-sm text-gray-600 space-y-3">
-              <p className="flex items-center gap-1 mt-">
+              <p className="flex items-center gap-1 mt-1">
                 <CiLocationOn /> {location}
               </p>
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-5">
                 <p className="flex items-center gap-1">
                   <LuCalendarDays size={15} />
                   <div className="mt-1">{date}</div>
@@ -57,11 +54,11 @@ const Card = ({ h2, location, time, time2, date, price, img }) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between lg:justify-start lg:gap-20  mt-4">
+          <div className="flex items-center justify-between lg:justify-start lg:gap-25  mt-4">
             <span className="text-2xl font-bold">${price}</span>
 
             <Link to={"/tickets"}>
-              <button className="px-4 py-2 rounded-lg border border-[#6E706B] cursor-pointer text-[#006F6A] font-bold">
+              <button className="w-[92px] h-[42px] rounded-[10px] px-[2px] border border-[#6E706B] cursor-pointer text-[#006F6A] font-[700] text-[14px]">
                 Get Tickets
               </button>
             </Link>
