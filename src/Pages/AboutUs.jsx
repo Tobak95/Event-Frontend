@@ -11,7 +11,7 @@ const AboutUs = () => {
   return (
     <div className="">
       {/* ✅ Added padding-top to offset fixed navbar */}
-      <div className=" relative about-bg  lg:h-[557px]  pt-[100px]">
+      <div className=" relative about-bg  lg:h-[705px]  pt-[100px]">
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="flex items-center justify-center relative z-10">
           <div className="my-10 text-center  max-w-3xl mx-auto w-[648px]">
