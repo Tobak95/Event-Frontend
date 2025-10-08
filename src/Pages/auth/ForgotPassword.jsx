@@ -46,16 +46,16 @@ const ForgotPassword = () => {
   return (
     <main className="layout">
       <div className="flex flex-col">
-        <div className="">
+        <Link className="" to="/">
           <img src={logo2} alt="..." className="" />
-        </div>
+        </Link>
 
         <article className="lg:min-h-screen flex items-center justify-center  ">
           <div className="">
             <div className="bg-white p-5 rounded-lg  w-full lg:max-w-[610px] h-[457px] ">
               <div className="lg:w-[442px]">
                 <h1 className="text-[38px] font-[700]  mt-10">
-                  Forgot password?
+                  Forgot password
                 </h1>
                 <p className="text-[#000000] text-[16px] font-[500] ">
                   Enter your email address to reset password

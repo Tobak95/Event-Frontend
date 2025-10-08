@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../../assets/logo.png";
+import logo2 from "../../assets/logo2.png";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import icon from "../../assets/Icon.png";
@@ -7,6 +8,7 @@ import icon2 from "../../assets/Icon2.png";
 import drop from "../../assets/dropdown.png";
 import drop2 from "../../assets/dropdown2.png";
 import { useAppContext } from "../../Hooks/useAppContext";
+import SearchBox from "../SearchBox";
 
 const NavBar = ({
   logoSrc = logo,
@@ -16,29 +18,44 @@ const NavBar = ({
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const { user, logout } = useAppContext();
   const dropdownRef = useRef(null);
-
   const location = useLocation();
   const redirect = useNavigate();
 
-  let usernameColor = "text-[#ffffff]";
-  let iconLogo = icon;
+  // Change colors when search mode active
+  const isSearchMode = showSearch;
+
+  // let usernameColor = isSearchMode ? "text-black" : "text-[#ffffff]";
+  // let iconLogo = isSearchMode ? icon2 : icon;
+  // let dropDown = isSearchMode ? drop2 : drop;
+
+  // Determine page context (e.g., Tickets)
+  const isTicketsPage = location.pathname === "/tickets";
+
+  let usernameColor =
+    isTicketsPage || isSearchMode ? "text-black" : "text-[#ffffff]";
+  let iconLogo = icon; // default
   let dropDown = drop;
 
-  if (location.pathname === "/tickets") {
-    usernameColor = "text-[#1b1b1b]";
-    iconLogo = icon2;
+  if (isTicketsPage) {
+    iconLogo = icon2; // use icon2 for tickets
+    dropDown = drop2;
+  }
+  if (isSearchMode) {
+    iconLogo = icon2; // keep black icon in search mode
     dropDown = drop2;
   }
 
+  // Handle logout
   const handleLogout = () => {
     logout();
     setDropdown(false);
-    redirect("/");
+    redirect("/login");
   };
 
-  ///scrolling
+  // Detect scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -52,40 +69,43 @@ const NavBar = ({
         setDropdown(false);
       }
     }
-    if (dropdown) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdown]);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="relative">
-      {/*  Fixed navbar */}
+    <>
+      {showSearch && <div className="fixed inset-0 bg-white z-20"></div>}
+
       <div
-        className={`fixed top-0 left-0 w-full z-30 backdrop-blur-md transition-colors duration-300 
+        className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 
         ${
-          isScrolled ?
-            "bg-black/20 backdrop-blur-md shadow-md" : "bg-transparent backdrop-blur-md"
+          isSearchMode
+            ? "bg-white"
+            : isScrolled
+            ? "bg-transparent backdrop-blur-md shadow-md"
+            : "bg-transparent backdrop-blur-sm"
         }`}
       >
-        <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8">
+        <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8 relative z-40">
           <NavLink to="/">
-            <img src={logoSrc} alt="Logo" className="w-[120px] md:w-[150px]" />
+            <img
+              src={`${isSearchMode ? logo2 : logoSrc}`}
+              alt="Logo"
+              className="w-[120px] md:w-[150px]"
+            />
           </NavLink>
 
-          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-15">
             <div className="flex items-center gap-10">
               <NavLink
                 to="/discover"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
+                  `font-[400] text-[16px] ${
+                    isSearchMode ? "text-black" : textColor
+                  } ${isActive ? "font-[700] underline" : ""}`
                 }
               >
                 Discover Events
@@ -93,9 +113,9 @@ const NavBar = ({
               <NavLink
                 to="/about-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
+                  `font-[400] text-[16px] ${
+                    isSearchMode ? "text-black" : textColor
+                  } ${isActive ? "font-[700] underline" : ""}`
                 }
               >
                 About Us
@@ -103,20 +123,25 @@ const NavBar = ({
               <NavLink
                 to="/contact-us"
                 className={({ isActive }) =>
-                  `font-[400] text-[16px] ${textColor} ${
-                    isActive ? "font-[700] underline" : ""
-                  }`
+                  `font-[400] text-[16px] ${
+                    isSearchMode ? "text-black" : textColor
+                  } ${isActive ? "font-[700] underline" : ""}`
                 }
               >
                 Contact
               </NavLink>
             </div>
 
-            {/* User Section */}
             <div className="flex items-center gap-4">
-              <Link to={"/tickets"}>
-                <img src={iconLogo} alt="" />
+              <Link>
+                <img
+                  src={iconLogo}
+                  alt="search"
+                  className="cursor-pointer"
+                  onClick={() => setShowSearch((prev) => !prev)}
+                />
               </Link>
+
               {!user ? (
                 <div className="flex items-center gap-4">
                   <NavLink
@@ -134,7 +159,6 @@ const NavBar = ({
                 </div>
               ) : (
                 <div ref={dropdownRef} className="relative">
-                  {/*  Toggle dropdown */}
                   <div
                     onClick={() => setDropdown((prev) => !prev)}
                     className="flex items-center gap-1 cursor-pointer"
@@ -153,7 +177,6 @@ const NavBar = ({
                     </div>
                   </div>
 
-                  {/*  Dropdown Menu */}
                   {dropdown && (
                     <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-[12px] w-[160px] py-2">
                       <NavLink
@@ -183,21 +206,19 @@ const NavBar = ({
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
+
           <div className="flex gap-5 md:hidden">
-            <Link to={"/tickets"}>
-              <img src={iconLogo} alt="" className="block" />
-            </Link>
+            <img src={iconLogo} alt="" className="block" />
             <button onClick={toggleMenu} className="md:hidden text-2xl">
               {isOpen ? (
-                <FaTimes color={menuColor} />
+                <FaTimes color={isSearchMode ? "black" : menuColor} />
               ) : (
-                <FaBars color={menuColor} />
+                <FaBars color={isSearchMode ? "black" : menuColor} />
               )}
             </button>
           </div>
         </nav>
-        {/*  Mobile Dropdown Menu (renders when isOpen = true) */}
         {isOpen && (
           <div className="md:hidden absolute top-[100px] left-0 w-full bg-black/100 backdrop-blur-md z-20 p-6 flex flex-col gap-6">
             {/* Page Links */}
@@ -250,7 +271,6 @@ const NavBar = ({
                   <span>{dropdown ? "▲" : "▼"}</span>
                 </button>
 
-                {/* ✅ Mobile Dropdown (only when dropdown = true) */}
                 {dropdown && (
                   <div className="absolute right-0 mt-3 bg-white rounded-lg shadow-lg flex flex-col w-[160px] z-40">
                     <NavLink
@@ -291,7 +311,12 @@ const NavBar = ({
           </div>
         )}
       </div>
-    </div>
+
+      {/* ✅ Search Box */}
+      {showSearch && (
+        <SearchBox open={showSearch} onClose={() => setShowSearch(false)} />
+      )}
+    </>
   );
 };
 
