@@ -73,6 +73,15 @@ const NavBar = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // useEffect(() => {
+  //   if (isScrolled) {
+  //     const timer = setTimeout(() => {
+  //       // Function to activate after scroll and delay
+  //     }, 10000); // 1 second after scroll
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isScrolled]);
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -80,12 +89,12 @@ const NavBar = ({
       {showSearch && <div className="fixed inset-0 bg-white z-20"></div>}
 
       <div
-        className={`fixed top-0 left-0 w-full z-30 transition-colors duration-300 
+        className={`fixed top-0 left-0 w-full z-30 transition-colors duration-900 
         ${
           isSearchMode
             ? "bg-white"
             : isScrolled
-            ? "bg-transparent backdrop-blur-md shadow-md"
+            ? "bg-black backdrop-blur-md shadow-md"
             : "bg-transparent backdrop-blur-sm"
         }`}
       >

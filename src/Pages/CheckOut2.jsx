@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import BrandLogo from "../assets/logo2.png";
+import { Link } from "react-router-dom";
 
 const CheckOut2 = () => {
   const [formData, setFormData] = useState({
@@ -71,9 +72,12 @@ const CheckOut2 = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
       {/* HEADER */}
-      <div className="flex items-center gap-3 mb-6">
-        <img src={BrandLogo} alt="Logo" className="h-8" />
-      </div>
+
+      <Link to={"/"}>
+        <div className="flex items-center gap-3 mb-6">
+          <img src={BrandLogo} alt="Logo" className="h-8" />
+        </div>
+      </Link>
 
       <div className="flex items-center gap-2 mb-4">
         <FaArrowLeft className="text-gray-600 cursor-pointer" />
