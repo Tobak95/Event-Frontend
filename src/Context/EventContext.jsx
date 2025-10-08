@@ -48,7 +48,7 @@ const EventProvider = ({ children }) => {
 
   useEffect(() => {
     fetchDiscover();
-  }, []);
+  }, [discover]);
 
   return (
     <EventContext.Provider

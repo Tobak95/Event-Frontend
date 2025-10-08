@@ -12,6 +12,7 @@ import { useAppContext } from "../../Hooks/useAppContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
+import partySpray from "../../assets/partySpray.jpg";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -52,10 +53,10 @@ const Login = () => {
   };
 
   return (
-    <main className="">
+    <main className="h-">
       <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
         {/* Section for form  */}
-        <section className="flex justify-center items-center">
+        <section className="flex justify-center items-center h-screen">
           <div className=" lg:p-10 w-fit lg:w-[527px]  rounded-lg bg-white">
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
@@ -197,8 +198,12 @@ const Login = () => {
 
         {/* section for background */}
         <section>
-          <div className="hidden lg:block">
-            <AuthWrapper />
+          <div className="h-full hidden lg:block rounded-[10px]">
+            <img
+              src={partySpray}
+              alt="AuthWrapper"
+              className="object-cover rounded-[10px] h-[100%] w-[100%]"
+            />
           </div>
         </section>
       </article>
