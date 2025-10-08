@@ -24,8 +24,6 @@ const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
 
-
-
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
@@ -50,7 +48,6 @@ const Layout = ({ children }) => {
     </>
   );
 };
-
 
 function App() {
   return (
@@ -98,7 +95,6 @@ function App() {
             element={<VerificationFromEmail />}
           />
           <Route path="/eventDetails" element={<EventDetails />} />
-          <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
@@ -112,6 +108,7 @@ function App() {
           <Route path="/eventDetails" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/checkout1" element={<CheckoutOne />} />
+          <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         </Routes>
       </Suspense>

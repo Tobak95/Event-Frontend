@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import BrandLogo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
+import { AiTwotoneExclamationCircle } from "react-icons/ai";
 
 const CheckOut2 = () => {
   const [formData, setFormData] = useState({
@@ -70,28 +71,28 @@ const CheckOut2 = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6">
-      {/* HEADER */}
-
+    <div className="max-w-6xl mx-auto px-4 py-6 ">
       <Link to={"/"}>
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-12">
           <img src={BrandLogo} alt="Logo" className="h-8" />
         </div>
       </Link>
 
-      <div className="flex items-center gap-2 mb-4">
-        <FaArrowLeft className="text-gray-600 cursor-pointer" />
-        <h2 className="text-2xl font-semibold">Contact Information</h2>
+      <div className="flex items-center gap-2 mb-4 lg:w-[503px] w-[303px] text-[#1B1B1B]">
+        <FaArrowLeft className=" text-[20px] lg:text-[30px] cursor-pointer" />
+        <h2 className="text-[20px] lg:text-[35px] font-[700]">
+          Contact Information
+        </h2>
       </div>
 
-      {/* TIMER BANNER */}
-      <div className="bg-[#E6F1F0] rounded-lg text-center text-sm text-[#4A4A4A] p-3 mb-6">
-        We have reserved your tickets. Please complete checkout within{" "}
-        <span className="font-bold text-[#006F6A]">{formatTime(timer)}</span> to
-        secure your tickets.
+      <div className="bg-[#E6F1F0] rounded-[10px] text-center text-[12px] lg:text-[24px] text-[#4A4A4A]  mb-6 w-full lg:h-[65px] h-[60px] p-3 flex items-center justify-center font-medium">
+        <p>
+          We have reserved your tickets. Please complete checkout within{" "}
+          <span className="font-bold text-[#006F6A]">{formatTime(timer)}</span>{" "}
+          to secure your tickets
+        </p>
       </div>
 
-      {/* MAIN FORM LAYOUT */}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col md:flex-row md:gap-46 justify-between"
@@ -99,26 +100,46 @@ const CheckOut2 = () => {
         {/* LEFT SIDE */}
         <div className="space-y-4 w-full md:w-[60%]">
           {[
-            { label: "First name", name: "firstName", type: "text" },
-            { label: "Last name", name: "lastName", type: "text" },
-            { label: "Email address", name: "email", type: "email" },
+            {
+              label: "First name",
+              name: "firstName",
+              type: "text",
+              placeholder: "Adesina ",
+            },
+            {
+              label: "Last name",
+              name: "lastName",
+              type: "text",
+              placeholder: "Rabiu",
+            },
+            {
+              label: "Email address",
+              name: "email",
+              type: "email",
+              placeholder: "Adesinarabiu@gmail.com",
+            },
             {
               label: "Confirm email address",
               name: "confirmEmail",
               type: "email",
+              placeholder: "Confirm email address",
             },
           ].map((field) => (
             <div className="mb-4" key={field.name}>
-              <label className="block font-medium text-sm">
-                <span className="text-green-700">*</span> {field.label}
+              <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px] ">
+                <span className="text-[#006F6A] text-[12px] lg:text-[24px] font-medium">
+                  *
+                </span>{" "}
+                {field.label}
               </label>
               <input
                 name={field.name}
                 type={field.type}
                 value={formData[field.name]}
                 onChange={handleChange}
+                placeholder={field.placeholder}
                 required
-                className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                className="w-full lg:w-[507px] h-[56px] border-[0.5px] border-[#969595] outline-0 rounded-[2.44px] lg:rounded-[6px] p-[10px] text-[12px] lg:text-[16px] placeholder:text-[#928A83] placeholder:font-[400]"
               />
               {errors[field.name] && (
                 <p className="text-sm text-red-600 mt-1">
@@ -130,15 +151,18 @@ const CheckOut2 = () => {
 
           {/* Phone */}
           <div className="mb-4">
-            <label className="block font-medium text-sm">
-              <span className="text-green-700">*</span> Phone number
+            <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
+              <span className="text-[#006F6A] text-[12px] lg:text-[24px] font-medium">
+                *
+              </span>{" "}
+              Phone number
             </label>
-            <div className="flex gap-2 mt-1">
+            <div className="flex gap-[17px] mt-1">
               <select
                 name="countryCode"
                 value={formData.countryCode}
                 onChange={handleChange}
-                className="border border-gray-300 rounded px-3 py-2 text-sm"
+                className="border-[0.5px] border-[#969595] rounded=[2.44px] rounded-[6px] w-[58px] lg:w-[93px] p-[10px] text-[#1B1B1B] text-[12px] lg:text-[16px] font-[700]"
               >
                 <option value="+234">+234</option>
                 <option value="+1">+1</option>
@@ -150,7 +174,8 @@ const CheckOut2 = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                className=" p-[10px] text-[12px] lg:text-[16px]  w-[397px] h-[56px] border-[0.5px] border-[#969595] rounded=[2.44px] rounded-[6px] placeholder:text-[#777777] placeholder:font-[400] outline-0"
+                placeholder="7088305667"
               />
             </div>
             {errors.phone && (
@@ -160,14 +185,15 @@ const CheckOut2 = () => {
 
           {/* Radio Buttons */}
           <div className="mb-4">
-            <p className="font-medium text-sm mb-2">
+            <p className="lg:font-medium font-[700] text-[12px] lg:text-[18px] text-[#4A4A4A] mb-6  lg:mb-4">
               Send ticket to different email addresses?
             </p>
-            <p className="text-xs text-gray-500 mb-2">
+            <p className="text-[11px] lg:text-[14px] text-[#1B1B1B] font-[400] mb-4 flex items-center gap-3">
+              <AiTwotoneExclamationCircle className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]" />{" "}
               Tickets will only be sent to the email address you provide here
             </p>
             <div className="flex gap-4">
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-2 text-[#4A4A4A] lg:text-[16px] text-[12px] ">
                 <input
                   type="radio"
                   name="sendToDifferentEmail"
@@ -178,10 +204,11 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: true,
                     }))
                   }
+                  className="border border-[#777777] w-[14px] h-[14px] lg:w-[32px] lg:h-[32px]"
                 />
                 Yes
               </label>
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-2 text-[#4A4A4A] lg:text-[16px] text-[12px]">
                 <input
                   type="radio"
                   name="sendToDifferentEmail"
@@ -192,6 +219,7 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: false,
                     }))
                   }
+                  className="border border-[#777777] w-[14px] h-[14px] lg:w-[30px] lg:h-[30px]"
                 />
                 No
               </label>
@@ -200,7 +228,7 @@ const CheckOut2 = () => {
 
           {formData.sendToDifferentEmail && (
             <div className="mb-4">
-              <label className="block font-medium text-sm">
+              <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
                 Other Email Address
               </label>
               <input
@@ -208,31 +236,31 @@ const CheckOut2 = () => {
                 name="otherEmail"
                 value={formData.otherEmail}
                 onChange={handleChange}
-                className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                className="w-full lg:w-[507px] h-[56px] border-[0.5px] border-[#969595] outline-0 rounded-[2.44px] lg:rounded-[6px] p-[10px] text-[12px] lg:text-[16px] placeholder:text-[#928A83] placeholder:font-[400]"
               />
             </div>
           )}
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="w-full md:w-[40%]">
-          <div className="bg-[#FFFFFF] rounded-lg shadow-lg p-6 sticky top-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">
+        <div className="w-full md:w-[357px] h-[500px]  border border-[#E9E9E9] bg-[#FFFFFF] rounded-[9.24px] lg:rounded-[10px] p-[13.86px] lg:p-[15px]  shadow-sm">
+          <div className="sticky top-6">
+            <h3 className="text-[21.06px] lg:text-[22.79px] font-[700] text-[#191919] mb-6 text-center">
               RAVEOLUTION
             </h3>
 
-            <div className="space-y-3 mb-4">
+            <div className="space-y-7 mb-8">
               {ticketTypes.map(
                 (ticket) =>
                   (ticketQuantities[ticket.id] || 0) > 0 && (
                     <div
                       key={ticket.id}
-                      className="flex justify-between text-sm"
+                      className="flex justify-between text-[#4A4A4A]"
                     >
-                      <span className="text-gray-600">
+                      <span className="text-[16px] font-medium">
                         {ticketQuantities[ticket.id] || 0}x {ticket.name}
                       </span>
-                      <span className="font-medium text-[#4A4A4A] text-[14px] ">
+                      <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
                         $
                         {(
                           (ticketQuantities[ticket.id] || 0) * ticket.price
@@ -246,16 +274,16 @@ const CheckOut2 = () => {
                 ticketQuantities.vip > 0 ||
                 ticketQuantities.vvip > 0) && (
                 <>
-                  <div className="flex justify-between text-sm pt-5 border-t border-gray-200">
-                    <span className="text-[#4A4A4A]">Fee</span>
-                    <span className="font-medium text-[#4A4A4A] text-[14px]">
+                  <div className="flex justify-between  pt-5 border-t border-[#E9E9E9]">
+                    <span className="text-[16px] font-medium">Fee</span>
+                    <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
                       $1,000
                     </span>
                   </div>
 
                   <div className="flex justify-between text-sm pt-5 ">
-                    <span className="text-[#4A4A4A]">Subtotal</span>
-                    <span className="font-medium text-[#4A4A4A] text-[14px]">
+                    <span className="text-[16px] font-medium">Subtotal</span>
+                    <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
                       $1,000
                     </span>
                   </div>
@@ -264,18 +292,22 @@ const CheckOut2 = () => {
             </div>
 
             <div className="border-t border-gray-200 pt-4 mb-6">
-              <div className="mb-4">
-                <p className="text-[14px] border border-gray-300 p-3 rounded-lg text-gray-600 text-center">
+              <div className="mb-6">
+                <p className="text-[12.94px] w-full lg:w-[307px] border border-[#E9E9E9] p-3 rounded-[10px] text-[#777777] text-center font-[400]">
                   Discount codes are now added at payment step
                 </p>
               </div>
-              <div className="flex justify-between items-center font-bold">
-                <span className="text-[#4A4A4A] text-[17px]">TOTAL</span>
-                <span className="text-[#4A4A4A] text-[17px]">$12,000</span>
+              <div className="flex justify-between items-center">
+                <span className="text-[#4A4A4A] text-[16px] font-[700]">
+                  TOTAL
+                </span>
+                <span className="text-[#4A4A4A] text-[17px] font-[700]">
+                  $12,000
+                </span>
               </div>
             </div>
 
-            <button className="w-full bg-[#006F6A] text-white py-3 px-4 rounded-md font-semibold">
+            <button className="w-full h-[72px] lg:h-[48px] bg-[#006F6A] text-[20px] font-[700] rounded-[7.39px]  lg:rounded-[8px] text-[#FFFFFF]">
               Pay Now
             </button>
           </div>
