@@ -7,23 +7,21 @@ function HeroSectionCard({ backgroundImage, h2, p }) {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "bottom",
         backgroundColor: "#00000073",
-        height: "557px",
       }}
-      className="relative"
+      className="relative h-[400px] lg:h-[705px]  "
     >
-      <Nav />
-      <div className="absolute inset-0 bg-[#00000073]" />
+      <div className="absolute inset-0 bg-black/50" />
       <div
         className={`flex flex-col items-center justify-center 
           h-[557px]
-         px-4 relative z-10 max-w-[1440px] mx-auto gap-[25px]`}
+         px-4 relative z-10 w-full lg:max-w-[1440px] mx-auto gap-[15px] lg:gap-[25px]`}
       >
-        <h2 className="text-5xl lg:text-[64px] font-bold text-[#FEFCFB] text-center">
+        <h2 className="text-[24px] lg:text-5xl lg:text-[64px] font-bold text-[#FEFCFB] text-center lg:mt-20">
           {h2}
         </h2>
-        <p className="text-[#F6EEE8] text-base lg:text-[24px] text-center lg:w-[50%] leading-[100%]">
+        <p className="text-[#F6EEE8] text-[13px]  lg:text-[20px] text-center lg:w-[50%] leading-[100%] ">
           {p}
         </p>
       </div>

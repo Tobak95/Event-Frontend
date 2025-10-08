@@ -35,12 +35,14 @@ const Register = () => {
       if (response.status === 201) {
         localStorage.setItem("email", email);
         console.log(response.data);
-        toast.success("Registration Successful, Kindly check your email for verification")
+        toast.success(
+          "Registration Successful, Kindly check your email for verification"
+        );
         redirect("/verify");
       }
     } catch (error) {
       setErrorMsg(error?.response?.data?.message);
-      toast.error("Registration failed, Please try again")
+      toast.error("Registration failed, Please try again");
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -51,10 +53,10 @@ const Register = () => {
     <main className=" ">
       {/* Modal */}
       {/* <SuccessModal /> */}
-      <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
+      <article className="grid p-3 lg:p-0 lg:grid-cols-2 lg:h-screen ">
         {/* Form  */}
         <section className=" flex justify-center items-center ">
-          <div className="lg:p-10 w-fit lg:w-[527px] shadow lg rounded-lg bg-white">
+          <div className="lg:p-10 w-fit lg:w-[527px] rounded-lg bg-white">
             <Link to={"/"}>
               <div className="flex gap-3 items-center mb-10">
                 <img src={Brandlogo} alt="" />
@@ -75,7 +77,7 @@ const Register = () => {
               >
                 <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-[#1B1B1B]">
+                    <label className="block text-[18px] font-medium text-[#000000]">
                       First name
                     </label>
                     <div className="mt-1">
@@ -83,12 +85,12 @@ const Register = () => {
                         id="firstname"
                         type="text"
                         {...register("firstname")}
-                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:text-[#777777] focus:outline-gray-400 ${
                           errors.firstname
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="Enter Name"
+                        placeholder="Martins Jemima"
                       />
                       {errors.firstname && (
                         <p className="mt-1 text-sm text-red-600">
@@ -99,7 +101,7 @@ const Register = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[#1B1B1B]">
+                    <label className="block text-[18px] font-medium text-[#000000]">
                       Last name
                     </label>
                     <div className="mt-1">
@@ -107,10 +109,10 @@ const Register = () => {
                         id="lastname"
                         type="text"
                         {...register("lastname")}
-                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                        className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:text-[#777777] focus:outline-gray-400 ${
                           errors.lastname ? "border-red-500" : "border-gray-300"
                         }`}
-                        placeholder="Enter Name"
+                        placeholder="Martins Jemima"
                       />
                       {errors.lastname && (
                         <p className="mt-1 text-sm text-red-600">
@@ -122,7 +124,7 @@ const Register = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#1B1B1B]">
+                  <label className="block text-[18px] font-medium text-[#000000]">
                     Email address
                   </label>
                   <div className="mt-1">
@@ -130,10 +132,10 @@ const Register = () => {
                       id="email"
                       type="email"
                       {...register("email")}
-                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:text-[#777777] focus:outline-gray-400 ${
                         errors.email ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Enter your Email"
+                      placeholder="Martinsjemima2021@gmail.com"
                     />
                     {errors.email && (
                       <p className="mt-1 text-sm text-red-600">
@@ -143,7 +145,7 @@ const Register = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#1B1B1B]">
+                  <label className="block text-[18px] font-medium text-[#000000]">
                     Phone Number
                   </label>
                   <div className="mt-1">
@@ -151,7 +153,7 @@ const Register = () => {
                       id="phoneNumber"
                       type="text"
                       {...register("phoneNumber")}
-                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:text-[#777777] focus:outline-gray-400 ${
                         errors.phoneNumber
                           ? "border-red-500"
                           : "border-gray-300"
@@ -167,7 +169,7 @@ const Register = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#1B1B1B]">
+                  <label className="block text-[18px] font-medium text-[#000000]">
                     Create Password*
                   </label>
                   <div className="mt-1 relative">
@@ -175,10 +177,10 @@ const Register = () => {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       {...register("password")}
-                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.password ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Enter your password"
+                      placeholder="********"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                       <button
@@ -202,7 +204,7 @@ const Register = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#1B1B1B]">
+                  <label className="block text-[18px] font-medium text-[#000000]">
                     Confirm Password*
                   </label>
                   <div className="mt-1 relative">
@@ -210,12 +212,12 @@ const Register = () => {
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       {...register("confirmPassword")}
-                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 ${
+                      className={`py-2 px-3 pr-10 text-sm block w-full border-2 rounded-md focus:ring-green-500 focus:border-green-500 placeholder:italic focus:outline-gray-400 ${
                         errors.confirmPassword
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Confirm your password"
+                      placeholder="********"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                       <button
@@ -240,13 +242,13 @@ const Register = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start pt-1">
+                <div className="flex items-center  pt-1">
                   <input
                     id="agreeToTerms"
                     type="checkbox"
                     className="h-4 w-4 mt-0.5 cursor-pointer rounded"
                   />
-                  <p className="ml-2 text-xs leading-4">
+                  <p className="ml-2 text-[16px] ">
                     I agree to{" "}
                     <span className="text-[#2B8783]">Terms of Service</span> and{" "}
                     <span className="text-[#2B8783]">Privacy Policies</span>
@@ -266,7 +268,7 @@ const Register = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex justify-center cursor-pointer py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006F6A] disabled:cursor-not-allowed hover:bg-[#005a55] transition-colors"
+                    className="w-full h-[48px] flex justify-center cursor-pointer py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006F6A] disabled:cursor-not-allowed hover:bg-[#005a55] transition-colors"
                   >
                     {isLoading ? (
                       <ClipLoader size={20} color="#FFFFFF" />
@@ -303,11 +305,11 @@ const Register = () => {
 
                 <div className="mt-4">
                   <div className="flex gap-1 items-center justify-center text-center">
-                    <p className="text-sm text-[#1B1B1B]">
+                    <p className="text-[16px] text-[#1B1B1B]">
                       Already have an account?
                     </p>
                     <Link to="/Login">
-                      <button className="text-[#006F6A] hover:text-[#005a55] text-sm font-medium cursor-pointer transition-colors">
+                      <button className="text-[#006F6A] hover:text-[#005a55] text-[16px] font-medium cursor-pointer transition-colors">
                         Login
                       </button>
                     </Link>

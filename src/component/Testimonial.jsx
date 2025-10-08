@@ -90,13 +90,16 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="layout bg-white py-5">
+    <div className="layout bg-white py-5 mt-10 lg:mt-20">
       <div className=" mx-auto container">
         <div className="text-center mb-12">
-          <h2 className="text-[25px] md:text-3xl font-bold text-[#000000] mb-4">
+          <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] ">
             Testimonials
           </h2>
-          <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto">
+          <p
+            style={{ fontFamily: " Helvetica" }}
+            className="text-[16px] text-[#4A4A4A] max-w-2xl mx-auto"
+          >
             Trusted by Event Lovers Everywhere
           </p>
         </div>
@@ -121,7 +124,7 @@ const Testimonial = () => {
           </button>
 
           {/* Cards */}
-          <div className="flex items-end justify-center w-full h-full relative">
+          <div className="flex items-end justify-center w-full h-[400px] relative">
             {testimonials.map((testimonial, index) => {
               const position = getTestimonialPosition(index);
 
@@ -140,14 +143,14 @@ const Testimonial = () => {
                   style={{ width: "300px" }}
                 >
                   <div
-                    className="border border-gray-200 rounded-3xl p-6 h-full flex flex-col bg-[#F6F6F6]"
-                    style={{ minHeight: "340px" }}
+                    className="border border-gray-200 rounded-3xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
+                    style={{ minHeight: "370px" }}
                   >
                     <div className="flex items-center mb-4">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-12 h-12 rounded-full object-cover mr-3"
+                        className="w-20 h-20 rounded-full object-cover mr-3 mt-5"
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900">
@@ -171,11 +174,11 @@ const Testimonial = () => {
                     </div>
 
                     {/* Content */}
-                    <p className="text-gray-700 mb-6 flex-grow">
+                    <p className="text-gray-700 text-[20px] flex-grow">
                       "{testimonial.content}"
                     </p>
 
-                    <hr className="border-gray-200 mb-4" />
+                    <hr className="border-gray-200 " />
 
                     {/* Location */}
                     <div className="flex items-center justify-between">
@@ -203,7 +206,7 @@ const Testimonial = () => {
         </div>
 
         {/*Indicator */}
-        <div className="flex justify-center mt-5 space-x-2">
+        <div className="flex justify-center  space-x-4">
           {testimonials.map((_, index) => (
             <button
               key={index}

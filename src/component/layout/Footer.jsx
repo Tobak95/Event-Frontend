@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const quickLinks = [
     { link: "Home", to: "/" },
-    { link: "Events", to: "/events" },
-    { link: "How It Works", to: "#" },
+    { link: "Events", to: "/discover" },
+    { link: "How It Works", to: "#howitworks" },
     { link: "About Us", to: "/about-us" },
     { link: "Contact", to: "/contact-us" },
   ];
@@ -18,8 +18,14 @@ const Footer = () => {
   const support = ["FAQs", "Help Center", "Terms of Service", "Privacy Policy"];
 
   return (
-    <div className="bg-[#006F6A] md:px-[70px] pt-[50px] pb-[20px]">
-      <footer className="layout flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 ">
+    <div
+      style={{ fontFamily: " Helvetica" }}
+      className="bg-[#006F6A]  pt-[50px] pb-[20px]"
+    >
+      <footer
+        style={{ fontFamily: " Helvetica" }}
+        className="layout flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 "
+      >
         <div className="">
           <div className="flex justify-center lg:justify-start">
             <img src={logo} alt="Logo" className="mb-2" />
@@ -55,15 +61,25 @@ const Footer = () => {
             Quick Links
           </h2>
           <div className="flex flex-col gap-1 items-center md:items-start">
-            {quickLinks.map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block"
-              >
-                {item.link}
-              </Link>
-            ))}
+            {quickLinks.map((item, index) =>
+              item.link === "How It Works" ? (
+                <span
+                  key={index}
+                  className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block cursor-not-allowed opacity-60"
+                >
+                  {item.link}
+                </span>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.to}
+                  className="text-[#E6F1F0] font-[400] text-[16px] md:text-[20px] mb-2 block hover:text-gray-300"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  {item.link}
+                </Link>
+              )
+            )}
           </div>
         </div>
         <div>
@@ -93,7 +109,7 @@ const Footer = () => {
         </div>
       </footer>
       <hr className="lg:hidden mt-10 text-[#FFFFFF]" />
-      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] mt-10">
+      <p className="text-center text-[#FFFFFF] font-[400] text-[18px] mt-10 mb-6">
         &copy; 2025 Eventra - All Rights Reserved
       </p>
     </div>

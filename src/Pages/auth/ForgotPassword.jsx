@@ -1,5 +1,5 @@
 import React from "react";
-import AuthWrapper from "../../component/layout/AuthWrapper";
+import logo2 from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -44,75 +44,73 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <main>
-      <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
-        <div className="flex items-center justify-center">
-          <div className="bg-white py-[29px] px-[26px] rounded-lg shadow-lg w-full max-w-[505px] h-[457px] ">
-            <Link to="/login">
-              <button className="flex items-center gap-1.5 mt-4">
-                <FaArrowLeft /> Back
-              </button>
-            </Link>
+    <main className="layout">
+      <div className="flex flex-col">
+        <Link className="" to="/">
+          <img src={logo2} alt="..." className="" />
+        </Link>
 
-            <h1 className="text-[30px] font-[400]  mt-10">
-              Forgot your password?
-            </h1>
-            <p className="text-[#666] text-[16px]  font-normal">
-              We will send instructions to your email to reset your password.
-            </p>
-
-            <form
-              onSubmit={handleSubmit(handleForgotPassword)}
-              className="mt-6"
-            >
-              <label htmlFor="Email" className="label mb-1.5">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                {...register("email")}
-                placeholder="Enter Email"
-                className="input w-full"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
+        <article className="lg:min-h-screen flex items-center justify-center  ">
+          <div className="">
+            <div className="bg-white p-5 rounded-lg  w-full lg:max-w-[610px] h-[457px] ">
+              <div className="lg:w-[442px]">
+                <h1 className="text-[38px] font-[700]  mt-10">
+                  Forgot password
+                </h1>
+                <p className="text-[#000000] text-[16px] font-[500] ">
+                  Enter your email address to reset password
                 </p>
-              )}
-              {errorMessage && (
-                <div className="w-full rounded-xl py-2 my-2.5 px-4 bg-[#FF37370D] border border-[#ff3737] text-[#ff3737] flex items-center gap-3">
-                  <PiWarningCircle size={22} />
-                  <p>{errorMessage}</p>
-                </div>
-              )}
-              <button
-                disabled={IsSubmitting}
-                type="submit"
-                className="h-[48px]  bg-[#3D9970] w-full rounded-[15px] mt-5"
-              >
-                {IsSubmitting ? (
-                  <span className="loading loading-spinner loading-md text-black"></span>
-                ) : (
-                  "Send Mail"
-                )}
-              </button>
-            </form>
-            <p className="text-[#666] text-[16px] font-normal mt-10 flex items-center justify-center">
-              Remember you Password?{" "}
-              <Link to={"/login"}>
-                <span className="text-black font-bold"> Log in</span>
-              </Link>
-            </p>
-          </div>
-        </div>
+              </div>
 
-        <section>
-          <div className="hidden lg:block">
-            <AuthWrapper />
+              <form
+                onSubmit={handleSubmit(handleForgotPassword)}
+                className="mt-6"
+              >
+                <label
+                  htmlFor="Email"
+                  className="label mb-1.5 text-[#000000] font-[500]"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  {...register("email")}
+                  placeholder="Enter Email"
+                  className="input w-full"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+                {errorMessage && (
+                  <div className="w-full rounded-xl py-2 my-2.5 px-4 bg-[#FF37370D] border border-[#ff3737] text-[#ff3737] flex items-center gap-3">
+                    <PiWarningCircle size={22} />
+                    <p>{errorMessage}</p>
+                  </div>
+                )}
+                <button
+                  disabled={IsSubmitting}
+                  type="submit"
+                  className="h-[48px] text-[#FFFFFF]  bg-[#006F6A] w-full rounded-[8px] mt-5"
+                >
+                  {IsSubmitting ? (
+                    <span className="loading loading-spinner loading-md text-white"></span>
+                  ) : (
+                    "Continue"
+                  )}
+                </button>
+              </form>
+              <p className="text-[#000000] text-[16px] font-[400] mt-5 flex items-center justify-center">
+                <Link to={"/login"}>
+                  <span className="text-black font-[400]">Back to Login</span>
+                </Link>
+              </p>
+            </div>
           </div>
-        </section>
-      </article>
+        </article>
+      </div>
     </main>
   );
 };

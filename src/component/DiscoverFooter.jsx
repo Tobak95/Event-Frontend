@@ -1,0 +1,37 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const DiscoverFooter = () => {
+  return (
+    <div
+      style={{ fontFamily: " Helvetica" }}
+      className="layout bg-cover bg-center py-5 mb-10 lg:mb-20 lg:mt-20 "
+    >
+      {/* Discover Events section */}
+      <div className="relative mx-auto container DiscoverImg  rounded-3xl shadow-lg p-10 overflow-hidden ">
+        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="relative z-10 lg:my-10 text-center space-y-8 max-w-3xl mx-auto">
+          <div className="">
+            <div className="lg:w-[723px]">
+              <h1 className="text-[20px] lg:text-[48px] font-[700] text-white leading-tight">
+                Discover Events That Match Your World
+              </h1>
+            </div>
+            <p className="text-[12.77px] md:text-[20px] text-center leading-relaxed mt-1 lg:mt-0 text-[#CCCCCC]">
+              Step into a space where every moment counts. From live concerts
+              and comedy nights to art showcases explore events tailored to your
+              interests.
+            </p>
+          </div>
+          <Link to={"/discover"}>
+            <button className="w-[150px] lg:w-[290px] h-[40px] lg:h-[57px] bg-[#006F6A] hover:bg-[#005a55] text-white  px-8 rounded-[8px] text-[10px] lg:text-[20px] transition-all duration-300 transform hover:scale-105 shadow-md">
+              Discover Events
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DiscoverFooter;

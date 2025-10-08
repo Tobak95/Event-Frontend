@@ -29,24 +29,24 @@ const WhyChooseUs = () => {
   ];
   return (
     <>
-      <main className="bg-[#FFFFFF]">
-        <article className="layout flex flex-col gap-[47px]">
+      <main className="bg-[#FFFFFF] mt-10 lg:mt-[80px]">
+        <article className="layout flex flex-col gap-[25px] lg:gap-[47px] ">
           {/* Header Section */}
-          <section className=" items-center  gap-[1px] flex flex-col mt-10">
-            <h2 className="text-center font-[700] text-[25px] lg:text-[48px] leading-[67px] tracking-[0%]  ">
+          <section className=" items-center  gap-[2px] flex flex-col ">
+            <h2 className="text-center font-[700] text-[25px] lg:text-[48px] leading-[px] tracking-[0%]  ">
               Why Choose Us?
             </h2>
-            <p className="text-center font-[400] text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">
+            <p className="text-center font-[400] text-[18px] lg:text-[20px] leading-[100%] tracking-[0%] text-[#4A4A4A] ">
               The trusted platform for unforgettable experiences
             </p>
           </section>
           {/* Section for Why Choose Us Card */}
-          <section className="grid gap-[50px] lg:grid-cols-3  lg:h-[259px] ">
+          <section className="grid gap-[10px] lg:gap-[50px] lg:grid-cols-3  lg:h-[259px] ">
             {/* First Card */}
             {ChooseUs.map((Choose) => (
               <div
                 key={Choose._id}
-                className="card bg-[#FFFFFF] rounded-[12px]   shadow-sm  shadow-[#B5B5B526]"
+                className="card bg-[#FFFFFF] rounded-[12px]   shadow-[#B5B5B526]"
               >
                 <figure className="px-10 pt-10">
                   <img
@@ -57,16 +57,16 @@ const WhyChooseUs = () => {
                   />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title font-[500] text-[24px] leading-[100%] tracking-[0%] ">
+                  <h2 className="card-title text-[#000000] font-[700] text-[24px] leading-[100%] tracking-[0%] ">
                     {Choose.title}
                   </h2>
-                  <p className=" text-[#4A4A4A] font-[400] text-[16px] leading-[100%] tracking-[0%] ">
+                  <p className=" text-[#4A4A4A] font-[400] text-[16px] tracking-wide ">
                     {Choose.context}
                   </p>
                 </div>
               </div>
             ))}
-            ;
+            
           </section>
         </article>
       </main>

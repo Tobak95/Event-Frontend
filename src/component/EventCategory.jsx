@@ -3,7 +3,7 @@ import { Categories } from "../../data";
 
 const EventCategory = () => {
   return (
-    <div className="layout mt-10">
+    <div  className="layout mt-10 lg:mt-20">
       <div className="text-center">
         <h1 className="text-[25px] lg:text-[48px] font-[700]">
           Event Category
@@ -15,7 +15,12 @@ const EventCategory = () => {
           return (
             <div key={index} className=" flex flex-col items-center gap-5">
               <img src={Category.image} alt="EVent Images" />
-              <h5 className="lg:text-[25px] font-[500]">{Category.eventName}</h5>
+              <h5
+                style={{ fontFamily: " Helvetica" }}
+                className="lg:text-[25px] font-[500]"
+              >
+                {Category.eventName}
+              </h5>
             </div>
           );
         })}
