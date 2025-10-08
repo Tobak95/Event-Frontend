@@ -52,13 +52,6 @@ const Layout = ({ children }) => {
 };
 
 
-            <Route
-              path="/verify-email/:token"
-              element={<VerificationFromEmail />}
-            />
-            <Route path="/eventDetails" element={<EventDetails />} />
-            <Route path="/checkout2" element={<CheckOut2 />} />
-
 function App() {
   return (
     <Router>
@@ -100,6 +93,12 @@ function App() {
           />
 
           {/* Auth & other routes (NO NAVBAR/FOOTER) */}
+          <Route
+            path="/verify-email/:token"
+            element={<VerificationFromEmail />}
+          />
+          <Route path="/eventDetails" element={<EventDetails />} />
+          <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
