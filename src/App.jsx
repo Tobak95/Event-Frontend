@@ -22,6 +22,10 @@ const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
+const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
+
+
+
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
@@ -46,6 +50,14 @@ const Layout = ({ children }) => {
     </>
   );
 };
+
+
+            <Route
+              path="/verify-email/:token"
+              element={<VerificationFromEmail />}
+            />
+            <Route path="/eventDetails" element={<EventDetails />} />
+            <Route path="/checkout2" element={<CheckOut2 />} />
 
 function App() {
   return (
