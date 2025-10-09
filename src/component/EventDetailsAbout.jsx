@@ -1,8 +1,9 @@
 import React from "react";
-import  Card  from "../Pages/Discover";
+import Card from "../component/DiscoverCard";
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
 import img3 from "../assets/img3.jpg";
+import { Link } from "react-router-dom";
 
 const Words = ({ title, paragraph }) => {
   return (
@@ -25,7 +26,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 12:00PM",
       date: "Sept 25, 2025",
       img: img1,
-      price: "$90.00",
+      price: "90.00",
     },
     {
       id: 2,
@@ -35,7 +36,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 11:00PM",
       date: "Nov 5, 2025",
       img: img2,
-      price: "$135.00",
+      price: "135.00",
     },
     {
       id: 3,
@@ -45,7 +46,7 @@ const OtherEvents = () => {
       time: "9:00 PM - 11:00PM",
       date: "Nov 5, 2025",
       img: img3,
-      price: "$50.00",
+      price: "50.00",
     },
   ];
   return (
@@ -114,14 +115,17 @@ function EventDetailsAbout({
             </div>
             <p className="text-[12px] lg:text-[18px]">{time}</p>
           </div>
-          <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
-            Get a Ticket
-          </button>
+
+          <Link to={"/checkout1"}>
+            <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
+              Get a Ticket
+            </button>
+          </Link>
         </div>
       </div>
       <Map />
 
-      <div className="divider hidden lg:block" />
+      {/* <div className="divider hidden lg:block" /> */}
 
       <OtherEvents />
     </div>

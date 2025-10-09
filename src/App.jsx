@@ -22,6 +22,9 @@ const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
+const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
+const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"))
+
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
 );
@@ -88,6 +91,11 @@ function App() {
           />
 
           {/* Auth & other routes (NO NAVBAR/FOOTER) */}
+          <Route
+            path="/verify-email/:token"
+            element={<VerificationFromEmail />}
+          />
+          <Route path="/eventDetails" element={<EventDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
@@ -101,7 +109,9 @@ function App() {
           <Route path="/eventDetails" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/checkout1" element={<CheckoutOne />} />
+          <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+          <Route path="/logout" element={<LogoutModal/>}  />
         </Routes>
       </Suspense>
     </Router>

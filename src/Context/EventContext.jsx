@@ -9,8 +9,6 @@ const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [discover, setDiscover] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   const fetchEvents = async () => {
     setIsLoading(true);
@@ -30,11 +28,9 @@ const EventProvider = ({ children }) => {
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.get(`/events/upcoming?page=${page}`);
+      const response = await axiosInstance.get("/events/upcoming");
       console.log(response.data);
       setDiscover(response.data.events);
-      setPage(response.data.page);
-      setTotalPages(response.data.totalUpcomingEvents);
     } catch (error) {
       console.log(error);
     } finally {
@@ -61,10 +57,6 @@ const EventProvider = ({ children }) => {
         setIsLoading,
         discover,
         setDiscover,
-        page,
-        setPage,
-        totalPages,
-        setTotalPages,
       }}
     >
       {children}
