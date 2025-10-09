@@ -84,7 +84,7 @@ const MeetTheTeamSection = () => {
                   <img
                     src={elipse}
                     alt=""
-                    className="absolute h-75 w-38 top-5 -left-12 rotate-1"
+                    className="absolute h-75 w-38 top-5 -left-10 rotate-1"
                   />
                   <img
                     src={member.image}
@@ -106,50 +106,55 @@ const MeetTheTeamSection = () => {
       </section>
 
       {/* Signature Events */}
-      <section className=""></section>
-      <div className="max-w-6xl mx-auto px-6 text-center mt-20">
-        <h2 className="text-[25px] text-black lg:text-[48px] font-bold mb-10">
-          Signature Events
-        </h2>
+      <section className="layout my-5">
 
-        <Swiper
-          spaceBetween={10}
-          pagination={{ clickable: true }}
-          modules={[Pagination]} // ✅ removed Navigation module
-          breakpoints={{
-            320: { slidesPerView: 1 }, // mobile
-            640: { slidesPerView: 2 }, // tablets
-            1024: { slidesPerView: 4 }, // desktops
-          }}
-          className="pb-12" // ✅ extra padding so dots sit below cards
-        >
-          {events.map((event, idx) => (
-            <SwiperSlide key={idx}>
-              <div className="bg-[#FEFCFB] shadow-md rounded-2xl p-6 hover:shadow-lg transition duration-300 flex flex-col items-center text-center h-full">
-                {/* Icon container */}
-                <div className="flex justify-center items-center w-20 h-20 rounded-full bg-[#F5F5F5]">
-                  <img
-                    src={event.icon}
-                    alt={event.title}
-                    className="w-10 h-10 object-cover"
-                    loading="lazy"
-                  />
-                </div>
+          <h2 className="text-[25px] text-black text-center lg:text-[48px] font-bold mt-10">
+            Signature Events
+          </h2>
+        <div className=" mx-auto px-6 text-center mt-10 flex justify-between ">
 
-                {/* Title */}
-                <h3 className="mt-4 text-lg font-semibold text-[#4A4A4A]">
-                  {event.title}
-                </h3>
+          <Swiper
+            spaceBetween={10}
+            pagination={{ clickable: true }}
+            modules={[Pagination]} // ✅ removed Navigation module
+            breakpoints={{
+              320: { slidesPerView: 1 }, // mobile
+              640: { slidesPerView: 2 }, // tablets
+              1024: { slidesPerView: 4 }, // desktops
+            }}
+            className="pb-12" // ✅ extra padding so dots sit below cards
+          >
+            <div className="">
+              {events.map((event, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="bg-[#FEFCFB] shadow-md rounded-2xl p-6 hover:shadow-lg transition duration-300 flex flex-col items-center text-center h-full w-[280px] ">
+                    {/* Icon container */}
+                    
+                    <div className="flex justify-center items-center w-20 h-20 rounded-full bg-[#F5F5F5]">
+                      <img
+                        src={event.icon}
+                        alt={event.title}
+                        className="w-10 h-10 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
 
-                {/* Description */}
-                <p className="text-[#4A4A4A] text-sm mt-2 leading-relaxed">
-                  {event.description}
-                </p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+                    {/* Title */}
+                    <h3 className="mt-4 text-lg font-semibold text-[#4A4A4A]">
+                      {event.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-[#4A4A4A] text-sm mt-2 leading-relaxed">
+                      {event.description}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </div>
+          </Swiper>
+        </div>
+      </section>
     </section>
   );
 };

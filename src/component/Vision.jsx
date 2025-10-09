@@ -6,7 +6,7 @@ import manage2 from "../assets/Manage2.png";
 const Vision = () => {
   return (
     <div className="mt-10  layout  ">
-      <div className=" flex flex-col justify-between  md:flex-row md:h-[400px] lg:h-[500px]  ">
+      <div className=" flex flex-col justify-between gap-[40px] md:flex-row md:h-[400px] lg:h-[500px]  ">
         {/* Dominate */}
         <div className="lg:w-[599px] md:h-[100%] md:w-[45%]">
           {/* text */}
@@ -21,7 +21,7 @@ const Vision = () => {
           {/* image */}
 
           <img
-            className="rounded-xl w-full h-[216px] lg:h-[353px] object-cover mt-7"
+            className="rounded-[30px]  w-full h-[216px] lg:h-[353px] object-cover mt-7"
             src={dominate}
             alt=""
           />
@@ -30,22 +30,22 @@ const Vision = () => {
 
         <div className="lg:w-[648px] flex flex-col ">
           {/* image */}
-          <div className="flex flex-row lg:flex flex-col justify-between md:flex-row  md:h-[50%]">
+          <div className="flex flex-col lg:flex-row gap-[15px] justify-between md:flex-row  md:h-[50%] mb-10">
             <img
-              className="mt-2 w-[48%] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
+              className="mt-2 w-[48%] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-[30px]"
               src={manage1}
               alt=""
             />
 
             <img
-              className="mt-2 w-[48%] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-lg"
+              className="mt-2 w-[48%] h-[154px] lg:w-[303.99px] lg:h-[280px] object-cover rounded-[30px]"
               src={manage2}
               alt=""
             />
           </div>
 
           {/* text */}
-          <div className="   md:h-[50%] flex flex-col md:justify-center text-center gap-5">
+          <div className="w-[648px] md:h-[50%] flex flex-col md:justify-center text-center gap-5">
             <h1 className="text-center py-3 font-bold text-[20px] lg:text-3xl mt-3">
               Managed more than 1000+ events that created lasting and still
               creating impressions

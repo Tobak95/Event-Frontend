@@ -57,7 +57,7 @@ const NavBar = ({
 
   // Detect scroll
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 500);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -94,8 +94,8 @@ const NavBar = ({
           isSearchMode
             ? "bg-white"
             : isScrolled
-            ? "bg-gray-600 backdrop-blur-md shadow-md"
-            : "bg-transparent backdrop-blur-sm"
+            ? "bg-black/20 backdrop-blur-md shadow-md"
+            : "bg-transparent backdrop-blur-md"
         }`}
       >
         <nav className="layout flex items-center justify-between h-[100px] px-4 md:px-8 relative z-40">
