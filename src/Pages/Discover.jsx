@@ -26,7 +26,15 @@ const Discover = () => {
   const eventCategoryModalRef = useRef(null);
   const priceModalRef = useRef(null);
   const dateModalRef = useRef(null);
-  const { discover, loading, page } = useEventContext();
+  const { discover } = useEventContext();
+
+  // --- Pagination setup ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // show 6 events per page
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = discover.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleDiscoverModals = (discoverModalId) => {
     setisOpen(discoverModalId);
@@ -181,7 +189,7 @@ const Discover = () => {
           {/* Section for Discover Card */}
           <section>
             <div className="grid grid-cols-1 lg:grid-cols-2 w-full px-2  mx-auto gap-12">
-              {discover.map((data) => (
+              {currentItems.map((data) => (
                 <Card
                   key={data._id}
                   date={new Date(data.eventDate).toLocaleDateString("en-us", {
@@ -198,7 +206,12 @@ const Discover = () => {
                 />
               ))}
             </div>
-            <Pagination />
+            <Pagination
+              totalItems={discover.length}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
 
             {/* <div className="lg:w-[80%] mx-auto py-6">
               <div className="flex items-center justify-center gap-2">
