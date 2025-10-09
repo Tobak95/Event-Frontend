@@ -43,16 +43,16 @@ const Card = ({ h2, location, time, time2, date, price, img }) => {
                 <CiLocationOn /> {location}
               </p>
               <div className="flex items-center gap-8">
-                <p className="flex items-center gap-1">
+                <div className="flex items-center gap-1">
                   <LuCalendarDays size={15} />
-                  <div className="mt-1">{date}</div>
-                </p>
-                <p className="flex items-center gap-1">
+                  <p className="mt-1">{date}</p>
+                </div>
+                <div className="flex items-center gap-1">
                   <LuClock4 />
-                  <div className="mt-1">
+                  <p className="mt-1">
                     {time}-{time2}
-                  </div>
-                </p>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

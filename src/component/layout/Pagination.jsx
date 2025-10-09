@@ -16,8 +16,8 @@ const Pagination = () => {
           disabled={page === 1}
         />
         {Array.from(
-          [1, 2, 3, 4].map((page) => (
-            <div
+          [1, 2, 3, 4].map((page, index) => (
+            <div key={index}
               className={` ${
                 page === 1
                   ? " bg-[#96C4C2] border-[#2B8783]"
