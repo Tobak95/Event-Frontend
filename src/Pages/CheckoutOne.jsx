@@ -1,5 +1,6 @@
 import { ArrowLeft, Minus, Plus } from "lucide-react";
 import BrandLogo from "../assets/logo2.png";
+import { Link } from "react-router-dom";
 
 const CheckoutOne = () => {
   const ticketTypes = [
@@ -45,7 +46,10 @@ const CheckoutOne = () => {
           <div className="lg:col-span-2">
             <div className="bg-white p-6">
               <div className="flex items-center justify-start mb-8">
-                <ArrowLeft size={40} className="text-gray-600 hover:text-gray-900 cursor-pointer mr-4" />
+                <ArrowLeft
+                  size={40}
+                  className="text-gray-600 hover:text-gray-900 cursor-pointer mr-4"
+                />
                 <h2 className="text-2xl font-bold text-gray-900 m-0">
                   Choose Tickets
                 </h2>
@@ -128,12 +132,16 @@ const CheckoutOne = () => {
                   <>
                     <div className="flex justify-between text-sm pt-5 border-t border-gray-200">
                       <span className="text-[#4A4A4A]">Fee</span>
-                      <span className="font-medium text-[#4A4A4A] text-[14px]">$1,000</span>
+                      <span className="font-medium text-[#4A4A4A] text-[14px]">
+                        $1,000
+                      </span>
                     </div>
 
                     <div className="flex justify-between text-sm pt-5 ">
                       <span className="text-[#4A4A4A]">Subtotal</span>
-                      <span className="font-medium text-[#4A4A4A] text-[14px]">$1,000</span>
+                      <span className="font-medium text-[#4A4A4A] text-[14px]">
+                        $1,000
+                      </span>
                     </div>
                   </>
                 )}
@@ -150,10 +158,11 @@ const CheckoutOne = () => {
                   <span className="text-[#4A4A4A] text-[17px]">$12,000</span>
                 </div>
               </div>
-
-              <button className="w-full bg-[#006F6A] text-white py-3 px-4 rounded-md font-semibold">
-                Pay Now
-              </button>
+              <Link to={"/checkout2"}>
+                <button className="w-full bg-[#006F6A] text-white py-3 px-4 rounded-md font-semibold">
+                  Pay Now
+                </button>
+              </Link>
             </div>
           </div>
         </div>
