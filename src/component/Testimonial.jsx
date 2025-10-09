@@ -139,14 +139,14 @@ const Testimonial = () => {
                   key={testimonial.id}
                   className={`absolute transition-all duration-500 ${
                     position === "left"
-                      ? "md:-rotate-12 left-0 md:left-1/4 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-60 -translate-y-4"
+                      ? "md:-rotate-12 left-0 md:right-20 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-65 -translate-y-25"
                       : position === "right"
-                      ? "md:rotate-12 right-0 md:right-1/4 transform md:translate-x-25 translate-x-8 opacity-80 scale-60 -translate-y-4"
-                      : "left-1/2 transform -translate-x-1/2 z-10 scale-60 md:-translate-y-11 shadow-lg"
+                      ? "md:rotate-12 right-0 md:right-30 transform md:translate-x-25 translate-x-8 opacity-80 scale-65 -translate-y-4 md:-translate-y-15"
+                      : "left-1/2 transform -translate-x-1/2 z-10 scale-70 md:-translate-y-20 shadow-lg"
                   }`}
                 >
                   <div
-                    className="border border-gray-200 rounded-3xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
+                    className="border border-gray-200 rounded-4xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
                     style={{ minHeight: "370px" }}
                   >
                     <div className="flex items-center mb-4">
