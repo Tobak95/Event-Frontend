@@ -5,6 +5,7 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { GoClock } from "react-icons/go";
 import { useEventContext } from "../Hooks/useEventContext";
 import dateFormat from "../Utils/dateFormat";
+import { Link } from "react-router-dom";
 
 const UpcomingEvent = () => {
   const { isLoading, events, isSubmitting } = useEventContext();
@@ -67,12 +68,15 @@ const UpcomingEvent = () => {
                 </div>
                 <div className="flex justify-between items-center font-[700] mt-5">
                   <h6 className="text-[20px]">${event.price}</h6>
-                  <button
-                    className=" w-[124px] h-[54px] rounded-[13px] 
+
+                  <Link to={"/eventDetails"}>
+                    <button
+                      className=" w-[124px] h-[54px] rounded-[13px] 
                     border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer"
-                  >
-                    Get Tickets
-                  </button>
+                    >
+                      Get Tickets
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import Card from "../component/DiscoverCard";
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
 import img3 from "../assets/img3.jpg";
+import { Link } from "react-router-dom";
 
 const Words = ({ title, paragraph }) => {
   return (
@@ -114,9 +115,12 @@ function EventDetailsAbout({
             </div>
             <p className="text-[12px] lg:text-[18px]">{time}</p>
           </div>
-          <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
-            Get a Ticket
-          </button>
+
+          <Link to={"/checkout1"}>
+            <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
+              Get a Ticket
+            </button>
+          </Link>
         </div>
       </div>
       <Map />
