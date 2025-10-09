@@ -9,6 +9,7 @@ import drop from "../../assets/dropdown.png";
 import drop2 from "../../assets/dropdown2.png";
 import { useAppContext } from "../../Hooks/useAppContext";
 import SearchBox from "../SearchBox";
+import LogoutModal from "../../Pages/auth/modals/LogOutModal";
 
 const NavBar = ({
   logoSrc = logo,
@@ -23,6 +24,7 @@ const NavBar = ({
   const dropdownRef = useRef(null);
   const location = useLocation();
   const redirect = useNavigate();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // Change colors when search mode active
   const isSearchMode = showSearch;
@@ -50,9 +52,9 @@ const NavBar = ({
 
   // Handle logout
   const handleLogout = () => {
-    logout();
-    setDropdown(false);
-    redirect("/login");
+    // setDropdown(false);
+    // redirect("/login");
+    setIsLogoutModalOpen((prev) => !prev);
   };
 
   // Detect scroll
@@ -202,6 +204,12 @@ const NavBar = ({
                       >
                         Reset Password
                       </NavLink>
+                      {isLogoutModalOpen && (
+                        <LogoutModal
+                          isOpen={isLogoutModalOpen}
+                          onClose={handleLogout}
+                        />
+                      )}
                       <button
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"

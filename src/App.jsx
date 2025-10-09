@@ -23,6 +23,7 @@ const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
+const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"))
 
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
@@ -110,6 +111,7 @@ function App() {
           <Route path="/checkout1" element={<CheckoutOne />} />
           <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+          <Route path="/logout" element={<LogoutModal/>}  />
         </Routes>
       </Suspense>
     </Router>
