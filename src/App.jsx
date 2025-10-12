@@ -23,7 +23,7 @@ const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
-const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"))
+const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"));
 
 const VerificationFromEmail = lazy(() =>
   import("./Pages/ModalPages/VerificationFromEmail")
@@ -40,7 +40,6 @@ const Layout = ({ children }) => {
   const showLayout = ["/", "/about-us", "/contact-us", "/discover"].includes(
     location.pathname
   );
-
   return (
     <>
       {showLayout && <NavBar />}
@@ -49,6 +48,13 @@ const Layout = ({ children }) => {
     </>
   );
 };
+
+//Dashboard Routes
+import AdminDashboard from "./Pages/admin/dashboard/AdminDashboard";
+import Events from "./Pages/admin/events/Events";
+import CreateEvents from "./Pages/admin/create events/CreateEvents";
+import UserManagements from "./Pages/admin/userManagement/UserManagement";
+import Revenue from "./Pages/admin/revenue/Revenue";
 
 function App() {
   return (
@@ -111,7 +117,20 @@ function App() {
           <Route path="/checkout1" element={<CheckoutOne />} />
           <Route path="/checkout2" element={<CheckOut2 />} />
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
-          <Route path="/logout" element={<LogoutModal/>}  />
+          <Route path="/logout" element={<LogoutModal />} />
+
+          {/* DashBoard ROutes */}
+          <Route path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route path="/dashboard/admin/events" element={<Events />} />
+          <Route
+            path="/dashboard/admin/create-events"
+            element={<CreateEvents />}
+          />
+          <Route
+            path="/dashboard/admin/userManagements"
+            element={<UserManagements />}
+          />
+          <Route path="/dashboard/admin/revenue" element={<Revenue />} />
         </Routes>
       </Suspense>
     </Router>

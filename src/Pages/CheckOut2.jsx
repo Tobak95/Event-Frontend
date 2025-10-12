@@ -79,7 +79,9 @@ const CheckOut2 = () => {
       </Link>
 
       <div className="flex items-center gap-2 mb-4 lg:w-[503px] w-[303px] text-[#1B1B1B]">
-        <FaArrowLeft className=" text-[20px] lg:text-[30px] cursor-pointer" />
+        <Link to={"/checkout1"}>
+          <FaArrowLeft className=" text-[20px] lg:text-[30px] cursor-pointer" />
+        </Link>
         <h2 className="text-[20px] lg:text-[35px] font-[700]">
           Contact Information
         </h2>
