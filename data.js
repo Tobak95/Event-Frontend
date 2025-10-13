@@ -95,3 +95,48 @@ export const Categories = [
     eventName: "Hobbies",
   },
 ];
+
+
+
+//Dashboard Mapped data's
+
+import dashboardDate from "./src/assets/dashboardDate.png"
+import dashboardPrice from "./src/assets/dashboardPrice.png"
+import dashboardTicket from "./src/assets/dashboardTicket.png"
+import dashboardUsers from "./src/assets/dashboardUsers.png"
+
+
+export const menu = [
+  {
+    image: dashboardDate,
+    header: "Total Events",
+    value: 12,
+    previousMonthData: "+2 from last month",
+  },
+  {
+    image: dashboardTicket,
+    header: "Ticket Sales",
+    value: 1241,
+    previousMonthData: "+18% from last month",
+  },
+  {
+    image: dashboardPrice,
+    header: "Total Revenue",
+    value: 42500,
+    previousMonthData: "28% from last month",
+  },
+  {
+    image: dashboardUsers,
+    header: "Active Users",
+    value: 120,
+    previousMonthData: "+32 from week",
+  },
+];
+
+
+
+export const recentActivity = [
+  {
+    
+  }
+]
