@@ -52,6 +52,8 @@ const Layout = ({ children }) => {
 //Dashboard Routes
 import AdminDashboard from "./Pages/admin/dashboard/AdminDashboard";
 import Events from "./Pages/admin/events/Events";
+import EventsDetail from "./Pages/admin/events/EventsDetail";
+import EventAttendees from "./Pages/admin/events/EventAttendees";
 import CreateEvents from "./Pages/admin/create events/CreateEvents";
 import UserManagements from "./Pages/admin/userManagement/UserManagement";
 import Revenue from "./Pages/admin/revenue/Revenue";
@@ -122,6 +124,15 @@ function App() {
           {/* DashBoard ROutes */}
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
           <Route path="/dashboard/admin/events" element={<Events />} />
+          <Route
+            path="/dashboard/admin/events/:id"
+            element={<EventsDetail />}
+          />
+          <Route
+            path="/dashboard/admin/events/attendees"
+            element={<EventAttendees />}
+          />
+
           <Route
             path="/dashboard/admin/create-events"
             element={<CreateEvents />}
