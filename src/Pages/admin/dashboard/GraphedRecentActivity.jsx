@@ -1,8 +1,7 @@
 import React from "react";
 import { CiCalendar } from "react-icons/ci";
-import { PiTicket } from "react-icons/pi";
-import { SlCalender } from "react-icons/sl";
-import { ImNotification } from "react-icons/im";
+import { LuClock } from "react-icons/lu";
+import { recentActivity } from "../../../../data";
 import { useState } from "react";
 import {
   AreaChart,
@@ -35,7 +34,6 @@ const sampleData = {
     { name: "Jun", sales: 42000 },
     { name: "Jul", sales: 50000 },
     { name: "Aug", sales: 56000 },
-    
   ],
   90: [
     { name: "Jan", sales: 12000 },
@@ -45,7 +43,7 @@ const sampleData = {
     { name: "May", sales: 33000 },
     { name: "Jun", sales: 40000 },
     { name: "Jul", sales: 46000 },
-    { name: "Aug", sales: 53000 }, 
+    { name: "Aug", sales: 53000 },
   ],
 };
 const GraphedRecentActivity = () => {
@@ -108,12 +106,40 @@ const GraphedRecentActivity = () => {
           </div>
         </div>
 
-        <div className="max-w-[775px] bg-[white] w-full h-full p-10">
+        <div className="max-w-[775px] bg-[white] shadow w-full h-full p-10">
           <div className="flex justify-between">
             <h1 className="text-[16px] font-[700]">Recent Activity</h1>
             <button className="text-[#006F6A]">View All</button>
           </div>
-          <hr className="mt-5 text-[#8E8E8E]"/>
+          <hr className="mt-5 text-[#8E8E8E]" />
+
+          <div>
+            {recentActivity.map((notifications, index) => {
+              return (
+                <div key={index} className="">
+                  <div className="flex justify-between">
+                    <div className="w-[319px] flex gap-2 items-center py-2">
+                      <img
+                        src={notifications.image}
+                        alt=""
+                        className="w-[22px] h-[22px]"
+                      />
+                      <p className="text-[14px]">{notifications.notify}</p>
+                    </div>
+
+                    <div className="flex items-center gap-2 ">
+                      <LuClock /> {notifications.time}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="flex justify-center mt-5">
+              <button>View All Activity</button>
+              
+            </div>
+          </div>
         </div>
       </div>
     </div>

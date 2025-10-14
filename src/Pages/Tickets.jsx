@@ -155,12 +155,12 @@ const Tickets = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center lg:grid lg:grid-cols-2 gap-8 mt-[40px]">
+      <div className="flex flex-col items-center lg:grid lg:grid-cols-2 gap-8 mt-[40px] ">
         {filteredTickets.length > 0 ? (
           filteredTickets.map((ticket, index) => (
             <div
               key={index}
-              className="flex flex-col md:flex-row-reverse md:justify-between gap-5 w-[335px] h-[410px] rounded-[19.49px] bg-[#FFFFFF] border-t-0 border-r-[0.77px] border-b-[4.8px] border-l-[0.77px] border-solid border-[#96C4C2] md:w-[600px] md:h-[248.52px] md:p-[12.83px] p-[20px]"
+              className="flex flex-col md:flex-row-reverse md:justify-between gap-5 w-[345px] h-[410px] rounded-[19.49px] bg-[#FFFFFF] border-t-0 border-r-[0.77px] border-b-[4.8px] border-l-[0.77px] border-solid border-[#96C4C2] md:w-[625px] md:h-[248.52px] md:p-[12.83px] p-[20px]"
             >
               <img
                 src={ticket.img}

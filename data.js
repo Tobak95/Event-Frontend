@@ -135,8 +135,29 @@ export const menu = [
 
 
 
+import ticket from "./src/assets/ticket.png"
+import error from "./src/assets/error.png"
+import calenderActivity from "./src/assets/calenderActivity.png"
+
 export const recentActivity = [
   {
-    
-  }
-]
+    image: ticket,
+    notify: "New ticket purchased for Rhythm & Soul Tour: Eternal Vibes",
+    time: "5 Minutes ago",
+  },
+  {
+    image: calenderActivity,
+    notify: "Event ‘ Gospel Vibe Tour: Praise on the Nile’ has been updated",
+    time: "1 hour ago",
+  },
+  {
+    image: ticket,
+    notify: "10 New tickets sold for Rhythm & Soul Tour: Eternal Vibes ticket",
+    time: "2 hour ago",
+  },
+  {
+    image: error,
+    notify: "Refund processed for order #63738",
+    time: "5 hour ago",
+  },
+];
