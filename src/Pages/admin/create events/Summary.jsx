@@ -1,63 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdLocationOn, MdCalendarToday } from "react-icons/md";
 import { FaTicketAlt } from "react-icons/fa";
 
+import PublishSuccessModal from "./PublishSuccessModal";
 
 export default function Summary({ onPublish }) {
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("publish"); // 'publish' or 'draft'
+
+  const handlePublish = () => {
+    setModalType("publish");
+    setShowModal(true);
+    if (onPublish) onPublish();
+  };
+
+  const handleSaveDraft = () => {
+    setModalType("draft");
+    setShowModal(true);
+  };
+
   return (
-    <div className="flex-1 overflow-y-auto bg-white border-l border-[#8b8b8b]">
-      <div className="p-[30px] max-w-[1107px] mx-auto">
-        {/* Progress Steps */}
-        <div className="mb-[50px]">
-          <ProgressSteps currentStep={3} />
-        </div>
+    <>
+      <PublishSuccessModal
+        isOpen={showModal}
+        type={modalType}
+        onClose={() => setShowModal(false)}
+        onViewEvent={() => {
+          setShowModal(false);
+          alert(
+            `Navigating to ${modalType === "draft" ? "draft" : "event"}...`
+          );
+        }}
+      />
 
-        {/* Header */}
-        <div className="flex flex-col items-center gap-[15px] mb-[50px]">
-          <h1 className="text-[48px] font-bold text-black leading-[67px] text-center">
-            Your Event is set to be published
-          </h1>
-          <p className="text-[24px] text-[#4a4a4a] text-center">
-            Great job! 🎉 Your event is all set and will go live for your
-            audience soon.
-          </p>
-        </div>
+      <div className="flex-1 overflow-y-auto bg-white border-l border-[#8b8b8b]">
+        <div className="p-[30px] max-w-[1107px] mx-auto">
+          {/* Progress Steps */}
+          <div className="mb-[50px]">
+            <ProgressSteps currentStep={3} />
+          </div>
 
-        {/* Ticket Cards */}
-        <div className="space-y-[35px] mb-[45px]">
-          {/* Regular Ticket */}
-          <TicketCard
-            type="Regular"
-            price="$100.00"
-            eventName="Rhythm & Soul Tour: Eternal Vibes"
-            location="Eko Atlantic City (Lagos, Nigeria)"
-            date="Thursday, September 25th 2025"
-          />
+          {/* Header */}
+          <div className="flex flex-col items-center gap-[15px] mb-[50px]">
+            <h1 className="text-[48px] font-bold text-black leading-[67px] text-center">
+              Your Event is set to be published
+            </h1>
+            <p className="text-[24px] text-[#4a4a4a] text-center">
+              Great job! 🎉 Your event is all set and will go live for your
+              audience soon.
+            </p>
+          </div>
 
-          {/* VIP Ticket */}
-          <TicketCard
-            type="VIP"
-            price="$200.00"
-            eventName="Rhythm & Soul Tour: Eternal Vibes"
-            location="Eko Atlantic City (Lagos, Nigeria)"
-            date="Thursday, September 25th 2025"
-          />
-        </div>
+          {/* Ticket Cards */}
+          <div className="space-y-[35px] mb-[45px]">
+            {/* Regular Ticket */}
+            <TicketCard
+              type="Regular"
+              price="$100.00"
+              eventName="Rhythm & Soul Tour: Eternal Vibes"
+              location="Eko Atlantic City (Lagos, Nigeria)"
+              date="Thursday, September 25th 2025"
+            />
 
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-[10px]">
-          <button className="border border-[#006f6a] text-[#006f6a] px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#e6f1f0] transition-colors">
-            Publish as Draft
-          </button>
-          <button
-            onClick={onPublish}
-            className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#005a56] transition-colors"
-          >
-            Publish Event
-          </button>
+            {/* VIP Ticket */}
+            <TicketCard
+              type="VIP"
+              price="$200.00"
+              eventName="Rhythm & Soul Tour: Eternal Vibes"
+              location="Eko Atlantic City (Lagos, Nigeria)"
+              date="Thursday, September 25th 2025"
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-[10px]">
+            <button
+              onClick={handleSaveDraft}
+              className="border border-[#006f6a] text-[#006f6a] px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#e6f1f0] transition-colors"
+            >
+              Publish as Draft
+            </button>
+            <button
+              onClick={handlePublish}
+              className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#005a56] transition-colors"
+            >
+              Publish Event
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
