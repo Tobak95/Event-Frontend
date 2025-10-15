@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterModal from "../../component/admin/FilterModal";
+import EventActionModal from "../../component/admin/EventActionModal";
 
-const EventTable = ({ events, setEvents }) => {
+const EventTable = ({ events, setEvents, eventType }) => {
   const redirect = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [filters, setFilters] = useState({ type: "", status: "" });
 
   const handleApplyFilters = (newFilters) => {
-    // Update only the selected event
     const updatedEvents = events.map((event) => {
       if (event.id === selectedEvent.id) {
         return {
@@ -27,7 +27,26 @@ const EventTable = ({ events, setEvents }) => {
     });
 
     setEvents(updatedEvents);
-    setIsModalOpen(false);
+    setIsFilterOpen(false);
+  };
+
+  const handlePublish = (id) => {
+    setEvents((prev) =>
+      prev.map((ev) => (ev.id === id ? { ...ev, status: "Live" } : ev))
+    );
+    setSelectedEvent(null);
+  };
+
+  const handleUnpublish = (id) => {
+    setEvents((prev) =>
+      prev.map((ev) => (ev.id === id ? { ...ev, status: "Draft" } : ev))
+    );
+    setSelectedEvent(null);
+  };
+
+  const handleDelete = (id) => {
+    setEvents((prev) => prev.filter((ev) => ev.id !== id));
+    setSelectedEvent(null);
   };
 
   return (
@@ -46,11 +65,10 @@ const EventTable = ({ events, setEvents }) => {
 
         <tbody>
           {events.length > 0 ? (
-            events.map((event, index) => (
+            events.map((event) => (
               <tr
-                key={index}
-                onClick={() => redirect(`/dashboard/admin/events/${event.id}`)}
-                className="border-b-[0.7px] border-[#000000] hover:bg-[#F9FAFB] transition-colors"
+                key={event.id}
+                className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors"
               >
                 <td
                   className="py-4 text-[#1B1B1B] font-medium truncate max-w-[120px] text-[20px] cursor-pointer"
@@ -85,12 +103,14 @@ const EventTable = ({ events, setEvents }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedEvent(event);
-                    // Initialize modal filters with current event data
-                    setFilters({
-                      type: event.type.includes("Paid") ? "Paid" : "Free",
-                      status: event.status,
-                    });
-                    setIsModalOpen(true);
+
+                    if (eventType === "All Events") {
+                      setFilters({
+                        type: event.type.includes("Paid") ? "Paid" : "Free",
+                        status: event.status,
+                      });
+                      setIsFilterOpen(true);
+                    }
                   }}
                 >
                   ...
@@ -107,13 +127,24 @@ const EventTable = ({ events, setEvents }) => {
         </tbody>
       </table>
 
-      {/* Modal */}
-      <FilterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        filters={filters}
-        onApply={handleApplyFilters}
-      />
+      {eventType === "All Events" && (
+        <FilterModal
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          filters={filters}
+          onApply={handleApplyFilters}
+        />
+      )}
+
+      {(eventType === "Live" || eventType === "Draft") && selectedEvent && (
+        <EventActionModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onPublish={handlePublish}
+          onUnpublish={handleUnpublish}
+          onDelete={handleDelete}
+        />
+      )}
     </div>
   );
 };
