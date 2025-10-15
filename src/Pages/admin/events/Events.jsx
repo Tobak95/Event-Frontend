@@ -180,7 +180,11 @@ const Events = () => {
             </div>
 
             {/* Table */}
-            <EventTable events={filteredEvents} setEvents={setEventsList} />
+            <EventTable
+              events={filteredEvents}
+              setEvents={setEventsList}
+              eventType={eventType}
+            />
           </section>
         </div>
       </div>
