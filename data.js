@@ -95,3 +95,155 @@ export const Categories = [
     eventName: "Hobbies",
   },
 ];
+
+
+
+//Dashboard Mapped data's
+
+import dashboardDate from "./src/assets/dashboardDate.png"
+import dashboardPrice from "./src/assets/dashboardPrice.png"
+import dashboardTicket from "./src/assets/dashboardTicket.png"
+import dashboardUsers from "./src/assets/dashboardUsers.png"
+
+
+export const menu = [
+  {
+    image: dashboardDate,
+    header: "Total Events",
+    value: 12,
+    previousMonthData: "+2 from last month",
+  },
+  {
+    image: dashboardTicket,
+    header: "Ticket Sales",
+    value: 1241,
+    previousMonthData: "+18% from last month",
+  },
+  {
+    image: dashboardPrice,
+    header: "Total Revenue",
+    value: 42500,
+    previousMonthData: "28% from last month",
+  },
+  {
+    image: dashboardUsers,
+    header: "Active Users",
+    value: 120,
+    previousMonthData: "+32 from week",
+  },
+];
+
+
+
+import ticket from "./src/assets/ticket.png"
+import error from "./src/assets/error.png"
+import calenderActivity from "./src/assets/calenderActivity.png"
+
+export const recentActivity = [
+  {
+    image: ticket,
+    notify: "New ticket purchased for Rhythm & Soul Tour: Eternal Vibes",
+    time: "5 Minutes ago",
+  },
+  {
+    image: calenderActivity,
+    notify: "Event ‘ Gospel Vibe Tour: Praise on the Nile’ has been updated",
+    time: "1 hour ago",
+  },
+  {
+    image: ticket,
+    notify: "10 New tickets sold for Rhythm & Soul Tour: Eternal Vibes ticket",
+    time: "2 hour ago",
+  },
+  {
+    image: error,
+    notify: "Refund processed for order #63738",
+    time: "5 hour ago",
+  },
+];
+
+
+import Ticket from "./src/assets/ticket.png";
+
+export const recentTicketSales = [
+  {
+    image: Ticket,
+    ticketId: "T-1234",
+    customerName: "Samuel John",
+    event: "Gospel Vibe Tour",
+    ticketType: "VIP",
+    amount: "40.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-3478",
+    customerName: "Sandra Davies",
+    event: "Rhythm & Soul Tour",
+    ticketType: "VVIP",
+    amount: "45.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-4434",
+    customerName: "Jeminat issac",
+    event: "Rhythm & Soul Tour",
+    ticketType: "VIP",
+    amount: "345.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-3334",
+    customerName: "Kelos chidi",
+    event: "Gospel Vibe Tour",
+    ticketType: "VVIP",
+    amount: "720.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-3238",
+    customerName: "Samuel John",
+    event: "Gospel Vibe Tour",
+    ticketType: "VIP",
+    amount: "400.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-5244",
+    customerName: "Samuel John",
+    event: "Gospel Vibe Tour",
+    ticketType: "VIP",
+    amount: "590.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-9234",
+    customerName: "Samuel John",
+    event: "Gospel Vibe Tour",
+    ticketType: "VVIP",
+    amount: "900.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+  {
+    image: Ticket,
+    ticketId: "T-1238",
+    customerName: "Samuel John",
+    event: "Gospel Vibe Tour",
+    ticketType: "VIP",
+    amount: "390.00",
+    date: "20/08/2025",
+    time: "10 PM",
+  },
+];
