@@ -4,6 +4,7 @@ import Header from "../../../component/common/Header";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { menu } from "../../../../data";
 import GraphedRecentActivity from "./GraphedRecentActivity";
+import RecentTicketSales from "./RecentTicketSales";
 
 const AdminDashboard = () => {
   return (
@@ -38,9 +39,9 @@ const AdminDashboard = () => {
                       className="w-[350px] h-[175px] border border-[#DBDBDB] rounded-[8px] p-4"
                     >
                       <div>
-                        <h1>{card.header}</h1>
+                        <h1 className="text-[#4A4A4A] text-[24px]">{card.header}</h1>
 
-                        <div className="flex items-center justify-between p-4">
+                        <div className="flex items-center justify-between p-4 text-[32px] text-[#000000] font-[700]">
                           {card.value}
                           <div>
                             <img src={card.image} alt="" />
@@ -61,6 +62,10 @@ const AdminDashboard = () => {
 
             <section>
               <GraphedRecentActivity />
+            </section>
+
+            <section>
+              <RecentTicketSales />
             </section>
           </section>
         </div>

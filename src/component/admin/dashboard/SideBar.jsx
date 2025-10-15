@@ -7,7 +7,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { LiaUsersSolid } from "react-icons/lia";
 import { MdLockOutline } from "react-icons/md";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
-import Logo2 from "../../../assets/logo2.png"
+import Logo2 from "../../../assets/logo2.png";
 
 const SideBar = () => {
   const location = useLocation();

@@ -1,6 +1,7 @@
 import React from "react";
 import { CiCalendar } from "react-icons/ci";
 import { LuClock } from "react-icons/lu";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { recentActivity } from "../../../../data";
 import { useState } from "react";
 import {
@@ -135,9 +136,8 @@ const GraphedRecentActivity = () => {
               );
             })}
 
-            <div className="flex justify-center mt-5">
-              <button>View All Activity</button>
-              
+            <div className="flex justify-center mt-4 text-[#006F6A]">
+              <button className="flex gap-3 items-center text-[16px]">View All Activity <span><HiOutlineArrowLongRight size={22}/>  </span></button>
             </div>
           </div>
         </div>
