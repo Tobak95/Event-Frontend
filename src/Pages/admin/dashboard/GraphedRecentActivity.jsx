@@ -55,10 +55,12 @@ const GraphedRecentActivity = () => {
   return (
     <div className=" w-full h-[367px]">
       <div className="flex justify-between mt-10">
-        <div className="max-w-[775px] bg-[#FFFFFF] shadow w-full h-[376px] p-10">
+        <div className="max-w-[775px] bg-[#FFFFFF] shadow w-full h-[376px] p-10 ">
           {/* i mapped over an object of an array, so if you clicked on the elected range, you will get data of each selected range */}
           <div className="flex justify-evenly lg:gap-50">
-            <h1 className="text-[16px] font-[700]">Sales Overview</h1>
+            <h1 className="text-[16px] font-[700] cursor-pointer">
+              Sales Overview
+            </h1>
             <div className="flex items-center  rounded-[5px] ">
               <CiCalendar size={20} />
               <select
@@ -75,7 +77,7 @@ const GraphedRecentActivity = () => {
           <hr className="mt-5 text-[#8E8E8E]" />
 
           {/* Charts */}
-          <div className="mt-5 px-10">
+          <div className="mt-5 px-10 cursor-pointer">
             <ResponsiveContainer width="100%" height={220}>
               <AreaChart
                 data={data}
@@ -136,8 +138,13 @@ const GraphedRecentActivity = () => {
               );
             })}
 
-            <div className="flex justify-center mt-4 text-[#006F6A]">
-              <button className="flex gap-3 items-center text-[16px]">View All Activity <span><HiOutlineArrowLongRight size={22}/>  </span></button>
+            <div className="flex justify-center mt-4 text-[#006F6A] hover:text-green-950 ">
+              <button className="flex gap-3 items-center text-[16px] cursor-pointer">
+                View All Activity{" "}
+                <span>
+                  <HiOutlineArrowLongRight size={22} />{" "}
+                </span>
+              </button>
             </div>
           </div>
         </div>
