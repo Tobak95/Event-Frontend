@@ -24,7 +24,7 @@ const CreateEvents = () => {
   if (currentStep === 3) {
     return (
       <Layout
-        Children={<Summary onPublish={() => alert("Event Published!")} />}
+        Children={<Summary/>}
       ></Layout>
     );
   }
@@ -66,9 +66,14 @@ const CreateEvents = () => {
                           </p>
                           <p className="text-[#777777]">PNG, JPG up to 10MB</p>
                         </div>
-                        <button className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors">
+                        <label className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors cursor-pointer inline-block">
                           Choose File
-                        </button>
+                          <input
+                            type="file"
+                            className="hidden"
+                            onChange={(e) => console.log(e.target.files[0])}
+                          />
+                        </label>
                       </div>
                     </div>
 
