@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import BrandLogo from "../assets/logo2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 
 const CheckOut2 = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,8 +18,17 @@ const CheckOut2 = () => {
     otherEmail: "",
   });
 
-  const [timer, setTimer] = useState(600); // 10 mins
+  const [timer, setTimer] = useState(600);
   const [errors, setErrors] = useState({});
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
+
+  useEffect(() => {
+    if (timer === 0) {
+      clearTicketCart();
+      navigate("/");
+    }
+  }, [timer, navigate]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,6 +36,10 @@ const CheckOut2 = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const clearTicketCart = () => {
+    console.log("Clearing ticket cart...");
+  };
 
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
@@ -40,6 +55,22 @@ const CheckOut2 = () => {
     }));
   };
 
+  const handleDiscountCodeChange = (e) => {
+    setDiscountCode(e.target.value);
+  };
+
+  const applyDiscountCode = () => {
+    if (discountCode.trim()) {
+      setDiscountApplied(true);
+      console.log("Discount code applied:", discountCode);
+    }
+  };
+
+  const removeDiscountCode = () => {
+    setDiscountCode("");
+    setDiscountApplied(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let tempErrors = {};
@@ -53,22 +84,33 @@ const CheckOut2 = () => {
     setErrors(tempErrors);
 
     if (Object.keys(tempErrors).length === 0) {
-      alert("Form submitted!");
+      console.log("Form submitted successfully");
     }
   };
 
   const ticketTypes = [
-    { id: "regular", name: "Regular", price: 10000 },
-    { id: "vip", name: "VIP", price: 20000 },
-    { id: "vvip", name: "VVIP", price: 50000 },
+    { id: "regular", name: "Regular", price: 100 },
+    { id: "vip", name: "VIP", price: 200 },
+    { id: "vvip", name: "VVIP", price: 300 },
   ];
 
-  // Example ticket quantities (you can later update with state/props)
   const ticketQuantities = {
     regular: 1,
     vip: 0,
     vvip: 0,
   };
+
+  const calculateSubtotal = () => {
+    return Object.keys(ticketQuantities).reduce((total, ticketId) => {
+      const ticket = ticketTypes.find((t) => t.id === ticketId);
+      return total + (ticketQuantities[ticketId] || 0) * ticket.price;
+    }, 0);
+  };
+
+  const fee = 10;
+  const subtotal = calculateSubtotal();
+  const discount = discountApplied ? 5 : 0;
+  const total = subtotal + fee - discount;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 ">
@@ -140,18 +182,14 @@ const CheckOut2 = () => {
                 value={formData[field.name]}
                 onChange={handleChange}
                 placeholder={field.placeholder}
-                required
                 className="w-full lg:w-[507px] h-[56px] border-[0.5px] border-[#969595] outline-0 rounded-[2.44px] lg:rounded-[6px] p-[10px] text-[12px] lg:text-[16px] placeholder:text-[#928A83] placeholder:font-[400]"
               />
               {errors[field.name] && (
-                <p className="text-sm text-red-600 mt-1">
-                  {errors[field.name]}
-                </p>
+                <p className="text-sm text-red-600 mt-1">{errors.field.name}</p>
               )}
             </div>
           ))}
 
-          {/* Phone */}
           <div className="mb-4">
             <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
               <span className="text-[#006F6A] text-[12px] lg:text-[24px] font-medium">
@@ -175,7 +213,6 @@ const CheckOut2 = () => {
                 type="text"
                 value={formData.phone}
                 onChange={handleChange}
-                required
                 className=" p-[10px] text-[12px] lg:text-[16px]  w-[397px] h-[56px] border-[0.5px] border-[#969595] rounded=[2.44px] rounded-[6px] placeholder:text-[#777777] placeholder:font-[400] outline-0"
                 placeholder="7088305667"
               />
@@ -185,12 +222,11 @@ const CheckOut2 = () => {
             )}
           </div>
 
-          {/* Radio Buttons */}
           <div className="mb-4">
             <p className="lg:font-medium font-[700] text-[12px] lg:text-[18px] text-[#4A4A4A] mb-6  lg:mb-4">
               Send ticket to different email addresses?
             </p>
-            <p className="text-[11px] lg:text-[14px] text-[#1B1B1B] font-[400] mb-4 flex items-center gap-3">
+            <p className="text-[11px] lg:text-[14px] text-gray-700 font-[400] mb-4 flex items-center gap-3">
               <AiTwotoneExclamationCircle className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]" />{" "}
               Tickets will only be sent to the email address you provide here
             </p>
@@ -206,7 +242,7 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: true,
                     }))
                   }
-                  className="border border-[#777777] w-[14px] h-[14px] lg:w-[32px] lg:h-[32px]"
+                  className="border accent-green-400 border-green-400 w-[14px] h-[14px] lg:w-[32px] lg:h-[32px]"
                 />
                 Yes
               </label>
@@ -221,7 +257,7 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: false,
                     }))
                   }
-                  className="border border-[#777777] w-[14px] h-[14px] lg:w-[30px] lg:h-[30px]"
+                  className="border border-green-400 w-[14px] h-[14px] lg:w-[30px] lg:h-[30px] accent-green-400"
                 />
                 No
               </label>
@@ -245,7 +281,7 @@ const CheckOut2 = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="w-full md:w-[357px] h-[500px]  border border-[#E9E9E9] bg-[#FFFFFF] rounded-[9.24px] lg:rounded-[10px] p-[13.86px] lg:p-[15px]  shadow-sm">
+        <div className="w-full md:w-[357px] h-auto border border-[#E9E9E9] bg-[#FFFFFF] rounded-[9.24px] lg:rounded-[10px] p-[13.86px] lg:p-[15px] shadow-sm">
           <div className="sticky top-6">
             <h3 className="text-[21.06px] lg:text-[22.79px] font-[700] text-[#191919] mb-6 text-center">
               RAVEOLUTION
@@ -276,17 +312,26 @@ const CheckOut2 = () => {
                 ticketQuantities.vip > 0 ||
                 ticketQuantities.vvip > 0) && (
                 <>
-                  <div className="flex justify-between  pt-5 border-t border-[#E9E9E9]">
+                  <div className="flex justify-between pt-5 border-t border-[#E9E9E9]">
                     <span className="text-[16px] font-medium">Fee</span>
                     <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
-                      $1,000
+                      ${fee.toLocaleString()}
                     </span>
                   </div>
+
+                  {discountApplied && (
+                    <div className="flex justify-between pt-2 text-green-600">
+                      <span className="text-[16px] font-medium">Discount</span>
+                      <span className="font-[700] text-[17.09px]">
+                        -${discount.toLocaleString()}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="flex justify-between text-sm pt-5 ">
                     <span className="text-[16px] font-medium">Subtotal</span>
                     <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
-                      $1,000
+                      ${subtotal.toLocaleString()}
                     </span>
                   </div>
                 </>
@@ -294,22 +339,59 @@ const CheckOut2 = () => {
             </div>
 
             <div className="border-t border-gray-200 pt-4 mb-6">
-              <div className="mb-6">
-                <p className="text-[12.94px] w-full lg:w-[307px] border border-[#E9E9E9] p-3 rounded-[10px] text-[#777777] text-center font-[400]">
-                  Discount codes are now added at payment step
-                </p>
+              {/* Discount Code Section */}
+              <div className="mb-4">
+                <label className="block text-[14px] font-medium text-[#4A4A4A] mb-2">
+                  Discount Code
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={discountCode}
+                    onChange={handleDiscountCodeChange}
+                    placeholder="Enter discount code"
+                    className="flex-1 h-[40px] border-[0.5px] border-[#969595] rounded-[6px] p-[10px] text-[14px] outline-0"
+                    disabled={discountApplied}
+                  />
+                  {discountApplied ? (
+                    <button
+                      type="button"
+                      onClick={removeDiscountCode}
+                      className="h-[40px] px-4 bg-red-600 text-white rounded-[6px] text-[14px] font-medium"
+                    >
+                      Remove
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={applyDiscountCode}
+                      className="h-[40px] px-4 bg-[#006F6A] text-white rounded-[6px] text-[14px] font-medium"
+                    >
+                      Apply
+                    </button>
+                  )}
+                </div>
+                {discountApplied && (
+                  <p className="text-green-600 text-[12px] mt-1">
+                    Discount code applied successfully!
+                  </p>
+                )}
               </div>
-              <div className="flex justify-between items-center">
+
+              <div className="flex justify-between items-center mt-4">
                 <span className="text-[#4A4A4A] text-[16px] font-[700]">
                   TOTAL
                 </span>
                 <span className="text-[#4A4A4A] text-[17px] font-[700]">
-                  $12,000
+                  ${total.toLocaleString()}
                 </span>
               </div>
             </div>
 
-            <button className="w-full h-[72px] lg:h-[48px] bg-[#006F6A] text-[20px] font-[700] rounded-[7.39px]  lg:rounded-[8px] text-[#FFFFFF]">
+            <button
+              type="submit"
+              className="w-full h-[72px] lg:h-[48px] bg-[#006F6A] text-[20px] font-[700] rounded-[7.39px] lg:rounded-[8px] text-[#FFFFFF] hover:bg-[#005a55] transition-colors"
+            >
               Pay Now
             </button>
           </div>

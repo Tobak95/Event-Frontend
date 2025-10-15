@@ -96,7 +96,7 @@ const NavBar = ({
           isSearchMode
             ? "bg-white"
             : isScrolled
-            ? "bg-black/20 backdrop-blur-md shadow-md"
+            ? "bg-gray-400 backdrop-blur-md shadow-md"
             : "bg-transparent backdrop-blur-md"
         }`}
       >

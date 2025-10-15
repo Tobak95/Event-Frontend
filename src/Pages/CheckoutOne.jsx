@@ -1,39 +1,99 @@
-import { ArrowLeft, Minus, Plus } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import BrandLogo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const CheckoutOne = () => {
   const ticketTypes = [
     {
       id: "regular",
       name: "Regular",
-      price: 10000,
-      fee: 74,
+      price: 100,
+      fee: 10,
     },
     {
       id: "vip",
       name: "VIP",
-      price: 20000,
-      fee: 74,
+      price: 200,
+      fee: 10,
     },
     {
       id: "vvip",
       name: "VVIP",
-      price: 30000,
-      fee: 74,
+      price: 300,
+      fee: 10,
     },
   ];
 
-  const ticketQuantities = {
+  const [ticketQuantities, setTicketQuantities] = useState({
     regular: 1,
     vip: 0,
     vvip: 0,
+  });
+
+  const [dropdownOpen, setDropdownOpen] = useState({
+    regular: false,
+    vip: false,
+    vvip: false,
+  });
+
+  // Calculate totals
+ const calculateSubtotal = () => {
+    return ticketTypes.reduce((total, ticket) => {
+      const quantity = ticketQuantities[ticket.id] || 0;
+      const ticketTotal = quantity * ticket.price;
+      const feeTotal = quantity * ticket.fee;
+      return total + ticketTotal + feeTotal;
+    }, 0);
+  };
+  const calculateTotalFees = () => {
+    return ticketTypes.reduce((total, ticket) => {
+      return total + (ticketQuantities[ticket.id] || 0) * ticket.fee;
+    }, 0);
   };
 
-  const hasTicketsSelected = true;
+  const calculateTotal = () => {
+    return calculateSubtotal();
+  };
+
+  const hasTicketsSelected = Object.values(ticketQuantities).some(qty => qty > 0);
+
+  // Dropdown 
+  const toggleDropdown = (ticketId) => {
+    setDropdownOpen(prev => ({
+      ...prev,
+      [ticketId]: !prev[ticketId]
+    }));
+  };
+
+  const handleQuantityChange = (ticketId, quantity) => {
+    setTicketQuantities(prev => ({
+      ...prev,
+      [ticketId]: quantity
+    }));
+    setDropdownOpen(prev => ({
+      ...prev,
+      [ticketId]: false
+    }));
+  };
+
+  const closeAllDropdowns = () => {
+    setDropdownOpen({
+      regular: false,
+      vip: false,
+      vvip: false,
+    });
+  };
+
+  // Close dropdown 
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeAllDropdowns();
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" onClick={handleBackdropClick}>
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <header className="bg-white border-gray-200">
@@ -60,7 +120,7 @@ const CheckoutOne = () => {
                 {ticketTypes.map((ticket) => (
                   <div
                     key={ticket.id}
-                    className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                    className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow relative"
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between">
                       <div className="mb-4 md:mb-0 flex-1">
@@ -78,18 +138,50 @@ const CheckoutOne = () => {
                         </p>
                       </div>
 
-                      <div className="flex items-center space-x-3">
-                        <button className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors">
-                          <Minus className="h-4 w-4" />
+                      <div className="relative">
+                        {/* Dropdown Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDropdown(ticket.id);
+                          }}
+                          className="flex items-center justify-between w-24 px-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 transition-colors"
+                        >
+                          <span className="text-lg font-semibold">
+                            {ticketQuantities[ticket.id] || 0}
+                          </span>
+                          <ChevronDown 
+                            className={`h-4 w-4 transition-transform ${
+                              dropdownOpen[ticket.id] ? 'rotate-180' : ''
+                            }`}
+                          />
                         </button>
 
-                        <span className="text-lg font-semibold min-w-[40px] text-center">
-                          {ticketQuantities[ticket.id] || 0}
-                        </span>
-
-                        <button className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors">
-                          <Plus className="h-4 w-4" />
-                        </button>
+                        {/* Dropdown Modal */}
+                        {dropdownOpen[ticket.id] && (
+                          <div className="absolute top-full left-0 mt-1 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            {[0, 1, 2, 3, 4, 5].map((quantity) => (
+                              <button
+                                key={quantity}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleQuantityChange(ticket.id, quantity);
+                                }}
+                                className={`w-full px-3 py-2 text-left hover:bg-gray-100 transition-colors ${
+                                  quantity === ticketQuantities[ticket.id]
+                                    ? 'bg-[#006F6A] text-white'
+                                    : 'text-gray-900'
+                                } ${
+                                  quantity === 0 ? 'rounded-t-md' : ''
+                                } ${
+                                  quantity === 5 ? 'rounded-b-md' : ''
+                                }`}
+                              >
+                                {quantity}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -126,21 +218,19 @@ const CheckoutOne = () => {
                     )
                 )}
 
-                {(ticketQuantities.regular > 0 ||
-                  ticketQuantities.vip > 0 ||
-                  ticketQuantities.vvip > 0) && (
+                {hasTicketsSelected && (
                   <>
                     <div className="flex justify-between text-sm pt-5 border-t border-gray-200">
                       <span className="text-[#4A4A4A]">Fee</span>
                       <span className="font-medium text-[#4A4A4A] text-[14px]">
-                        $1,000
+                        ${calculateTotalFees().toLocaleString()}
                       </span>
                     </div>
 
                     <div className="flex justify-between text-sm pt-5 ">
                       <span className="text-[#4A4A4A]">Subtotal</span>
                       <span className="font-medium text-[#4A4A4A] text-[14px]">
-                        $1,000
+                        ${calculateSubtotal().toLocaleString()}
                       </span>
                     </div>
                   </>
@@ -153,16 +243,34 @@ const CheckoutOne = () => {
                     Discount codes are now added at payment step
                   </p>
                 </div>
-                <div className="flex justify-between items-center font-bold">
-                  <span className="text-[#4A4A4A] text-[17px]">TOTAL</span>
-                  <span className="text-[#4A4A4A] text-[17px]">$12,000</span>
-                </div>
+                {hasTicketsSelected && (
+                  <div className="flex justify-between items-center font-bold">
+                    <span className="text-[#4A4A4A] text-[17px]">TOTAL</span>
+                    <span className="text-[#4A4A4A] text-[17px]">
+                      ${calculateTotal().toLocaleString()}
+                    </span>
+                  </div>
+                )}
               </div>
-              <Link to={"/checkout2"}>
-                <button className="w-full bg-[#006F6A] text-white py-3 px-4 rounded-md font-semibold">
+              
+              <Link to={hasTicketsSelected ? "/checkout2" : "#"}>
+                <button 
+                  disabled={!hasTicketsSelected}
+                  className={`w-full ${
+                    hasTicketsSelected 
+                      ? "bg-[#006F6A] hover:bg-[#005a55]" 
+                      : "bg-gray-400 cursor-not-allowed"
+                  } text-white py-3 px-4 rounded-md font-semibold transition-colors`}
+                >
                   Pay Now
                 </button>
               </Link>
+              
+              {!hasTicketsSelected && (
+                <p className="text-sm text-red-500 text-center mt-2">
+                  Please select at least one ticket
+                </p>
+              )}
             </div>
           </div>
         </div>

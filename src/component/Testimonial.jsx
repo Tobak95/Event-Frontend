@@ -142,7 +142,7 @@ const Testimonial = () => {
                       ? "md:-rotate-12 left-0 md:right-20 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-65 -translate-y-25"
                       : position === "right"
                       ? "md:rotate-12 right-0 md:right-30 transform md:translate-x-25 translate-x-8 opacity-80 scale-65 -translate-y-4 md:-translate-y-15"
-                      : "left-1/2 transform -translate-x-1/2 z-10 scale-70 md:-translate-y-20 shadow-lg"
+                      : "left-1/2 transform -translate-x-1/2 z-10 scale-70 md:-translate-y-20"
                   }`}
                 >
                   <div
