@@ -79,6 +79,10 @@ const Testimonial = () => {
   };
 
   const getTestimonialPosition = (index) => {
+    if (window.innerWidth < 768) {
+      return index === currentIndex ? "center" : "hidden";
+    }
+    
     const position =
       (index - currentIndex + testimonials.length) % testimonials.length;
 
@@ -90,13 +94,16 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="layout bg-white py-5">
+    <div className="layout bg-white py-5 mt-10 lg:mt-20">
       <div className=" mx-auto container">
         <div className="text-center mb-12">
-          <h2 className="text-[25px] md:text-3xl font-bold text-[#000000] mb-4">
+          <h2 className="text-[25px] md:text-3xl lg:text-[48px] font-bold text-[#000000] ">
             Testimonials
           </h2>
-          <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto">
+          <p
+            style={{ fontFamily: " Helvetica" }}
+            className="text-[16px] text-[#4A4A4A] max-w-2xl mx-auto"
+          >
             Trusted by Event Lovers Everywhere
           </p>
         </div>
@@ -120,8 +127,8 @@ const Testimonial = () => {
             <ChevronRight size={24} className="text-[#006F6A]" />
           </button>
 
-          {/* Cards */}
-          <div className="flex items-end justify-center w-full h-full relative">
+           {/* Cards */}
+          <div className="flex items-center justify-center w-full h-[400px] md:h-[450px] relative">
             {testimonials.map((testimonial, index) => {
               const position = getTestimonialPosition(index);
 
@@ -132,22 +139,21 @@ const Testimonial = () => {
                   key={testimonial.id}
                   className={`absolute transition-all duration-500 ${
                     position === "left"
-                      ? "md:-rotate-12 left-0 md:left-1/4 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-60 -translate-y-4"
+                      ? "md:-rotate-12 left-0 md:right-20 transform md:-translate-x-25 -translate-x-8 opacity-80 scale-65 -translate-y-25"
                       : position === "right"
-                      ? "md:rotate-12 right-0 md:right-1/4 transform md:translate-x-25 translate-x-8 opacity-80 scale-60 -translate-y-4"
-                      : "left-1/2 transform -translate-x-1/2 z-10 -translate-y-11 scale-60 shadow-lg"
+                      ? "md:rotate-12 right-0 md:right-30 transform md:translate-x-25 translate-x-8 opacity-80 scale-65 -translate-y-4 md:-translate-y-15"
+                      : "left-1/2 transform -translate-x-1/2 z-10 scale-70 md:-translate-y-20"
                   }`}
-                  style={{ width: "300px" }}
                 >
                   <div
-                    className="border border-gray-200 rounded-3xl p-6 h-full flex flex-col bg-[#F6F6F6]"
-                    style={{ minHeight: "340px" }}
+                    className="border border-gray-200 rounded-4xl w-[447px] p-6 h-full flex flex-col bg-[#F6F6F6]"
+                    style={{ minHeight: "370px" }}
                   >
                     <div className="flex items-center mb-4">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-12 h-12 rounded-full object-cover mr-3"
+                        className="w-20 h-20 rounded-full object-cover mr-3 mt-5"
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900">
@@ -171,11 +177,11 @@ const Testimonial = () => {
                     </div>
 
                     {/* Content */}
-                    <p className="text-gray-700 mb-6 flex-grow">
+                    <p className="text-gray-700 text-[20px] flex-grow">
                       "{testimonial.content}"
                     </p>
 
-                    <hr className="border-gray-200 mb-4" />
+                    <hr className="border-gray-200 " />
 
                     {/* Location */}
                     <div className="flex items-center justify-between">
@@ -203,7 +209,7 @@ const Testimonial = () => {
         </div>
 
         {/*Indicator */}
-        <div className="flex justify-center mt-5 space-x-2">
+        <div className="flex justify-center  space-x-4">
           {testimonials.map((_, index) => (
             <button
               key={index}

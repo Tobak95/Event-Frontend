@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, bumblebee, emerald,
+    corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest,
+    aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn,
+    business, acid, lemonade, night, coffee, winter, dim, nord, sunset;
+}
 
 .layout {
-  @apply lg:max-w-[1440px] w-full mx-auto p-2;
+  @apply max-w-[1300px] w-full mx-auto p-2;
 }

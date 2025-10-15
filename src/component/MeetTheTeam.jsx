@@ -7,6 +7,13 @@ import emoji2 from "../assets/emoji2.png";
 import emoji3 from "../assets/emoji3.png";
 import emoji4 from "../assets/emoji4.png";
 import elipse from "../assets/EllipseTeam.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
+import "swiper/css/pagination"; // optional
+import "swiper/css/navigation"; // optional
+
+import { Pagination, Navigation } from "swiper/modules";
 
 const team = [
   {
@@ -54,60 +61,100 @@ const MeetTheTeamSection = () => {
     <section className="my-16">
       <section className="py-16 bg-[#F7F9FF]">
         {/* Meet the Team */}
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="layout px-6 text-center">
           <h2 className="text-3xl font-bold text-[#006F6A] mb-10">
             Meet the Team
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <Swiper
+            spaceBetween={20}
+            pagination={{ clickable: true, el: ".custom-pagination" }}
+            navigation
+            modules={[Pagination, Navigation]}
+            breakpoints={{
+              320: { slidesPerView: 1 }, // small screens
+              640: { slidesPerView: 2 }, // tablets
+              1024: { slidesPerView: 3 }, // desktops
+            }}
+            className="pb-10"
+          >
             {team.map((member, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <div className="w-50 h-50 flex relative">
+              <SwiperSlide key={idx} className="flex flex-col items-center">
+                <div className="w-[333px] h-[333px] flex mx-auto relative">
                   <img
                     src={elipse}
                     alt=""
-                    className="absolute w-28 right-30 rotate-1"
+                    className="absolute h-75 w-38 top-5 -left-10 rotate-1"
                   />
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover rounded-full z-10"
+                    className="w-full h-full object-cover object-top  rounded-full z-10"
                   />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-[#4A4A4A]">
                   {member.name}
                 </h3>
                 <p className="text-sm text-[#4A4A4A]">{member.role}</p>
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
+
+          {/* ✅ Pagination dots here */}
+          <div className="custom-pagination flex justify-center mt-6"></div>
         </div>
       </section>
 
       {/* Signature Events */}
-      <section className=""></section>
-      <div className="max-w-6xl mx-auto px-6 text-center mt-20">
-        <h2 className="text-3xl font-bold text-[#4A4A4A] mb-10">
-          Signature Events
-        </h2>
+      <section className="layout my-5">
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {events.map((event, idx) => (
-            <div
-              key={idx}
-              className="bg-[#FEFCFB] shadow-md rounded-2xl p-6 hover:shadow-lg transition"
-            >
-              <div className="flex justify-center">
-                <img src={event.icon} alt="" />
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-[#4A4A4A]">
-                {event.title}
-              </h3>
-              <p className="text-[#4A4A4A] text-sm mt-2">{event.description}</p>
+          <h2 className="text-[25px] text-black text-center lg:text-[48px] font-bold mt-10">
+            Signature Events
+          </h2>
+        <div className=" mx-auto px-6 text-center mt-10 flex justify-between ">
+
+          <Swiper
+            spaceBetween={10}
+            pagination={{ clickable: true }}
+            modules={[Pagination]} // ✅ removed Navigation module
+            breakpoints={{
+              320: { slidesPerView: 1 }, // mobile
+              640: { slidesPerView: 2 }, // tablets
+              1024: { slidesPerView: 4 }, // desktops
+            }}
+            className="pb-12" // ✅ extra padding so dots sit below cards
+          >
+            <div className="">
+              {events.map((event, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="bg-[#FEFCFB] shadow-md rounded-2xl p-6 hover:shadow-lg transition duration-300 flex flex-col items-center text-center h-full w-[280px] ">
+                    {/* Icon container */}
+                    
+                    <div className="flex justify-center items-center w-20 h-20 rounded-full bg-[#F5F5F5]">
+                      <img
+                        src={event.icon}
+                        alt={event.title}
+                        className="w-10 h-10 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mt-4 text-lg font-semibold text-[#4A4A4A]">
+                      {event.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-[#4A4A4A] text-sm mt-2 leading-relaxed">
+                      {event.description}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </div>
-          ))}
+          </Swiper>
         </div>
-      </div>
+      </section>
     </section>
   );
 };
