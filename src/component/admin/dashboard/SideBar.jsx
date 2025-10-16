@@ -17,31 +17,31 @@ const SideBar = () => {
       icon: LuLayoutDashboard,
       label: "Dashboard",
       path: "/dashboard/admin",
-      active: location.pathname === "/dashboard",
+      active: location.pathname === "/dashboard/admin",
     },
     {
       icon: FaCalendarAlt,
       label: "Events",
       path: "/dashboard/admin/events",
-      active: location.pathname === "/events",
+      active: location.pathname === "/dashboard/admin/events",
     },
     {
       icon: MdOutlineEditCalendar,
       label: "Create Events",
       path: "/dashboard/admin/create-events",
-      active: location.pathname === "/create-events",
+      active: location.pathname === "/dashboard/admin/create-events",
     },
     {
       icon: LiaUsersSolid,
       label: "User Managements",
       path: "/dashboard/admin/userManagements",
-      active: location.pathname === "/userManagements",
+      active: location.pathname === "/dashboard/admin/userManagements",
     },
     {
       icon: HiOutlineChartSquareBar,
       label: "Revenue",
       path: "/dashboard/admin/revenue",
-      active: location.pathname === "/revenue",
+      active: location.pathname === "/dashboard/admin/revenue",
     },
   ];
 
@@ -50,7 +50,7 @@ const SideBar = () => {
       to={path}
       className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
         active
-          ? "bg-primary text-[#1D1D1D]"
+          ? "bg-[#E6F1F0] text-[#006F6A]"
           : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A] hover:font-[600]"
       }`}
     >
