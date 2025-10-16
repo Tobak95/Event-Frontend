@@ -6,7 +6,7 @@ import { AiTwotoneExclamationCircle } from "react-icons/ai";
 
 const CheckOut2 = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,12 +18,11 @@ const CheckOut2 = () => {
     otherEmail: "",
   });
 
-  const [timer, setTimer] = useState(600); 
+  const [timer, setTimer] = useState(600);
   const [errors, setErrors] = useState({});
   const [discountCode, setDiscountCode] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
 
- 
   useEffect(() => {
     if (timer === 0) {
       clearTicketCart();
@@ -95,7 +94,6 @@ const CheckOut2 = () => {
     { id: "vvip", name: "VVIP", price: 300 },
   ];
 
-
   const ticketQuantities = {
     regular: 1,
     vip: 0,
@@ -104,14 +102,14 @@ const CheckOut2 = () => {
 
   const calculateSubtotal = () => {
     return Object.keys(ticketQuantities).reduce((total, ticketId) => {
-      const ticket = ticketTypes.find(t => t.id === ticketId);
+      const ticket = ticketTypes.find((t) => t.id === ticketId);
       return total + (ticketQuantities[ticketId] || 0) * ticket.price;
     }, 0);
   };
 
   const fee = 10;
   const subtotal = calculateSubtotal();
-  const discount = discountApplied ? 5 : 0; 
+  const discount = discountApplied ? 5 : 0;
   const total = subtotal + fee - discount;
 
   return (
@@ -187,9 +185,7 @@ const CheckOut2 = () => {
                 className="w-full lg:w-[507px] h-[56px] border-[0.5px] border-[#969595] outline-0 rounded-[2.44px] lg:rounded-[6px] p-[10px] text-[12px] lg:text-[16px] placeholder:text-[#928A83] placeholder:font-[400]"
               />
               {errors[field.name] && (
-                <p className="text-sm text-red-600 mt-1">
-                  {errors.field.name}
-                </p>
+                <p className="text-sm text-red-600 mt-1">{errors.field.name}</p>
               )}
             </div>
           ))}
@@ -231,7 +227,7 @@ const CheckOut2 = () => {
               Send ticket to different email addresses?
             </p>
             <p className="text-[11px] lg:text-[14px] text-gray-700 font-[400] mb-4 flex items-center gap-3">
-              <AiTwotoneExclamationCircle  className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]" />{" "}
+              <AiTwotoneExclamationCircle className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]" />{" "}
               Tickets will only be sent to the email address you provide here
             </p>
             <div className="flex gap-4">
@@ -392,7 +388,7 @@ const CheckOut2 = () => {
               </div>
             </div>
 
-            <button 
+            <button
               type="submit"
               className="w-full h-[72px] lg:h-[48px] bg-[#006F6A] text-[20px] font-[700] rounded-[7.39px] lg:rounded-[8px] text-[#FFFFFF] hover:bg-[#005a55] transition-colors"
             >

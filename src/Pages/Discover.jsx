@@ -9,6 +9,7 @@ import { IoArrowForward } from "react-icons/io5";
 import Card from "../component/DiscoverCard";
 import { PiCalendarDotsThin } from "react-icons/pi";
 import Pagination from "../component/layout/Pagination";
+import DiscoverModals from "../component/DiscoverModals";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
@@ -22,10 +23,9 @@ import { useEventContext } from "../Hooks/useEventContext";
 import dateFormat from "../Utils/dateFormat";
 
 const Discover = () => {
-  const [isOpen, setisOpen] = useState(null);
-  const eventCategoryModalRef = useRef(null);
-  const priceModalRef = useRef(null);
-  const dateModalRef = useRef(null);
+  const [activeModal, setActiveModal] = useState(null);
+  const modalRef = useRef(null);
+
   const { discover } = useEventContext();
 
   // --- Pagination setup ---
@@ -36,19 +36,14 @@ const Discover = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = discover.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleDiscoverModals = (discoverModalId) => {
-    setisOpen(discoverModalId);
-    if (discoverModalId === "eventCategoryModal") {
-      eventCategoryModalRef.current?.showModal();
-    } else if (discoverModalId === "priceModal") {
-      priceModalRef.current?.showModal();
-    } else if (discoverModalId === "dateModal") {
-      dateModalRef.current?.showModal();
-    }
+  const handleOpenModal = (type) => {
+    setActiveModal(type);
+    modalRef.current?.showModal();
   };
   const [selectedCategory, isselectedCategory] = useState("All Events");
   const handleSelectedCategories = () => {};
 
+<<<<<<< HEAD
   const cardData = [
     {
 <<<<<<< HEAD
@@ -135,28 +130,116 @@ const Discover = () => {
       price: "$100.00",
     },
   ];
+=======
+ 
+  //   {
+  //     id: 1,
+  //     h2: "Rhythm & Soul Tour: ",
+  //     pTag1: "Eternal Vibes",
+  //     location: "Eko Atlantic City (Lagos, Nigeria)",
+  //     time: "9:00 PM - 12:00PM",
+  //     date: "Sept 25, 2025",
+  //     img: img1,
+  //     price: "$90.00",
+  //   },
+  //   {
+  //     id: 2,
+  //     h2: "The Vibe Tour:",
+  //     pTag1: "Genesis Night",
+  //     location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img2,
+  //     price: "$135.00",
+  //   },
+  //   {
+  //     id: 3,
+  //     h2: "Visions in Motion Tour:",
+  //     pTag1: "Bridge of Culture",
+  //     location: "National Museum Lagos (Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img3,
+  //     price: "$50.00",
+  //   },
+  //   {
+  //     id: 4,
+  //     h2: "Rhythm & Soul Tour:",
+  //     pTag1: "Eternal Vibes",
+  //     location: "Eko Atlantic City (Lagos, Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img4,
+  //     price: "$90.00",
+  //   },
+  //   {
+  //     id: 5,
+  //     h2: "Global Takeover Tour:",
+  //     pTag1: "Coastline Heat",
+  //     location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 2, 2025",
+  //     img: img5,
+  //     price: "$120.00",
+  //   },
+  //   {
+  //     id: 6,
+  //     h2: "The Vibe Tour: The:",
+  //     pTag1: "Genesis Night",
+  //     location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img6,
+  //     price: "$135.00",
+  //   },
+  //   {
+  //     id: 7,
+  //     h2: "Rhythm & Soul Tour:",
+  //     pTag1: "Eternal Vibes",
+  //     location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img7,
+  //     price: "$90.00",
+  //   },
+  //   {
+  //     id: 8,
+  //     h2: "Gospel Vibes Tour:",
+  //     pTag1: "Praise On The Nile",
+  //     location: "House on the Rock Cathedral ",
+  //     time: "9:00 PM - 11:00PM",
+  //     date: "Nov 5, 2025",
+  //     img: img8,
+  //     price: "$100.00",
+  //   },
+  // ];
+>>>>>>> dc6ae1de00443b477f2ddcf1e622a7cb1e19ac8b
   return (
     <>
       <main>
         {/* Section for DISCOVER bACKGROUND */}
-        <section>
-          <HeroSectionCard
-            backgroundImage={bg}
-            h2={"Discover Events"}
-            p={
-              "Stay connected to the pulse of culture. Explore concerts, shows, and gatherings that bring people together."
-            }
-          />
-        </section>
+       <section className="relative bg-cover bg-center lg:h-[642px] h-[297px]" style={{ backgroundImage: "url(/bg.jpg)" }}>
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+
+  {/* Content */}
+  <div className="relative z-10 flex flex-col items-center justify-center  h-full text-[#FEFCFB]">
+    <h2 className="text-[24px] md:text-[64px] font-bold mb-4">Discover Events</h2>
+    <p className="text-[#FFFFFF] text-[13px]  md:text-[20px] text-center md:w-[648.34375px] w-[350px] leading-[150%]">
+      Stay connected to the pulse of culture. Explore concerts, shows, and gatherings that bring people together.
+    </p>
+  </div>
+</section>
+
         {/* Article for Discovery Page */}
         <article className="layout gap-[35px] flex flex-col mt-5">
           {/* section for discovery filters */}
-          <section className="lg:flex items-center justify-between">
+          <section className="md:flex items-center justify-between">
             {/* div for Event Category Modal */}
             <div className="flex gap-[10px] lg:pt-3">
               <button
                 className="btn discoverFilter bg-[#FFFFFF]"
-                onClick={() => handleDiscoverModals("eventCategoryModal")}
+                onClick={() => handleOpenModal("category")}
               >
                 All Events
                 <MdKeyboardArrowDown size={18} />
@@ -164,7 +247,7 @@ const Discover = () => {
 
               <button
                 className="btn discoverFilter bg-[#FFFFFF]"
-                onClick={() => handleDiscoverModals("priceModal")}
+                onClick={() => handleOpenModal("price")}
               >
                 Price
                 <MdKeyboardArrowDown size={18} />
@@ -172,12 +255,13 @@ const Discover = () => {
 
               <button
                 className="btn discoverFilter bg-[#FFFFFF]"
-                onClick={() => handleDiscoverModals("dateModal")}
+                onClick={() => handleOpenModal("date")}
               >
                 Date
                 <MdKeyboardArrowDown size={18} />
               </button>
             </div>
+
             {/* div for search  */}
             <div className="flex items-center pt-4 lg:pt-0  ">
               <input
@@ -239,99 +323,8 @@ const Discover = () => {
           </section>
         </article>
       </main>
-      {/* Event Category modal  */}
-      <dialog
-        ref={eventCategoryModalRef}
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg text-[32px] leading-[100%] tracking-[0%]  text-center p-5">
-            Category
-          </h3>
-          <div className="text-[20px] leading-[100%] tracking-[0%] flex flex-col gap-6">
-            <p className="border-b-1 border-[#C6C6C6] p-2 ">Business</p>
-            <p className="border-b-1 border-[#C6C6C6] p-2">Sports</p>
-            <p className="border-b-1 border-[#C6C6C6] p-2">Festivals</p>
-            <p className="border-b-1 border-[#C6C6C6] p-2">Food & Drinks</p>
-            <p className="border-b-1 border-[#C6C6C6] p-2">Dating</p>
-            <p className="border-b-1 border-[#C6C6C6] p-2">Hobbies</p>
-          </div>
-          <div className="flex justify-between pt-20">
-            <button className="clearApplyButton">Clear</button>
-            <button className="clearApplyButton">Apply</button>
-          </div>
-        </div>
-      </dialog>
-
-      {/* Price Modal */}
-      <dialog
-        ref={priceModalRef}
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h4 className="font-bold text-lg text-[32px] leading-[100%] tracking-[0%]  text-center">
-            Price
-          </h4>
-          <div className="items-center flex flex-col gap-[25px] py-9">
-            <button className="block priceButton">Paid</button>
-            <button className="block priceButton">Free</button>
-          </div>
-          <div className="flex justify-between pt-20">
-            <button className="clearApplyButton">Clear</button>
-            <button className="clearApplyButton">Apply</button>
-          </div>
-        </div>
-      </dialog>
-
-      {/* Date Modal */}
-
-      <dialog ref={dateModalRef} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg text-[32px] leading-[100%] tracking-[0%]  text-center">
-            Date
-          </h3>
-          <div className="flex flex-col gap-[60px] py-9">
-            <div className="flex justify-between gap-[10px]">
-              <button className="dateButton">Today</button>
-              <button className="dateButton">Tomorrow</button>
-              <button className="dateButton">This Weekend</button>
-            </div>
-
-            <div className="flex justify-between">
-              <button className="dateButton flex items-center gap-2">
-                <PiCalendarDotsThin size={25} />
-                Start date
-              </button>
-              <button className="dateButton flex gap-2 items-center  leading-[100%] tracking-[0%]">
-                <PiCalendarDotsThin size={25} />
-                End date
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-between pt-20">
-            <button className="clearApplyButton">Clear</button>
-            <button className="clearApplyButton">Apply</button>
-          </div>
-        </div>
-      </dialog>
+      <DiscoverModals modalRef={modalRef} activeModal={activeModal} />
+      
     </>
   );
 };
