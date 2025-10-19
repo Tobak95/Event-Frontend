@@ -3,9 +3,27 @@ import Header from "../../../component/common/Header";
 import icon1 from "../../../assets/rev.png";
 import ticket from "../../../assets/tiket.png";
 import { FiSearch } from "react-icons/fi";
-import { IoFilterSharp } from "react-icons/io5";
+import {
+  IoChevronBackOutline,
+  IoChevronForward,
+  IoFilterSharp,
+} from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+
+const parentVariant = {
+  hide: { opacity: 0 },
+  open: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const childrenVariant = {
+  hide: { opacity: 0, y: 10 },
+  open: { opacity: 1, y: 0, transition: { ease: "easeIn", duration: 0.3 } },
+};
 
 const revenueAnalytics = [
   {
@@ -71,9 +89,15 @@ const HeadAnalytics = () => {
   ];
 
   return (
-    <div className="flex items-center justify-between gap-[29px] mt-4">
+    <motion.div
+      variants={parentVariant}
+      initial="hide"
+      animate="open"
+      className="flex items-center justify-between gap-[29px] mt-4"
+    >
       {data.map((item) => (
-        <div
+        <motion.div
+          variants={childrenVariant}
           className="border border-[#DBDBDB] rounded-[8px] p-4  w-full shadow"
           key={item.h1}
         >
@@ -90,19 +114,29 @@ const HeadAnalytics = () => {
 
             <img src={item.icon} alt="" />
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
 const Modal = ({ setShowModal }) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
       className="absolute h-[980px] inset-0 bg-black/30 backdrop-blur-xs flex items-center justify-center"
       onClick={setShowModal}
     >
-      <div className="relative w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
+        transition={{ ease: "easeInOut", duration: 0.3 }}
+        className="relative w-full"
+      >
         <div
           className="w-[350px] rounded-[14.71px] bg-white  absolute right-10 -top-30 py-6"
           onClick={(e) => e.stopPropagation()}
@@ -127,13 +161,14 @@ const Modal = ({ setShowModal }) => {
             <p>Lowest Revenue</p>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
 const Revenue = () => {
   const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="flex h-screen bg-base-200">
       <SideBar />
@@ -174,12 +209,19 @@ const Revenue = () => {
                   </div>
                 </div>
               </div>
-              {showModal && (
-                <Modal setShowModal={() => setShowModal((prev) => !prev)} />
-              )}
+              <AnimatePresence>
+                {showModal && (
+                  <Modal setShowModal={() => setShowModal((prev) => !prev)} />
+                )}
+              </AnimatePresence>
             </div>
 
-            <table className="w-full border-collapse mt-8 text-left">
+            <motion.table
+              className="w-full border-collapse mt-8 text-left"
+              variants={parentVariant}
+              initial="hide"
+              animate="open"
+            >
               <thead>
                 <tr className="bg-[#f0efef]">
                   {["EVENT NAME", "DATE", "TICKETS SOLD", "TOTAL REVENUE"].map(
@@ -191,28 +233,56 @@ const Revenue = () => {
                   )}
                 </tr>
               </thead>
-              <div className="my-6"/>
-              <tbody>
+
+              <div className="my-6" />
+
+              <motion.tbody variants={parentVariant}>
                 {revenueAnalytics.map((item) => (
-                  <tr
+                  <motion.tr
                     key={item.event}
-                    className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px] "
+                    variants={childrenVariant}
+                    className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px]"
                   >
-                    <td className="py-3 ">{item.event}</td>
-                    {/* <td className="py-3">{item.date}</td> */}
+                    <td className="py-3">{item.event}</td>
                     <div className="-ml-20">
                       <td>{item.date}</td>
                     </div>
-                    <td className="py-3 ">{item.SoldTicket}</td>
-                    <div className="ml-12">
-                      <td className="py-3 text-[#006F6A] font-bold">
-                        {item.price}
-                      </td>
-                    </div>
-                  </tr>
+                    <td className="py-3">{item.SoldTicket}</td>
+                    <td className="py-3 text-[#006F6A] font-bold pl-12">
+                      {item.price}
+                    </td>
+                  </motion.tr>
                 ))}
-              </tbody>
-            </table>
+              </motion.tbody>
+            </motion.table>
+
+            <div className="divider mt-10" />
+
+            <div className="flex justify-between items-center -mt-4">
+              <div className="flex items-center gap-14">
+                <p>Showing</p>
+                <p>1 / 10</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
+                  <IoChevronBackOutline size={26} />
+                </div>
+                <div className="space-x-2">
+                  {[1, 2, 3].map((item) => (
+                    <button
+                      className={`border ${
+                        item === 1 ? "border-[#FFCF00]" : "border-gray-300"
+                      } rounded-full py-1 px-2`}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+                <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
+                  <IoChevronForward size={26} />
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
