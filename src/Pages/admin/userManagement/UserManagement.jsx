@@ -8,13 +8,9 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import useAppContext from "../../../Context/appContext";
-import { useEffect } from "react";
 
 const UserManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  
- 
 
   const data = React.useMemo(
     () => [

@@ -25,12 +25,12 @@ const Hero = () => {
               Explore Events
             </button>
 
-            <button
+            {/* <button
               onClick={() => redirect("/dashboard/admin")}
               className="bg-[#006F6A] w-[150px] lg:w-[290px] h-[46px] lg:h-[57px] mb-5 mt-7 lg:mt-10 rounded-[8px] cursor-pointer block mx-auto"
             >
               Dashboard
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

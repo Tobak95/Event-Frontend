@@ -26,7 +26,7 @@ const Discover = () => {
   const [activeModal, setActiveModal] = useState(null);
   const modalRef = useRef(null);
 
-  const { discover } = useEventContext();
+  const { isLoading, events, isSubmitting } = useEventContext();
 
   // --- Pagination setup ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +34,7 @@ const Discover = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = discover.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = events.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleOpenModal = (type) => {
     setActiveModal(type);
@@ -43,7 +43,6 @@ const Discover = () => {
   const [selectedCategory, isselectedCategory] = useState("All Events");
   const handleSelectedCategories = () => {};
 
- 
   //   {
   //     id: 1,
   //     h2: "Rhythm & Soul Tour: ",
@@ -129,18 +128,24 @@ const Discover = () => {
     <>
       <main>
         {/* Section for DISCOVER bACKGROUND */}
-       <section className="relative bg-cover bg-center lg:h-[642px] h-[297px]" style={{ backgroundImage: "url(/bg.jpg)" }}>
-  {/* Dark overlay */}
-  <div className="absolute inset-0 bg-black opacity-50"></div>
+        <section
+          className="relative bg-cover bg-center lg:h-[642px] h-[297px]"
+          style={{ backgroundImage: "url(/bg.jpg)" }}
+        >
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black opacity-50"></div>
 
-  {/* Content */}
-  <div className="relative z-10 flex flex-col items-center justify-center  h-full text-[#FEFCFB]">
-    <h2 className="text-[24px] md:text-[64px] font-bold mb-4">Discover Events</h2>
-    <p className="text-[#FFFFFF] text-[13px]  md:text-[20px] text-center md:w-[648.34375px] w-[350px] leading-[150%]">
-      Stay connected to the pulse of culture. Explore concerts, shows, and gatherings that bring people together.
-    </p>
-  </div>
-</section>
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center  h-full text-[#FEFCFB]">
+            <h2 className="text-[24px] md:text-[64px] font-bold mb-4">
+              Discover Events
+            </h2>
+            <p className="text-[#FFFFFF] text-[13px]  md:text-[20px] text-center md:w-[648.34375px] w-[350px] leading-[150%]">
+              Stay connected to the pulse of culture. Explore concerts, shows,
+              and gatherings that bring people together.
+            </p>
+          </div>
+        </section>
 
         {/* Article for Discovery Page */}
         <article className="layout gap-[35px] flex flex-col mt-5">
@@ -206,7 +211,7 @@ const Discover = () => {
               ))}
             </div>
             <Pagination
-              totalItems={discover.length}
+              totalItems={events.length}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               onPageChange={setCurrentPage}
@@ -235,7 +240,6 @@ const Discover = () => {
         </article>
       </main>
       <DiscoverModals modalRef={modalRef} activeModal={activeModal} />
-      
     </>
   );
 };

@@ -22,7 +22,7 @@ const UpcomingEvent = () => {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-[27.5px] mt-5 lg:mt-10">
-        {events.map((event, index) => {
+        {events.slice(0, 6).map((event, index) => {
           return (
             <div
               key={index}
