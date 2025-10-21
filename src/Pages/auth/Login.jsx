@@ -44,7 +44,11 @@ const Login = () => {
       }
       login(mydata.token, mydata.user);
       toast.success("Login Successful");
-      redirect("/");
+      if (mydata.user.role === "user") {
+        redirect("/");
+      } else {
+        redirect("/dashboard/admin");
+      }
     } catch (error) {
       console.log(error);
       setErrorMessage(error?.response?.data?.message || "Login Failed");
