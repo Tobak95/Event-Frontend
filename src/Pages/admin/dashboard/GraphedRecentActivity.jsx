@@ -17,7 +17,7 @@ import {
 const sampleData = {
   7: [
     { name: "Jan", sales: 10000 },
-    { name: "Feb", sales: 20000 },
+    { name: "Feb", sales: 50000 },
     { name: "Mar", sales: 10000 },
     { name: "Apr", sales: 21000 },
     { name: "May", sales: 35000 },
@@ -54,7 +54,7 @@ const GraphedRecentActivity = () => {
 
   return (
     <div className=" w-full h-[367px]">
-      <div className="flex justify-between mt-10">
+      <div className="flex gap-5 justify-between mt-10">
         <div className="max-w-[775px] bg-[#FFFFFF] shadow w-full h-[376px] p-10 ">
           {/* i mapped over an object of an array, so if you clicked on the elected range, you will get data of each selected range */}
           <div className="flex justify-evenly lg:gap-50">

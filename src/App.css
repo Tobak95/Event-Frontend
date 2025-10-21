@@ -28,11 +28,10 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
-
 }
 
-.discoverFilter{
-  border: 1px solid #8A8A8A;
+.discoverFilter {
+  border: 1px solid #8a8a8a;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -42,26 +41,25 @@
   color: white;
 }
 
-.priceButton{
-  border: 1px solid #006F6A;
+.priceButton {
+  border: 1px solid #006f6a;
   padding: 16px;
   border-radius: 8px;
-  color:#006F6A;
+  color: #006f6a;
   cursor: pointer;
   width: 100%;
 }
 
-.priceButton:hover{
-  color:white;
-  background-color: #006F6A;
-
+.priceButton:hover {
+  color: white;
+  background-color: #006f6a;
 }
 
-.clearApplyButton{
-  border-width: 1px 3px 3px 1px;  
+.clearApplyButton {
+  border-width: 1px 3px 3px 1px;
   border-style: solid;
-  border-color: #006F6A;
-  box-shadow: 1px 1px 3px #006F6A;
+  border-color: #006f6a;
+  box-shadow: 1px 1px 3px #006f6a;
   padding: 10px 12px;
   border-radius: 8px;
   font-size: 14px;
@@ -70,24 +68,22 @@
   cursor: pointer;
 }
 
-.clearApplyButton:hover{
-   color:white;
-  background-color: #006F6A;
+.clearApplyButton:hover {
+  color: white;
+  background-color: #006f6a;
 }
 
-.dateButton{
-  color: #5A5A5A;
-  border: 1px solid #006F6A;
+.dateButton {
+  color: #5a5a5a;
+  border: 1px solid #006f6a;
   padding: 10px 20px;
   border-radius: 10px;
-
 }
 
-.dateButton:hover{
-   color:white;
-  background-color: #006F6A;
+.dateButton:hover {
+  color: white;
+  background-color: #006f6a;
 }
-
 
 /* Add this block to your main CSS file (e.g., globals.css) */
 /* This targets the Swiper pagination element */
@@ -101,11 +97,15 @@
 
 /* Optional: styling for the individual dots */
 .swiper-pagination-bullet {
-  background: #006F6A !important; /* Example: use your primary color */
+  background: #006f6a !important; /* Example: use your primary color */
   opacity: 0.5;
 }
 
 .swiper-pagination-bullet-active {
-  background: #006F6A !important;
+  background: #006f6a !important;
   opacity: 1;
 }
+
+body {
+}
+ 
