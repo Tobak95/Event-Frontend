@@ -6,7 +6,10 @@ import {
 } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import SuspenseLoader from "./component/layout/SuspenseLoader";
-import NavBar from "./component/layout/NavBar";
+import NavBarLoggedIn from "./component/layout/NavBarLoggedIn";
+
+import NavBarLoggedOut from "./component/layout/NavBarLoggedOut";
+import { useAppContext } from "./Hooks/useAppContext";
 import Footer from "./component/layout/Footer";
 import "./App.css";
 import ScrollToTop from "./component/ScrollToTop";
@@ -35,6 +38,7 @@ const PaymentSuccess = lazy(() => import("./Pages/PaymentSuccess"));
 // ✅ Layout wrapper
 const Layout = ({ children }) => {
   const location = useLocation();
+  const { user } = useAppContext();
 
   // ✅ Show Navbar & Footer only on selected routes
   const showLayout = ["/", "/about-us", "/contact-us", "/discover"].includes(
@@ -42,7 +46,8 @@ const Layout = ({ children }) => {
   );
   return (
     <>
-      {showLayout && <NavBar />}
+      {showLayout && (user ? <NavBarLoggedIn /> : <NavBarLoggedOut />)}
+
       <main>{children}</main>
       {showLayout && <Footer />}
     </>
