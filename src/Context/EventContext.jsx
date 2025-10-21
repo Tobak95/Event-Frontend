@@ -1,36 +1,26 @@
 import { axiosInstance } from "../Utils/axiosInstance";
 import { createContext } from "react";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { useAppContext } from "../Hooks/useAppContext";
 
 export const EventContext = createContext();
 
 const EventProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState([]);
-  const [discover, setDiscover] = useState([]);
+  const [users, setUsers] = useState([]);
+  const { token } = useAppContext();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchEvents = async () => {
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.get("/events?page=1&limit=6");
+      const response = await axiosInstance.get("/events");
       //   console.log(response.data);
       setEvents(response.data.events);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchDiscover = async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await axiosInstance.get("/events/upcoming");
-      console.log(response.data);
-      setDiscover(response.data.events);
     } catch (error) {
       console.log(error);
     } finally {
@@ -42,9 +32,7 @@ const EventProvider = ({ children }) => {
     fetchEvents();
   }, [events]);
 
-  useEffect(() => {
-    fetchDiscover();
-  }, []);
+  // const getSingleEvent = async () => {};
 
   return (
     <EventContext.Provider
@@ -55,8 +43,6 @@ const EventProvider = ({ children }) => {
         setIsSubmitting,
         setEvents,
         setIsLoading,
-        discover,
-        setDiscover,
       }}
     >
       {children}

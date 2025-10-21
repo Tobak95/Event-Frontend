@@ -31,10 +31,10 @@ const EventActionModal = ({
   const isDraft = event.status === "Draft";
 
   return (
-    <div className="fixed top-[250px] inset-0 flex justify-end bg-black/20 backdrop-blur-sm z-50">
+    <div className="fixed  inset-0 flex justify-end bg-[#ffffff56] backdrop-blur-xs z-50">
       <div
         ref={modalRef}
-        className={`  animate-slide-in  mt-2 bg-white rounded-[10px] shadow-lg p-4 ${
+        className={`absolute top-[250px]  animate-slide-in  mt-2 bg-white rounded-[10px] shadow-2xl p-4 ${
           isDraft ? "h-[100px] w-[180px]" : "h-[150px] w-[200px]"
         }  `}
       >
