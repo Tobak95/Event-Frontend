@@ -43,6 +43,86 @@ const Discover = () => {
   const [selectedCategory, isselectedCategory] = useState("All Events");
   const handleSelectedCategories = () => {};
 
+      id: 1,
+      h2: "Rhythm & Soul Tour: ",
+      pTag1: "Eternal Vibes",
+      location: "Eko Atlantic City (Lagos, Nigeria)",
+      time: "9:00 PM - 12:00PM",
+      date: "Sept 25, 2025",
+      img: img1,
+      price: "$90.00",
+    },
+    {
+      id: 2,
+      h2: "The Vibe Tour:",
+      pTag1: "Genesis Night",
+      location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img2,
+      price: "$135.00",
+    },
+    {
+      id: 3,
+      h2: "Visions in Motion Tour:",
+      pTag1: "Bridge of Culture",
+      location: "National Museum Lagos (Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img3,
+      price: "$50.00",
+    },
+    {
+      id: 4,
+      h2: "Rhythm & Soul Tour:",
+      pTag1: "Eternal Vibes",
+      location: "Eko Atlantic City (Lagos, Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img4,
+      price: "$90.00",
+    },
+    {
+      id: 5,
+      h2: "Global Takeover Tour:",
+      pTag1: "Coastline Heat",
+      location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 2, 2025",
+      img: img5,
+      price: "$120.00",
+    },
+    {
+      id: 6,
+      h2: "The Vibe Tour: The:",
+      pTag1: "Genesis Night",
+      location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img6,
+      price: "$135.00",
+    },
+    {
+      id: 7,
+      h2: "Rhythm & Soul Tour:",
+      pTag1: "Eternal Vibes",
+      location: "Teslim Balogun Stadium (Lagos, Nigeria)",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img7,
+      price: "$90.00",
+    },
+    {
+      id: 8,
+      h2: "Gospel Vibes Tour:",
+      pTag1: "Praise On The Nile",
+      location: "House on the Rock Cathedral ",
+      time: "9:00 PM - 11:00PM",
+      date: "Nov 5, 2025",
+      img: img8,
+      price: "$100.00",
+    },
+  ];
   //   {
   //     id: 1,
   //     h2: "Rhythm & Soul Tour: ",
@@ -124,6 +204,7 @@ const Discover = () => {
   //     price: "$100.00",
   //   },
   // ];
+
   return (
     <>
       <main>
