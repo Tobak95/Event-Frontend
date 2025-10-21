@@ -2,9 +2,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logoutIcon from "../../../assets/logoutIcon.png";
+import { useAppContext } from "../../../Hooks/useAppContext";
 
 const LogoutModal = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const { logout } = useAppContext();
 
   const handleLogout = () => {
     // Clear any stored auth data
@@ -13,6 +15,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
 
     // Navigate to login page
     navigate("/login");
+    logout();
 
     // Close modal
     onClose();
