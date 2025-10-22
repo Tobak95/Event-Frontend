@@ -67,22 +67,26 @@ const EventTable = ({ events, setEvents, eventType }) => {
           {events.length > 0 ? (
             events.map((event) => (
               <tr
-                key={event.id}
+                key={event._id}
                 className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors"
               >
                 <td
-                  className="py-4 text-[#1B1B1B] font-medium truncate max-w-[120px] text-[20px] cursor-pointer"
+                  className="py-4 text-[#1B1B1B] font-medium truncate max-w-[200px] text-[20px] cursor-pointer"
                   onClick={() =>
-                    redirect(`/dashboard/admin/events/${event.id}`)
+                    redirect(`/dashboard/admin/events/${event._id}`)
                   }
                 >
-                  {event.name}
+                  {event.title}
                 </td>
                 <td className="py-4 text-[#000000] text-[16px] font-[400]">
-                  {event.date}
+                  {new Date(event.startDate).toLocaleDateString("en-us", {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
                 </td>
                 <td className="py-4 text-[#000000] text-[16px] font-[400]">
-                  {event.type}
+                  {event.tickets[0].type}
                 </td>
                 <td className="py-4 text-[#000000] text-[16px] font-[400]">
                   {event.sales}
@@ -90,7 +94,7 @@ const EventTable = ({ events, setEvents, eventType }) => {
                 <td className="py-4">
                   <span
                     className={`w-[52px] h-[23px] p-[10px] font-[500] text-[11px] rounded-[5px] ${
-                      event.status === "Live"
+                      event.status === "live"
                         ? "bg-[#E6F1F0] text-[#004441]"
                         : "bg-[#FFFAE6] text-[#FFCF00]"
                     }`}
