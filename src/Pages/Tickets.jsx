@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../component/layout/NavBar";
+import NavBarLoggedIn from "../component/layout/NavBarLoggedIn";
 import logo2 from "../assets/logo2.png";
 import icon2 from "../assets/Icon2.png";
 import { BiSearch } from "react-icons/bi";

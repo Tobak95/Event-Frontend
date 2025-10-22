@@ -33,10 +33,10 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }) => {
   };
 
   return (
-    <div className="fixed top-[50px] inset-0 flex justify-end bg-black/20 backdrop-blur-sm z-50">
+    <div className="fixed  inset-0 flex justify-end bg-[#ffffff56] backdrop-blur-xs z-50">
       <div
         ref={modalRef}
-        className="w-[280px] h-[270px] bg-white shadow-xl p-5 overflow-y-hidden animate-slide-in rounded-[10px]"
+        className="absolute top-[50px] w-[280px] h-[270px] bg-white shadow-xl p-5 overflow-y-hidden animate-slide-in rounded-[10px]"
       >
         {/* Event Type */}
         <div className="mb-5">

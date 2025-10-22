@@ -7,7 +7,7 @@ export const loginSchema = Yup.object().shape({
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email is invalid"),
   password: Yup.string()
     .required("Password is required")
-    .min(8, "Password must be at least 8 characters"),
+    .min(6, "Password must be at least 6 characters"),
   //.matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, "Password must contain at least one letter and one number"),
 });
 
@@ -21,7 +21,7 @@ export const signUpSchema = Yup.object().shape({
   phoneNumber: Yup.string()
     .matches(/^\+?[1-9][0-9]{7,14}$/, "Phone number is not valid")
     .required("Phone number is required"),
-  password: Yup.string().min(8, "Password must be at least 8 characters"),
+  password: Yup.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Confirm password is required"),
