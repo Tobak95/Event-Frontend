@@ -22,7 +22,14 @@ const EventProvider = ({ children }) => {
       //   console.log(response.data);
       setEvents(response.data.events);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      if (error.response?.status === 429) {
+        toast.warning(
+          "Too many requests — please wait a moment and try again."
+        );
+      } else {
+        toast.error("Failed to fetch events.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -30,7 +37,7 @@ const EventProvider = ({ children }) => {
 
   useEffect(() => {
     fetchEvents();
-  }, [events]);
+  }, []);
 
   // const getSingleEvent = async () => {};
 
