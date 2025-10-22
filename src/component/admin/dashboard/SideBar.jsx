@@ -3,45 +3,54 @@ import { Link, useLocation } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdOutlineEditCalendar } from "react-icons/md";
-import { FaSignOutAlt } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
 import { LiaUsersSolid } from "react-icons/lia";
-import { MdLockOutline } from "react-icons/md";
+import { GrPerformance } from "react-icons/gr";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 import Logo2 from "../../../assets/logo2.png";
+import LogoutModal from "../../../Pages/auth/modals/LogOutModal"
+import { useState } from "react";
 
 const SideBar = () => {
   const location = useLocation();
+
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+ const handleLogout = () => {
+   setIsLogoutModalOpen((prev) => !prev);
+ };
+
+
 
   const menuItems = [
     {
       icon: LuLayoutDashboard,
       label: "Dashboard",
       path: "/dashboard/admin",
-      active: location.pathname === "/dashboard",
+      active: location.pathname === "/dashboard/admin",
     },
     {
       icon: FaCalendarAlt,
       label: "Events",
       path: "/dashboard/admin/events",
-      active: location.pathname === "/events",
+      active: location.pathname === "/dashboard/admin/events",
     },
     {
       icon: MdOutlineEditCalendar,
       label: "Create Events",
       path: "/dashboard/admin/create-events",
-      active: location.pathname === "/create-events",
+      active: location.pathname === "/dashboard/admin/create-events",
     },
     {
       icon: LiaUsersSolid,
       label: "User Managements",
       path: "/dashboard/admin/userManagements",
-      active: location.pathname === "/userManagements",
+      active: location.pathname === "/dashboard/admin/userManagements",
     },
     {
       icon: HiOutlineChartSquareBar,
       label: "Revenue",
       path: "/dashboard/admin/revenue",
-      active: location.pathname === "/revenue",
+      active: location.pathname === "/dashboard/admin/revenue",
     },
   ];
 
@@ -50,7 +59,7 @@ const SideBar = () => {
       to={path}
       className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
         active
-          ? "bg-primary text-[#1D1D1D]"
+          ? "bg-[#E6F1F0] text-[#006F6A]"
           : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A] hover:font-[600]"
       }`}
     >
@@ -60,7 +69,7 @@ const SideBar = () => {
   );
 
   return (
-    <div className="flex flex-col w-[273px] min-h-screen  border-r-2 border-neutral/20 ">
+    <div className="flex flex-col w-[273px] h-screen  border-r-2 border-neutral/20 ">
       <div className="px-4 py-6  border-b ">
         <Link to={"/"}>
           <div className="flex ">
@@ -88,13 +97,18 @@ const SideBar = () => {
           to="/change-password"
           className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
         >
-          <MdLockOutline className="w-5 h-5" />
-          <span>Settings</span>
+          <GrPerformance className="w-5 h-5" />
+          <span className="text-[20px]">Settings</span>
         </Link>
-
-        <button className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content">
-          <FaSignOutAlt className="w-5 h-5" />
-          <span>Log Out</span>
+        {isLogoutModalOpen && (
+          <LogoutModal isOpen={isLogoutModalOpen} onClose={handleLogout} />
+        )}
+        <button
+          onClick={handleLogout}
+          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+        >
+          <BiLogOut className="w-5 h-5" />
+          <span className="text-[20px]">Log Out</span>
         </button>
       </div>
     </div>

@@ -111,7 +111,7 @@ const MeetTheTeamSection = () => {
           <h2 className="text-[25px] text-black text-center lg:text-[48px] font-bold mt-10">
             Signature Events
           </h2>
-        <div className=" mx-auto px-6 text-center mt-10 flex justify-between ">
+        <div className=" mx-auto text-center mt-10 flex justify-between ">
 
           <Swiper
             spaceBetween={10}
