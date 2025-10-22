@@ -13,6 +13,7 @@ import { useAppContext } from "./Hooks/useAppContext";
 import Footer from "./component/layout/Footer";
 import "./App.css";
 import ScrollToTop from "./component/ScrollToTop";
+import ProtectedRoute from "./component/ProtectedRoute";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
@@ -127,6 +128,11 @@ function App() {
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}
+           <Route
+            element={
+              <ProtectedRoute allowedRoles={["admin", "superAdmin"]} />
+            }
+          > 
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
           <Route path="/dashboard/admin/events" element={<Events />} />
           <Route
@@ -147,6 +153,7 @@ function App() {
             element={<UserManagements />}
           />
           <Route path="/dashboard/admin/revenue" element={<Revenue />} />
+           </Route> 
         </Routes>
       </Suspense>
     </Router>

@@ -17,6 +17,10 @@ const AdminDashboard = () => {
 
         <div className="overflow-y-auto flex-1">
           {/* workings here */}
+
+
+
+
           <section className="p-7">
             <div className="flex justify-between">
               <h1 className="text-[32px] font-[700]">Dashboard</h1>
@@ -34,12 +38,12 @@ const AdminDashboard = () => {
 
             {/* section 2   Total Events, Total Sales, Total Revenue, Total users */}
             <section className="mt-5">
-              <div className="flex justify-between">
+              <div className="flex gap-5 justify-between">
                 {menu.map((card, index) => {
                   return (
                     <div
                       key={index}
-                      className="w-[350px] h-[175px] border border-[#DBDBDB] rounded-[8px] p-4"
+                      className="w-[330px] h-[175px] border border-[#DBDBDB] rounded-[8px] p-4"
                     >
                       <div>
                         <h1 className="text-[#4A4A4A] text-[24px]">
@@ -62,15 +66,14 @@ const AdminDashboard = () => {
                 })}
               </div>
             </section>
-
             {/* Sales OverView and Recent activity */}
 
-            <section>
+            <section className="flex flex-col overflow-hidden">
               <GraphedRecentActivity />
-            </section>
 
-            <section>
-              <RecentTicketSales />
+              <div className="mt-10">
+                <RecentTicketSales />
+              </div>
             </section>
           </section>
         </div>

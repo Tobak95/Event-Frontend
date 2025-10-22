@@ -16,7 +16,7 @@ const AppProvider = ({ children }) => {
     }
     setLoading(false);
   }, []);
-  console.log(token);
+  // console.log(token, user);
 
   const login = (accessToken, user) => {
     setToken(accessToken);

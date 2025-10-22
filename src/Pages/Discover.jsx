@@ -42,7 +42,8 @@ const Discover = () => {
   };
   const [selectedCategory, isselectedCategory] = useState("All Events");
   const handleSelectedCategories = () => {};
-
+  [
+    {
       id: 1,
       h2: "Rhythm & Soul Tour: ",
       pTag1: "Eternal Vibes",

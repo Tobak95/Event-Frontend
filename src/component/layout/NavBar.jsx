@@ -75,14 +75,7 @@ const NavBar = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // useEffect(() => {
-  //   if (isScrolled) {
-  //     const timer = setTimeout(() => {
-  //       // Function to activate after scroll and delay
-  //     }, 10000); // 1 second after scroll
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isScrolled]);
+
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -202,8 +195,9 @@ const NavBar = ({
                         className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
                         onClick={() => setDropdown(false)}
                       >
-                        Reset Password
+                        Change Password
                       </NavLink>
+
                       {isLogoutModalOpen && (
                         <LogoutModal
                           isOpen={isLogoutModalOpen}
@@ -282,20 +276,20 @@ const NavBar = ({
               <div className="mt-4">
                 <button
                   onClick={() => setDropdown((prev) => !prev)}
-                  className="flex items-center justify-between w-full text-white font-medium"
+                  className="flex items-center justify-center gap-2 w-full text-white font-medium"
                 >
                   {user.firstname}.{user.lastname?.charAt(0).toUpperCase()}
                   <span>{dropdown ? "▲" : "▼"}</span>
                 </button>
 
                 {dropdown && (
-                  <div className="absolute right-0 mt-3 bg-white rounded-lg shadow-lg flex flex-col w-[160px] z-40">
+                  <div className="absolute right-25 bottom-13 mt-3 bg-white rounded-lg shadow-lg flex flex-col w-[190px] h-[190px] pt-9 z-40">
                     <NavLink
                       to="/tickets"
                       className="px-4 py-2 text-black hover:bg-gray-100 text-center"
                       onClick={() => {
                         setDropdown(false);
-                        setIsOpen(false); // ✅ closes mobile menu if open
+                        setIsOpen(true); // ✅ closes mobile menu if open
                       }}
                     >
                       My Tickets
@@ -309,18 +303,23 @@ const NavBar = ({
                         setIsOpen(false);
                       }}
                     >
-                      Reset Password
+                      Change Password
                     </NavLink>
 
                     <button
                       onClick={() => {
-                        handleLogout();
-                        setIsOpen(false);
+                        isLogoutModalOpen(); // open modal instead of immediate logout
                       }}
                       className="px-4 py-2 text-red-600 text-center hover:bg-gray-100"
                     >
                       Log Out
                     </button>
+                    {isLogoutModalOpen && (
+                      <LogoutModal
+                        isOpen={isLogoutModalOpen}
+                        onClose={handleLogout}
+                      />
+                    )}
                   </div>
                 )}
               </div>

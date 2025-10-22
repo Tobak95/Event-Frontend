@@ -170,8 +170,8 @@ const CheckOut2 = () => {
             },
           ].map((field) => (
             <div className="mb-4" key={field.name}>
-              <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px] ">
-                <span className="text-[#006F6A] text-[12px] lg:text-[24px] font-medium">
+              <label className="flex gap-2 font-medium text-[#1B1B1B] text-[13px] lg:text-[18px] ">
+                <span className="text-red-700 text-[12px] lg:text-[24px] font-medium">
                   *
                 </span>{" "}
                 {field.label}
@@ -191,8 +191,8 @@ const CheckOut2 = () => {
           ))}
 
           <div className="mb-4">
-            <label className="block font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
-              <span className="text-[#006F6A] text-[12px] lg:text-[24px] font-medium">
+            <label className="flex gap-2 font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
+              <span className="text-red-700 text-[12px] lg:text-[24px] font-medium">
                 *
               </span>{" "}
               Phone number
@@ -213,7 +213,7 @@ const CheckOut2 = () => {
                 type="text"
                 value={formData.phone}
                 onChange={handleChange}
-                className=" p-[10px] text-[12px] lg:text-[16px]  w-[397px] h-[56px] border-[0.5px] border-[#969595] rounded=[2.44px] rounded-[6px] placeholder:text-[#777777] placeholder:font-[400] outline-0"
+                className=" p-[10px] text-[12px] lg:text-[16px]  w-[397px] h-[56px] border-[0.5px] border-[#969595] rounded=[2.44px] rounded-[6px] placeholder:text-[#777777] placeholder:font-[400] outline-0 "
                 placeholder="7088305667"
               />
             </div>
@@ -227,7 +227,10 @@ const CheckOut2 = () => {
               Send ticket to different email addresses?
             </p>
             <p className="text-[11px] lg:text-[14px] text-gray-700 font-[400] mb-4 flex items-center gap-3">
-              <AiTwotoneExclamationCircle className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]" />{" "}
+              <AiTwotoneExclamationCircle
+                color="#006F6A"
+                className="lg:w-[28px] lg:h-[28px] w-[15px] h-[15px]"
+              />{" "}
               Tickets will only be sent to the email address you provide here
             </p>
             <div className="flex gap-4">
@@ -242,7 +245,7 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: true,
                     }))
                   }
-                  className="border accent-green-400 border-green-400 w-[14px] h-[14px] lg:w-[32px] lg:h-[32px]"
+                  className="border accent-[#006F6A] border-[#006F6A] w-[14px] h-[14px] lg:w-[32px] lg:h-[32px]"
                 />
                 Yes
               </label>
@@ -257,7 +260,7 @@ const CheckOut2 = () => {
                       sendToDifferentEmail: false,
                     }))
                   }
-                  className="border border-green-400 w-[14px] h-[14px] lg:w-[30px] lg:h-[30px] accent-green-400"
+                  className="border border-[#006F6A] w-[14px] h-[14px] lg:w-[30px] lg:h-[30px] accent-[#006F6A]"
                 />
                 No
               </label>

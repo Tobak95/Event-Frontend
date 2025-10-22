@@ -7,11 +7,11 @@ import HowItWorks from "../component/HowItWorks";
 import WhyChooseUs from "../component/WhyChooseUs";
 import Footer from "../component/layout/Footer";
 import DiscoverFooter from "../component/DiscoverFooter";
-import NavBarLoggedOut from "../component/layout/NavBarLoggedOut";
-
-const Home = () => {
+import NavBarLoggedIn from "../component/layout/NavBarLoggedIn";
+const HomeLoogedin = () => {
   return (
     <div>
+      <NavBarLoggedIn />
       <Hero />
       <UpcomingEvent />
       <EventCategory />
@@ -19,8 +19,9 @@ const Home = () => {
       <WhyChooseUs />
       <Testimonial />
       <DiscoverFooter />
+      <Footer />
     </div>
   );
 };
 
-export default Home;
+export default HomeLoogedin;

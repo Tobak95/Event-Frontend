@@ -60,7 +60,7 @@ const SideBar = () => {
   );
 
   return (
-    <div className="flex flex-col w-[273px] min-h-screen  border-r-2 border-neutral/20 ">
+    <div className="flex flex-col w-[273px] h-screen  border-r-2 border-neutral/20 ">
       <div className="px-4 py-6  border-b ">
         <Link to={"/"}>
           <div className="flex ">
