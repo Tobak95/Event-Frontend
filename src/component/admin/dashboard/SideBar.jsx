@@ -3,14 +3,23 @@ import { Link, useLocation } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdOutlineEditCalendar } from "react-icons/md";
-import { FaSignOutAlt } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
 import { LiaUsersSolid } from "react-icons/lia";
-import { MdLockOutline } from "react-icons/md";
+import { GrPerformance } from "react-icons/gr";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 import Logo2 from "../../../assets/logo2.png";
+import LogoutModal from "../../../Pages/auth/modals/LogOutModal"
+import { useState } from "react";
 
 const SideBar = () => {
   const location = useLocation();
+
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+ const handleLogout = () => {
+   setIsLogoutModalOpen((prev) => !prev);
+ };
+
+
 
   const menuItems = [
     {
@@ -88,13 +97,18 @@ const SideBar = () => {
           to="/change-password"
           className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
         >
-          <MdLockOutline className="w-5 h-5" />
-          <span>Settings</span>
+          <GrPerformance className="w-5 h-5" />
+          <span className="text-[20px]">Settings</span>
         </Link>
-
-        <button className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content">
-          <FaSignOutAlt className="w-5 h-5" />
-          <span>Log Out</span>
+        {isLogoutModalOpen && (
+          <LogoutModal isOpen={isLogoutModalOpen} onClose={handleLogout} />
+        )}
+        <button
+          onClick={handleLogout}
+          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+        >
+          <BiLogOut className="w-5 h-5" />
+          <span className="text-[20px]">Log Out</span>
         </button>
       </div>
     </div>
