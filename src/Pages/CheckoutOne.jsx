@@ -38,7 +38,7 @@ const CheckoutOne = () => {
   });
 
   // Calculate totals
- const calculateSubtotal = () => {
+  const calculateSubtotal = () => {
     return ticketTypes.reduce((total, ticket) => {
       const quantity = ticketQuantities[ticket.id] || 0;
       const ticketTotal = quantity * ticket.price;
@@ -56,24 +56,26 @@ const CheckoutOne = () => {
     return calculateSubtotal();
   };
 
-  const hasTicketsSelected = Object.values(ticketQuantities).some(qty => qty > 0);
+  const hasTicketsSelected = Object.values(ticketQuantities).some(
+    (qty) => qty > 0
+  );
 
-  // Dropdown 
+  // Dropdown
   const toggleDropdown = (ticketId) => {
-    setDropdownOpen(prev => ({
+    setDropdownOpen((prev) => ({
       ...prev,
-      [ticketId]: !prev[ticketId]
+      [ticketId]: !prev[ticketId],
     }));
   };
 
   const handleQuantityChange = (ticketId, quantity) => {
-    setTicketQuantities(prev => ({
+    setTicketQuantities((prev) => ({
       ...prev,
-      [ticketId]: quantity
+      [ticketId]: quantity,
     }));
-    setDropdownOpen(prev => ({
+    setDropdownOpen((prev) => ({
       ...prev,
-      [ticketId]: false
+      [ticketId]: false,
     }));
   };
 
@@ -85,7 +87,7 @@ const CheckoutOne = () => {
     });
   };
 
-  // Close dropdown 
+  // Close dropdown
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       closeAllDropdowns();
@@ -106,10 +108,12 @@ const CheckoutOne = () => {
           <div className="lg:col-span-2">
             <div className="bg-white p-6">
               <div className="flex items-center justify-start mb-8">
-                <ArrowLeft
-                  size={40}
-                  className="text-gray-600 hover:text-gray-900 cursor-pointer mr-4"
-                />
+                <Link to={"/eventDetails"}>
+                  <ArrowLeft
+                    size={40}
+                    className="text-gray-600 hover:text-gray-900 cursor-pointer mr-4"
+                  />
+                </Link>
                 <h2 className="text-2xl font-bold text-gray-900 m-0">
                   Choose Tickets
                 </h2>
@@ -150,9 +154,9 @@ const CheckoutOne = () => {
                           <span className="text-lg font-semibold">
                             {ticketQuantities[ticket.id] || 0}
                           </span>
-                          <ChevronDown 
+                          <ChevronDown
                             className={`h-4 w-4 transition-transform ${
-                              dropdownOpen[ticket.id] ? 'rotate-180' : ''
+                              dropdownOpen[ticket.id] ? "rotate-180" : ""
                             }`}
                           />
                         </button>
@@ -169,12 +173,10 @@ const CheckoutOne = () => {
                                 }}
                                 className={`w-full px-3 py-2 text-left hover:bg-gray-100 transition-colors ${
                                   quantity === ticketQuantities[ticket.id]
-                                    ? 'bg-[#006F6A] text-white'
-                                    : 'text-gray-900'
-                                } ${
-                                  quantity === 0 ? 'rounded-t-md' : ''
-                                } ${
-                                  quantity === 5 ? 'rounded-b-md' : ''
+                                    ? "bg-[#006F6A] text-white"
+                                    : "text-gray-900"
+                                } ${quantity === 0 ? "rounded-t-md" : ""} ${
+                                  quantity === 5 ? "rounded-b-md" : ""
                                 }`}
                               >
                                 {quantity}
@@ -252,20 +254,20 @@ const CheckoutOne = () => {
                   </div>
                 )}
               </div>
-              
+
               <Link to={hasTicketsSelected ? "/checkout2" : "#"}>
-                <button 
+                <button
                   disabled={!hasTicketsSelected}
                   className={`w-full ${
-                    hasTicketsSelected 
-                      ? "bg-[#006F6A] hover:bg-[#005a55]" 
+                    hasTicketsSelected
+                      ? "bg-[#006F6A] hover:bg-[#005a55]"
                       : "bg-gray-400 cursor-not-allowed"
                   } text-white py-3 px-4 rounded-md font-semibold transition-colors`}
                 >
                   Pay Now
                 </button>
               </Link>
-              
+
               {!hasTicketsSelected && (
                 <p className="text-sm text-red-500 text-center mt-2">
                   Please select at least one ticket
