@@ -85,8 +85,8 @@ const GraphedRecentActivity = () => {
               >
                 <defs>
                   <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#006F6A" stopOpacity={0} />
-                    <stop offset="95%" stopColor="#006F6A" stopOpacity={0.9} />
+                    <stop offset="5%" stopColor="#006F6A" stopOpacity={1.9} />
+                    <stop offset="95%" stopColor="#006F6A" stopOpacity={0.3} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#BBBBBB" />
@@ -110,10 +110,10 @@ const GraphedRecentActivity = () => {
         </div>
 
         <div className="max-w-[775px] bg-[white] shadow w-full h-full p-10">
-          <div className="flex justify-between">
+         
             <h1 className="text-[16px] font-[700]">Recent Activity</h1>
-            <button className="text-[#006F6A]">View All</button>
-          </div>
+           
+        
           <hr className="mt-5 text-[#8E8E8E]" />
 
           <div>
@@ -130,7 +130,7 @@ const GraphedRecentActivity = () => {
                       <p className="text-[14px]">{notifications.notify}</p>
                     </div>
 
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex  items-center  gap-2 min-w-[130px] justify-start whitespace-nowrap">
                       <LuClock /> {notifications.time}
                     </div>
                   </div>
