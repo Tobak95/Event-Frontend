@@ -129,21 +129,19 @@ function App() {
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}
-           <Route
-            element={
-              <ProtectedRoute allowedRoles={["admin", "superAdmin"]} />
-            }
-          > 
-          <Route path="/dashboard/admin" element={<AdminDashboard />} />
-          <Route path="/dashboard/admin/events" element={<Events />} />
           <Route
-            path="/dashboard/admin/events/:id"
-            element={<EventsDetail />}
-          />
-          <Route
-            path="/dashboard/admin/events/attendees"
-            element={<EventAttendees />}
-          />
+            element={<ProtectedRoute allowedRoles={["admin", "superAdmin"]} />}
+          >
+            <Route path="/dashboard/admin" element={<AdminDashboard />} />
+            <Route path="/dashboard/admin/events" element={<Events />} />
+            <Route
+              path="/dashboard/admin/events/:id"
+              element={<EventsDetail />}
+            />
+            <Route
+              path="/dashboard/admin/events/attendees"
+              element={<EventAttendees />}
+            />
 
           <Route
             path="/dashboard/admin/create-events"
