@@ -68,7 +68,21 @@ const UpcomingEvent = () => {
                       <div className="flex items-center gap-1">
                         <GoClock size={20} />
                         <p className="font-[400]">
-                          {event.startTime} - {event.endTime}
+                          {new Date(
+                            `1970-01-01T${event.startTime}`
+                          ).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })}{" "}
+                          -{" "}
+                          {new Date(
+                            `1970-01-01T${event.endTime}`
+                          ).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })}
                         </p>
                       </div>
                     </div>
