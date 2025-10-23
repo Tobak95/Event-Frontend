@@ -8,48 +8,74 @@ import Summary from "./Summary";
 
 const CreateEvents = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
+  // ✅ Step 1: Centralized form state
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    capacity: "",
+    startDate: "",
+    endDate: "",
+    address: "",
+    image: null,
+  });
+
+  // Function to handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, image: file });
+    }
+  };
+
+  // ✅ Step 2: Switch between steps
   if (currentStep === 2) {
     return (
       <Layout
         Children={
           <CreateTicket
+            formData={formData}
+            setFormData={setFormData}
             onBack={() => setCurrentStep(1)}
             onContinue={() => setCurrentStep(3)}
           />
         }
-      ></Layout>
+      />
     );
   }
 
   if (currentStep === 3) {
     return (
       <Layout
-        Children={<Summary/>}
-      ></Layout>
+        Children={
+          <Summary
+            formData={formData}
+            setFormData={setFormData}
+            onBack={() => setCurrentStep(2)}
+          />
+        }
+      />
     );
   }
+
+  // ✅ Step 3: Step 1 UI (Event creation form)
   return (
     <div className="flex h-screen bg-base-200">
       <SideBar />
-
       <div className="flex overflow-hidden flex-col flex-1">
         <Header />
-
         <div className="overflow-y-auto flex-1">
-          {/* workings here */}
           <section className="p-7">
             <div className="min-h-screen bg-[#fefefe] p-[30px]">
               <div className="max-w-[1107px] mx-auto">
-                {/* Progress Steps */}
                 <div className="mb-[50px]">
                   <ProgressSteps currentStep={1} />
                 </div>
 
-                {/* Form Content */}
                 <div className="space-y-[50px]">
-                  {/* Event Image & Details Row */}
+                  {/* Image Upload */}
                   <div className="flex gap-[30px]">
-                    {/* Event Image Upload */}
                     <div className="bg-white border border-[#e7e7e7] rounded-[10px] p-[30px] w-[560px]">
                       <div className="mb-[22px]">
                         <h2 className="text-[#1b1b1b] mb-[5px]">Event Image</h2>
@@ -70,8 +96,9 @@ const CreateEvents = () => {
                           Choose File
                           <input
                             type="file"
+                            accept="image/*"
                             className="hidden"
-                            onChange={(e) => console.log(e.target.files[0])}
+                            onChange={handleImageUpload}
                           />
                         </label>
                       </div>
@@ -88,29 +115,38 @@ const CreateEvents = () => {
                         </p>
                       </div>
 
-                      {/* Event Title */}
                       <div className="space-y-[7px]">
                         <label className="text-[#1b1b1b]">Event Title</label>
                         <input
                           type="text"
-                          placeholder="Enter event titile"
+                          placeholder="Enter event title"
+                          value={formData.title}
+                          onChange={(e) =>
+                            setFormData({ ...formData, title: e.target.value })
+                          }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
                       </div>
 
-                      {/* Description */}
                       <div className="space-y-[7px]">
-                        <label className="text-[#1b1b1b]">Desciption</label>
+                        <label className="text-[#1b1b1b]">Description</label>
                         <textarea
                           placeholder="Describe your event..."
                           rows={5}
+                          value={formData.description}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              description: e.target.value,
+                            })
+                          }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none resize-none"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Key Highlights Section */}
+                  {/* Key Highlights */}
                   <div className="bg-white border border-[#e7e7e7] rounded-[10px] p-[30px]">
                     <div className="mb-[22px]">
                       <h2 className="text-[#1b1b1b] mb-[5px]">
@@ -122,44 +158,41 @@ const CreateEvents = () => {
                     </div>
 
                     <div className="flex gap-[22px]">
-                      {/* Category */}
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Category</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            placeholder="Select category"
-                            className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
-                          />
-                          <MdKeyboardArrowDown
-                            size={24}
-                            className="absolute right-[16px] top-1/2 -translate-y-1/2 text-[#777777]"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          placeholder="Select category"
+                          value={formData.category}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              category: e.target.value,
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
+                        />
                       </div>
 
-                      {/* Capacity */}
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Capacity</label>
                         <input
-                          type="text"
+                          type="number"
                           placeholder="Max attendees"
+                          value={formData.capacity}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              capacity: e.target.value,
+                            })
+                          }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
                       </div>
                     </div>
-
-                    {/* Highlights Input */}
-                    <div className="mt-[22px] space-y-[7px]">
-                      <input
-                        type="text"
-                        placeholder="Enter perks of the night..."
-                        className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
-                      />
-                    </div>
                   </div>
 
-                  {/* Date & Time Section */}
+                  {/* Date & Time */}
                   <div className="bg-white border border-[#e7e7e7] rounded-[10px] p-[30px]">
                     <div className="mb-[22px]">
                       <h2 className="text-[#1b1b1b] mb-[5px]">Date & Time</h2>
@@ -169,29 +202,39 @@ const CreateEvents = () => {
                     </div>
 
                     <div className="flex gap-[22px]">
-                      {/* Start Date */}
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Start Date</label>
                         <input
-                          type="text"
-                          placeholder="mm/dd/yy"
+                          type="date"
+                          value={formData.startDate}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              startDate: e.target.value,
+                            })
+                          }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
                       </div>
 
-                      {/* End Date */}
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">End Date</label>
                         <input
-                          type="text"
-                          placeholder="mm/dd/yy"
+                          type="date"
+                          value={formData.endDate}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              endDate: e.target.value,
+                            })
+                          }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Location Section */}
+                  {/* Location */}
                   <div className="bg-white border border-[#e7e7e7] rounded-[10px] p-[30px]">
                     <div className="mb-[22px]">
                       <h2 className="text-[#1b1b1b] mb-[5px]">Location</h2>
@@ -205,12 +248,19 @@ const CreateEvents = () => {
                       <input
                         type="text"
                         placeholder="Enter full address"
+                        value={formData.address}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            address: e.target.value,
+                          })
+                        }
                         className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                       />
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
+                  {/* Buttons */}
                   <div className="flex justify-end gap-[20px]">
                     <button className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors">
                       Cancel
@@ -231,6 +281,7 @@ const CreateEvents = () => {
     </div>
   );
 };
+
 function ProgressSteps({ currentStep }) {
   const steps = [
     { number: 1, label: "Create New Event" },
@@ -240,38 +291,27 @@ function ProgressSteps({ currentStep }) {
 
   return (
     <div className="space-y-[15px]">
-      {/* Progress Line */}
       <div className="relative h-[22px] flex items-center">
-        {/* Line Container */}
         <div className="absolute w-full flex items-center">
-          {/* First segment - completed */}
           <div className="flex items-center" style={{ width: "50%" }}>
             <div className="w-full h-[1px] bg-[#006F6A]"></div>
           </div>
-          {/* Second segment - not completed */}
           <div className="flex items-center" style={{ width: "50%" }}>
             <div className="w-full h-[1px] bg-[#8E8E8E]"></div>
           </div>
         </div>
 
-        {/* Circles */}
         <div className="absolute w-full flex justify-between items-center px-[11px]">
-          {/* First Circle - Completed */}
           <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10">
             <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
           </div>
-
-          {/* Second Circle - Current */}
           <div className="w-[22px] h-[22px] rounded-full bg-white border-2 border-[#006F6A] z-10"></div>
-
-          {/* Third Circle - Not Started */}
           <div className="w-[22px] h-[22px] rounded-full bg-white border-2 border-[#2B8783] z-10"></div>
         </div>
       </div>
 
-      {/* Labels */}
       <div className="flex justify-between">
-        {steps.map((step, index) => (
+        {steps.map((step) => (
           <div
             key={step.number}
             className="text-center"
@@ -284,4 +324,5 @@ function ProgressSteps({ currentStep }) {
     </div>
   );
 }
+
 export default CreateEvents;

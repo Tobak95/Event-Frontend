@@ -57,7 +57,7 @@ const Card = ({ h2, location, time, time2, date, price, img }) => {
           <div className="flex items-center justify-between lg:justify-start lg:gap-25  mt-4">
             <span className="text-2xl font-bold">${price}</span>
 
-            <Link to={"/tickets"}>
+            <Link to={"/eventDetails"}>
               <button className="w-[92px] h-[42px] rounded-[10px] px-[2px] border border-[#6E706B] cursor-pointer text-[#006F6A] font-[700] text-[14px]">
                 Get Tickets
               </button>
