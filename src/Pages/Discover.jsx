@@ -26,7 +26,10 @@ const Discover = () => {
   const [activeModal, setActiveModal] = useState(null);
   const modalRef = useRef(null);
 
-  const { isLoading, events, isSubmitting } = useEventContext();
+  const { events } = useEventContext();
+  const liveEvents = events.filter(
+    (event) => event.status?.toLowerCase() === "live"
+  );
 
   // --- Pagination setup ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +37,7 @@ const Discover = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = events.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = liveEvents.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleOpenModal = (type) => {
     setActiveModal(type);
@@ -278,22 +281,22 @@ const Discover = () => {
               {currentItems.map((data) => (
                 <Card
                   key={data._id}
-                  date={new Date(data.eventDate).toLocaleDateString("en-us", {
+                  date={new Date(data.startDate).toLocaleDateString("en-us", {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
                   })}
                   h2={data.title}
-                  img={data.eventImage}
-                  location={data.location}
-                  price={data.price}
-                  time={dateFormat(data.eventStart)}
-                  time2={dateFormat(data.eventEnd)}
+                  img={data.image}
+                  location={data.address}
+                  price={data.tickets[0].price}
+                  time={data.startTime}
+                  time2={data.endTime}
                 />
               ))}
             </div>
             <Pagination
-              totalItems={events.length}
+              totalItems={liveEvents.length}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               onPageChange={setCurrentPage}

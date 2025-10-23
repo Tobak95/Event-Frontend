@@ -1,6 +1,5 @@
 import { axiosInstance } from "../Utils/axiosInstance";
-import { createContext } from "react";
-import { useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../Hooks/useAppContext";
 
@@ -9,27 +8,17 @@ export const EventContext = createContext();
 const EventProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { token } = useAppContext();
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+  // Fetch events
   const fetchEvents = async () => {
     setIsLoading(true);
-
     try {
-      const response = await axiosInstance.get("/events");
-      //   console.log(response.data);
-      setEvents(response.data.events);
+      const response = await axiosInstance.get("/eventra/all-event");
+      setEvents(response.data.allevents);
     } catch (error) {
-      // console.log(error);
-      if (error.response?.status === 429) {
-        toast.warning(
-          "Too many requests — please wait a moment and try again."
-        );
-      } else {
-        toast.error("Failed to fetch events.");
-      }
+      console.error("Error fetching events:", error);
     } finally {
       setIsLoading(false);
     }
@@ -39,7 +28,34 @@ const EventProvider = ({ children }) => {
     fetchEvents();
   }, []);
 
-  // const getSingleEvent = async () => {};
+  //createEvent
+  const createEvent = async (eventData, isDraft = true) => {
+    setIsSubmitting(true);
+    try {
+      const response = await axiosInstance.post(
+        "/eventra/create-events",
+        {
+          ...eventData,
+          status: isDraft ? "draft" : "live",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setEvents((prev) => [response.data.event, ...prev]);
+      toast.success(response.data.message || "Event created successfully!");
+      return response.data.event;
+    } catch (error) {
+      console.error("Error creating event:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to create event. Try again."
+      );
+      return null;
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <EventContext.Provider
@@ -47,9 +63,10 @@ const EventProvider = ({ children }) => {
         isLoading,
         events,
         isSubmitting,
-        setIsSubmitting,
+        createEvent,
         setEvents,
         setIsLoading,
+        fetchEvents,
       }}
     >
       {children}
