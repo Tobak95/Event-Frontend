@@ -94,7 +94,7 @@ const SideBar = () => {
       {/* Bottom Actions */}
       <div className="p-4 space-y-2 border-t border-base-300">
         <Link
-          to="//dashboard/admin/settings"
+          to="/dashboard/admin/settings"
           className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
         >
           <GrPerformance className="w-5 h-5" />
