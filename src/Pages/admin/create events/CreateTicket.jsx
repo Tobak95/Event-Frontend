@@ -1,265 +1,260 @@
-import React, { useState } from "react";
-import { FaLessThan } from "react-icons/fa";
+// src/pages/admin/create-events/CreateTicket.jsx
+import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowDown, MdAdd } from "react-icons/md";
-import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useEventContext } from "./useEventContext";
+import TicketCard from "./TicketCard";
+import ProgressSteps from "./ProgressSteps";
 
-export default function CreateTicket({
-  onBack,
-  onContinue,
-  formData = { tickets: [] },
-  setFormData = () => {},
-}) {
-  const [ticket, setTicket] = useState({
-    name: "",
-    type: "",
-    startDate: "",
-    endDate: "",
-    price: "",
-    quantityAvailable: "",
-    maxPerOrder: "",
+export default function CreateTicket({ onBack, onContinue }) {
+  const { event, setEvent } = useEventContext();
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // ✅ Validation schema
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Ticket name is required"),
+    type: Yup.string()
+      .oneOf(["paid", "free"], "Invalid ticket type")
+      .required("Ticket type is required"),
+    price: Yup.number()
+      .when("type", {
+        is: "paid",
+        then: (schema) => schema.required("Price is required for paid tickets"),
+        otherwise: (schema) => schema.optional(),
+      })
+      .typeError("Price must be a number"),
+    quantityAvailable: Yup.number()
+      .required("Quantity is required")
+      .positive("Must be greater than 0")
+      .integer(),
+    maxPerOrder: Yup.number()
+      .required("Max per order is required")
+      .positive("Must be greater than 0")
+      .integer(),
+    description: Yup.string().required("Description is required"),
   });
 
-  const handleAddTicket = (e) => {
-    e?.preventDefault?.();
-    if (!ticket.name || !ticket.price) {
-      toast.error("Please fill in at least ticket name and price.");
-      return;
-    }
-
-    setFormData({
-      ...formData,
-      tickets: [...(formData.tickets || []), ticket],
-    });
-
-    setTicket({
+  const formik = useFormik({
+    initialValues: {
       name: "",
-      type: "",
-      startDate: "",
-      endDate: "",
+      type: "paid",
       price: "",
       quantityAvailable: "",
       maxPerOrder: "",
-    });
-  };
+      description: "",
+    },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      const newTicket = { ...values, price: Number(values.price) || 0 };
+      setEvent((prev) => ({
+        ...prev,
+        tickets: [...(prev.tickets || []), newTicket],
+      }));
+      resetForm();
+    },
+  });
+
+  useEffect(() => {
+    if (!event?.image) {
+      setImagePreview(null);
+      return;
+    }
+    if (typeof event.image === "string") {
+      setImagePreview(event.image);
+      return;
+    }
+    const url = URL.createObjectURL(event.image);
+    setImagePreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [event?.image]);
 
   return (
-    <div className="min-h-screen bg-white p-[30px]">
-      <button
-        onClick={onBack}
-        className="text-[#777777] text-[20px] font-[400] flex items-center gap-1 ml-3"
-      >
-        <FaLessThan size={20} /> Back
-      </button>
-      <div className="max-w-[1107px] mx-auto">
+    <div className="flex-1 overflow-y-auto bg-white border-l border-[#8b8b8b]">
+      <div className="max-w-[1107px] mx-auto px-[30px] py-[40px]">
+        {/* Progress Steps */}
         <div className="mb-[50px]">
           <ProgressSteps currentStep={2} />
         </div>
 
-        <div className="space-y-[45px]">
-          <div className="bg-white rounded-[10px] border border-[#777777] shadow-[0px_20px_46px_0px_rgba(0,0,0,0.08)] p-[30px]">
-            <div className="space-y-[35px]">
-              <div className="space-y-[25px]">
-                <div className="flex gap-[21px]">
-                  <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Ticket Name </label>
-
-                    <select
-                      value={ticket.name}
-                      onChange={(e) =>
-                        setTicket({ ...ticket, name: e.target.value })
-                      }
-                      className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                    >
-                      <option value="">Enter ticket name</option>
-                      <option value="Regular">Regular</option>
-                      <option value="VIP">VIP</option>
-                      <option value="VVIP">VVIP</option>
-                    </select>
-                  </div>
-
-                  <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Ticket type</label>
-                    <div className="relative">
-                      <select
-                        value={ticket.type}
-                        onChange={(e) =>
-                          setTicket({ ...ticket, type: e.target.value })
-                        }
-                        className="appearance-none w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                      >
-                        <option value="">Select ticket type</option>
-                        <option value="paid">Paid</option>
-                        <option value="free">Free</option>
-                      </select>
-
-                      {/* <input
-                        type="text"
-                        placeholder="Paid"
-                        value={ticket.type}
-                        onChange={(e) =>
-                          setTicket({ ...ticket, type: e.target.value })
-                        }
-                        className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                      /> */}
-                      <MdKeyboardArrowDown
-                        size={24}
-                        className="absolute right-[15px] top-1/2 -translate-y-1/2 text-[#777777]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-[12px]">
-                  <label className="text-black">Ticket availability</label>
-                  <div className="flex gap-[21px]">
-                    <input
-                      type="date"
-                      placeholder="Enter start date"
-                      value={ticket.startDate}
-                      onChange={(e) =>
-                        setTicket({ ...ticket, startDate: e.target.value })
-                      }
-                      className="flex-1 bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                    />
-                    <input
-                      type="date"
-                      placeholder="Enter end date"
-                      value={ticket.endDate}
-                      onChange={(e) =>
-                        setTicket({ ...ticket, endDate: e.target.value })
-                      }
-                      className="flex-1 bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-[21px]">
-                  <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Price</label>
-                    <input
-                      type="number"
-                      placeholder="$"
-                      value={ticket.price}
-                      onChange={(e) =>
-                        setTicket({ ...ticket, price: e.target.value })
-                      }
-                      className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-black outline-none border border-[#dbdbdb]"
-                    />
-                  </div>
-
-                  <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Quantity available</label>
-                    <input
-                      type="number"
-                      placeholder="Enter quantity"
-                      value={ticket.quantityAvailable}
-                      onChange={(e) =>
-                        setTicket({
-                          ...ticket,
-                          quantityAvailable: e.target.value,
-                        })
-                      }
-                      className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                    />
-                  </div>
-                </div>
-
-                <div className="w-1/2 pr-[10.5px] space-y-[12px]">
-                  <label className="text-black">Max tickets per order</label>
-                  <input
-                    type="number"
-                    placeholder="Enter quantity"
-                    value={ticket.maxPerOrder}
-                    onChange={(e) =>
-                      setTicket({ ...ticket, maxPerOrder: e.target.value })
-                    }
-                    className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                  />
-                </div>
+        {/* Ticket Form */}
+        <form onSubmit={formik.handleSubmit} className="space-y-[35px]">
+          <div className="space-y-[25px]">
+            {/* Ticket Name & Type */}
+            <div className="flex justify-between gap-[31px]">
+              <div className="flex-1 max-w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">Ticket Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter ticket name"
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                />
+                {formik.touched.name && formik.errors.name && (
+                  <p className="text-red-500 text-sm">{formik.errors.name}</p>
+                )}
               </div>
 
-              <button
-                onClick={handleAddTicket}
-                className="flex items-center gap-[7px] text-[#006f6a] hover:opacity-80 transition-opacity"
-              >
-                <MdAdd size={32} className="text-[#006f6a]" />
-                <span>Create New Ticket</span>
-              </button>
-
-              {Array.isArray(formData.tickets) &&
-                formData.tickets.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="font-medium mb-2">Added Tickets:</h4>
-                    <ul className="space-y-1">
-                      {formData.tickets.map((t, i) => (
-                        <li key={i} className="text-sm text-gray-700">
-                          • {t.name} — {t.type} — ${t.price}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="flex-1 max-w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">Ticket Type</label>
+                <select
+                  name="type"
+                  value={formik.values.type}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                >
+                  <option value="">Select type</option>
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                </select>
+                {formik.touched.type && formik.errors.type && (
+                  <p className="text-red-500 text-sm">{formik.errors.type}</p>
                 )}
+              </div>
+            </div>
+
+            {/* Price & Quantity */}
+            <div className="flex justify-between gap-[31px]">
+              <div className="flex-1 max-w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder={
+                    formik.values.type === "free" ? "N/A" : "Enter price"
+                  }
+                  disabled={formik.values.type === "free"}
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                />
+                {formik.touched.price && formik.errors.price && (
+                  <p className="text-red-500 text-sm">{formik.errors.price}</p>
+                )}
+              </div>
+
+              <div className="flex-1 max-w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">
+                  Quantity Available
+                </label>
+                <input
+                  type="number"
+                  name="quantityAvailable"
+                  value={formik.values.quantityAvailable}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter quantity"
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                />
+                {formik.touched.quantityAvailable &&
+                  formik.errors.quantityAvailable && (
+                    <p className="text-red-500 text-sm">
+                      {formik.errors.quantityAvailable}
+                    </p>
+                  )}
+              </div>
+            </div>
+
+            {/* Description & Max per Order */}
+            <div className="flex gap-[25px]">
+              <div className="w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">Description</label>
+                <textarea
+                  name="description"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter description"
+                  className="w-full h-[116px] bg-neutral-100 rounded-[8px] px-[15px] py-[10px] text-[#333] text-[16px] outline-none border border-[#dbdbdb] resize-none"
+                />
+                {formik.touched.description && formik.errors.description && (
+                  <p className="text-red-500 text-sm">
+                    {formik.errors.description}
+                  </p>
+                )}
+              </div>
+
+              <div className="w-[508px] space-y-[12px]">
+                <label className="text-black text-[20px]">
+                  Max Tickets per Order
+                </label>
+                <input
+                  type="number"
+                  name="maxPerOrder"
+                  value={formik.values.maxPerOrder}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter max per order"
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                />
+                {formik.touched.maxPerOrder && formik.errors.maxPerOrder && (
+                  <p className="text-red-500 text-sm">
+                    {formik.errors.maxPerOrder}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="flex justify-end gap-[20px]">
-            <button
-              onClick={onBack}
-              className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={onContinue}
-              className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[310px] hover:bg-[#005a56] transition-colors"
-            >
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProgressSteps({ currentStep }) {
-  const steps = [
-    { number: 1, label: "Create New Event" },
-    { number: 2, label: "Create Ticket" },
-    { number: 3, label: "Summary" },
-  ];
-
-  return (
-    <div className="space-y-[15px]">
-      <div className="relative h-[22px] flex items-center">
-        <div className="absolute w-full flex items-center">
-          <div className="flex items-center" style={{ width: "50%" }}>
-            <div className="w-full h-[1px] bg-[#006F6A]"></div>
-          </div>
-          <div className="flex items-center" style={{ width: "50%" }}>
-            <div className="w-full h-[1px] bg-[#8E8E8E]"></div>
-          </div>
-        </div>
-
-        <div className="absolute w-full flex justify-between items-center px-[11px]">
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
-          </div>
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] z-10"></div>
-          <div className="w-[22px] h-[22px] rounded-full bg-white border-2 border-[#2B8783] z-10"></div>
-        </div>
-      </div>
-
-      <div className="flex justify-between">
-        {steps.map((step) => (
-          <div
-            key={step.number}
-            className="text-center"
-            style={{ width: "33.33%" }}
+          {/* Add Ticket Button */}
+          <button
+            type="submit"
+            className="flex items-center gap-[7px] text-[#006f6a] hover:opacity-80 transition-opacity"
           >
-            <p className="text-[#161616]">{step.label}</p>
-          </div>
-        ))}
+            <MdAdd size={32} className="text-[#006f6a]" />
+            <span className="text-[20px]">Add Ticket</span>
+          </button>
+        </form>
+
+        {/* Tickets Preview */}
+        <div className="space-y-[35px] mt-[50px]">
+          {event.tickets && event.tickets.length > 0 ? (
+            event.tickets.map((ticket, i) => (
+              <TicketCard
+                key={i}
+                type={ticket.name}
+                price={
+                  ticket.type === "free"
+                    ? "Free"
+                    : `$${ticket.price.toFixed(2)}`
+                }
+                eventName={event.title || "Untitled Event"}
+                location={event.address || "No location"}
+                date={
+                  event.startDate
+                    ? `${event.startDate} — ${event.endDate || ""}`
+                    : "Date not set"
+                }
+                image={imagePreview}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 text-[20px]">
+              No tickets added yet.
+            </p>
+          )}
+        </div>
+
+        {/* Continue / Back */}
+        <div className="flex gap-[20px] mt-[50px]">
+          <button
+            onClick={onBack}
+            className="border border-[#4a4a4a] text-[#161616] text-[20px] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors"
+          >
+            Back
+          </button>
+          <button
+            onClick={onContinue}
+            className="bg-[#006f6a] text-white text-[20px] px-[16px] py-[16px] rounded-[8px] w-[310px] hover:bg-[#005a56] transition-colors"
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -63,6 +63,7 @@ import EventAttendees from "./Pages/admin/events/EventAttendees";
 import CreateEvents from "./Pages/admin/create events/CreateEvents";
 import UserManagements from "./Pages/admin/userManagement/UserManagement";
 import Revenue from "./Pages/admin/revenue/Revenue";
+import Settings from "./Pages/admin/settings/Settings"
 
 function App() {
   return (
@@ -128,21 +129,19 @@ function App() {
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}
-           <Route
-            element={
-              <ProtectedRoute allowedRoles={["admin", "superAdmin"]} />
-            }
-          > 
-          <Route path="/dashboard/admin" element={<AdminDashboard />} />
-          <Route path="/dashboard/admin/events" element={<Events />} />
           <Route
-            path="/dashboard/admin/events/:id"
-            element={<EventsDetail />}
-          />
-          <Route
-            path="/dashboard/admin/events/attendees"
-            element={<EventAttendees />}
-          />
+            element={<ProtectedRoute allowedRoles={["admin", "superAdmin"]} />}
+          >
+            <Route path="/dashboard/admin" element={<AdminDashboard />} />
+            <Route path="/dashboard/admin/events" element={<Events />} />
+            <Route
+              path="/dashboard/admin/events/:id"
+              element={<EventsDetail />}
+            />
+            <Route
+              path="/dashboard/admin/events/attendees"
+              element={<EventAttendees />}
+            />
 
           <Route
             path="/dashboard/admin/create-events"
@@ -153,6 +152,7 @@ function App() {
             element={<UserManagements />}
           />
           <Route path="/dashboard/admin/revenue" element={<Revenue />} />
+          <Route path="/dashboard/admin/settings" element={<Settings/>} />
            </Route> 
         </Routes>
       </Suspense>
