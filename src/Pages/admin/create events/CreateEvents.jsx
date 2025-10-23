@@ -179,6 +179,18 @@ const CreateEvents = () => {
                       <p className="text-[#777777]">
                         Moments you won't forget.
                       </p>
+                      <input
+                        type="text"
+                        className="w-full h-[55px] rounded-[10px] p-[10px] bg-neutral-100 outline-none"
+                        placeholder="Enter perks of the night"
+                        value={formData.perks}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            perks: e.target.value,
+                          })
+                        }
+                      />
                     </div>
 
                     <div className="flex gap-[22px]">
@@ -303,6 +315,38 @@ const CreateEvents = () => {
                         {errors.endTime && (
                           <p className="text-red-500">{errors.endTime}</p>
                         )}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-[22px] my-5">
+                      <div className="flex-1 space-y-[7px]">
+                        <label className="text-[#1b1b1b]">Start Time</label>
+                        <input
+                          type="time"
+                          value={formData.startTime}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              startTime: e.target.value,
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex-1 space-y-[7px]">
+                        <label className="text-[#1b1b1b]">End Time</label>
+                        <input
+                          type="time"
+                          value={formData.endTime}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              endTime: e.target.value,
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
+                        />
                       </div>
                     </div>
                   </div>

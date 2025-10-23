@@ -290,8 +290,20 @@ const Discover = () => {
                   img={data.image}
                   location={data.address}
                   price={data.tickets[0].price}
-                  time={data.startTime}
-                  time2={data.endTime}
+                  time={new Date(
+                    `1970-01-01T${data.startTime}`
+                  ).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                  time2={new Date(
+                    `1970-01-01T${data.endTime}`
+                  ).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
                 />
               ))}
             </div>
