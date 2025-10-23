@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { MdLocationOn, MdCalendarToday } from "react-icons/md";
-import { FaTicketAlt } from "react-icons/fa";
+import { FaLessThan, FaTicketAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import PublishSuccessModal from "./PublishSuccessModal";
 import { useEventContext } from "../../../Hooks/useEventContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Summary({
   formData = {},
@@ -13,6 +13,8 @@ export default function Summary({
 }) {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("publish");
+  console.log("🧾 Sending formData to backend:", formData);
+
   const { isSubmitting, createEvent } = useEventContext();
   const redirect = useNavigate();
 
@@ -42,6 +44,8 @@ export default function Summary({
     try {
       setModalType("publish");
       const result = await createEvent(formData, false);
+      console.log(result);
+
       if (result) setShowModal(true);
     } catch (err) {
       console.error("Publish failed:", err);
@@ -79,6 +83,12 @@ export default function Summary({
       />
 
       <div className="flex-1 overflow-y-auto bg-white border-l border-[#8b8b8b]">
+        <button
+          onClick={onBack}
+          className="text-[#777777] text-[20px] font-[400] flex items-center gap-1 ml-3"
+        >
+          <FaLessThan size={20} /> Back
+        </button>
         <div className="p-[30px] max-w-[1107px] mx-auto">
           <div className="mb-[50px]">
             <ProgressSteps currentStep={3} />

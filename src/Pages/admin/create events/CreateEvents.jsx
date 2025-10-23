@@ -15,10 +15,13 @@ const CreateEvents = () => {
     description: "",
     category: "",
     capacity: "",
+    perks: "",
     startDate: "",
     endDate: "",
     address: "",
-    image: null,
+    image: "",
+    startTime: "",
+    endTime: "",
   });
 
   // Function to handle image upload
@@ -155,13 +158,26 @@ const CreateEvents = () => {
                       <p className="text-[#777777]">
                         Moments you won't forget.
                       </p>
+                      <input
+                        type="text"
+                        className="w-full h-[55px] rounded-[10px] p-[10px] bg-neutral-100 outline-none"
+                        placeholder="Enter perks of the night"
+                        value={formData.perks}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            perks: e.target.value,
+                          })
+                        }
+                      />
                     </div>
 
                     <div className="flex gap-[22px]">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Category</label>
-                        <input
-                          type="text"
+
+                        <select
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none appearance-none"
                           placeholder="Select category"
                           value={formData.category}
                           onChange={(e) =>
@@ -170,8 +186,14 @@ const CreateEvents = () => {
                               category: e.target.value,
                             })
                           }
-                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
-                        />
+                        >
+                          <option value="business">Business</option>
+                          <option value="sports">Sports</option>
+                          <option value="festivals">Festivals</option>
+                          <option value="food-&-drinks">Food-&-Drinks</option>
+                          <option value="dating">Dating</option>
+                          <option value="hobbies">Hobbies</option>
+                        </select>
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
@@ -226,6 +248,38 @@ const CreateEvents = () => {
                             setFormData({
                               ...formData,
                               endDate: e.target.value,
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-[22px] my-5">
+                      <div className="flex-1 space-y-[7px]">
+                        <label className="text-[#1b1b1b]">Start Time</label>
+                        <input
+                          type="time"
+                          value={formData.startTime}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              startTime: e.target.value,
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
+                        />
+                      </div>
+
+                      <div className="flex-1 space-y-[7px]">
+                        <label className="text-[#1b1b1b]">End Time</label>
+                        <input
+                          type="time"
+                          value={formData.endTime}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              endTime: e.target.value,
                             })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"

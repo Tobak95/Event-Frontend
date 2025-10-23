@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaLessThan } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -43,6 +44,12 @@ export default function CreateTicket({
 
   return (
     <div className="min-h-screen bg-white p-[30px]">
+      <button
+        onClick={onBack}
+        className="text-[#777777] text-[20px] font-[400] flex items-center gap-1 ml-3"
+      >
+        <FaLessThan size={20} /> Back
+      </button>
       <div className="max-w-[1107px] mx-auto">
         <div className="mb-[50px]">
           <ProgressSteps currentStep={2} />
@@ -55,15 +62,19 @@ export default function CreateTicket({
                 <div className="flex gap-[21px]">
                   <div className="flex-1 space-y-[12px]">
                     <label className="text-black">Ticket Name </label>
-                    <input
-                      type="text"
-                      placeholder="Enter ticket name"
+
+                    <select
                       value={ticket.name}
                       onChange={(e) =>
                         setTicket({ ...ticket, name: e.target.value })
                       }
                       className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                    />
+                    >
+                      <option value="">Enter ticket name</option>
+                      <option value="Regular">Regular</option>
+                      <option value="VIP">VIP</option>
+                      <option value="VVIP">VVIP</option>
+                    </select>
                   </div>
 
                   <div className="flex-1 space-y-[12px]">
@@ -77,8 +88,8 @@ export default function CreateTicket({
                         className="appearance-none w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
                       >
                         <option value="">Select ticket type</option>
-                        <option value="Paid">Paid</option>
-                        <option value="Free">Free</option>
+                        <option value="paid">Paid</option>
+                        <option value="free">Free</option>
                       </select>
 
                       {/* <input
@@ -126,7 +137,7 @@ export default function CreateTicket({
                   <div className="flex-1 space-y-[12px]">
                     <label className="text-black">Price</label>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="$"
                       value={ticket.price}
                       onChange={(e) =>
@@ -139,7 +150,7 @@ export default function CreateTicket({
                   <div className="flex-1 space-y-[12px]">
                     <label className="text-black">Quantity available</label>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="Enter quantity"
                       value={ticket.quantityAvailable}
                       onChange={(e) =>
@@ -156,7 +167,7 @@ export default function CreateTicket({
                 <div className="w-1/2 pr-[10.5px] space-y-[12px]">
                   <label className="text-black">Max tickets per order</label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Enter quantity"
                     value={ticket.maxPerOrder}
                     onChange={(e) =>
