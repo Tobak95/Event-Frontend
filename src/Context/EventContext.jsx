@@ -26,7 +26,7 @@ const EventProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-  // to fetch
+
   useEffect(() => {
     fetchEvents();
   }, []);

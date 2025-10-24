@@ -1,0 +1,10 @@
+[33m8098888[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev-isaac[m[33m, [m[1;31morigin/isaac/create-event-api[m[33m, [m[1;31morigin/dev-isaac[m[33m, [m[1;32misaac/create-event-api[m[33m)[m HEAD@{0}: checkout: moving from isaac/create-event-api to dev-isaac
+[33m8098888[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev-isaac[m[33m, [m[1;31morigin/isaac/create-event-api[m[33m, [m[1;31morigin/dev-isaac[m[33m, [m[1;32misaac/create-event-api[m[33m)[m HEAD@{1}: pull --tags origin isaac/create-event-api: Merge made by the 'ort' strategy.
+[33m55f7669[m HEAD@{2}: commit: update
+[33mf2c0fe4[m HEAD@{3}: commit: create Events Api done
+[33mbcb62de[m HEAD@{4}: reset: moving to HEAD@{1}
+[33mad05491[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{5}: pull origin dev: Fast-forward
+[33mbcb62de[m HEAD@{6}: commit: called the upcoming events, discover events, and events for admin api, create events not fully done
+[33m10f6163[m HEAD@{7}: commit (merge): Merge branch 'dev' of https://github.com/Tobak95/Event-Frontend into isaac/create-event-api
+[33mda136dd[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{8}: checkout: moving from main to isaac/create-event-api
+[33mda136dd[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{9}: clone: from https://github.com/Tobak95/Event-Frontend.git

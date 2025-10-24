@@ -2,67 +2,44 @@ import React, { useState } from "react";
 import SideBar from "../../../component/admin/dashboard/SideBar";
 import Header from "../../../component/common/Header";
 import CreateTicket from "./CreateTicket";
+import { MdCloudUpload, MdKeyboardArrowDown } from "react-icons/md";
 import Layout from "./Layout";
 import Summary from "./Summary";
-import { MdCloudUpload } from "react-icons/md";
-import * as Yup from "yup";
-import { toast } from "react-toastify";
-import { useEventContext } from "./useEventContext"; // make sure your context is imported
-
-// ✅ Yup validation for Step 1
-const eventValidation = Yup.object().shape({
-  title: Yup.string().required("Event title is required"),
-  description: Yup.string().required("Description is required"),
-  category: Yup.string().required("Category is required"),
-  capacity: Yup.number()
-    .required("Capacity is required")
-    .positive("Must be positive")
-    .integer("Must be a number"),
-  perks: Yup.string(),
-  startDate: Yup.string().required("Start date required"),
-  endDate: Yup.string().required("End date required"),
-  startTime: Yup.string().required("Start time required"),
-  endTime: Yup.string().required("End time required"),
-  address: Yup.string().required("Address required"),
-  image: Yup.mixed().required("Event image is required"),
-});
 
 const CreateEvents = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const { event, setEvent } = useEventContext();
-  const [errors, setErrors] = useState({});
 
-  // ✅ Handle image upload
+  // ✅ Step 1: Centralized form state
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    capacity: "",
+    perks: "",
+    startDate: "",
+    endDate: "",
+    address: "",
+    image: "",
+    startTime: "",
+    endTime: "",
+  });
+
+  // Function to handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fakeUrl = URL.createObjectURL(file);
-      setEvent({ ...event, image: fakeUrl });
+      setFormData({ ...formData, image: file });
     }
   };
 
-  // ✅ Step validation before continuing
-  const handleContinue = async () => {
-    try {
-      await eventValidation.validate(event, { abortEarly: false });
-      setErrors({});
-      setCurrentStep(2);
-    } catch (validationErr) {
-      const newErrors = {};
-      validationErr.inner.forEach((err) => {
-        newErrors[err.path] = err.message;
-      });
-      setErrors(newErrors);
-      toast.error("Please correct all highlighted fields before continuing.");
-    }
-  };
-
-  // ✅ Step 2
+  // ✅ Step 2: Switch between steps
   if (currentStep === 2) {
     return (
       <Layout
         Children={
           <CreateTicket
+            formData={formData}
+            setFormData={setFormData}
             onBack={() => setCurrentStep(1)}
             onContinue={() => setCurrentStep(3)}
           />
@@ -71,12 +48,21 @@ const CreateEvents = () => {
     );
   }
 
-  // ✅ Step 3
   if (currentStep === 3) {
-    return <Layout Children={<Summary onBack={() => setCurrentStep(2)} />} />;
+    return (
+      <Layout
+        Children={
+          <Summary
+            formData={formData}
+            setFormData={setFormData}
+            onBack={() => setCurrentStep(2)}
+          />
+        }
+      />
+    );
   }
 
-  // ✅ Step 1 UI
+  // ✅ Step 3: Step 1 UI (Event creation form)
   return (
     <div className="flex h-screen bg-base-200">
       <SideBar />
@@ -91,9 +77,8 @@ const CreateEvents = () => {
                 </div>
 
                 <div className="space-y-[50px]">
-                  {/* Image Upload + Event Details */}
+                  {/* Image Upload */}
                   <div className="flex gap-[30px]">
-                    {/* Image Upload */}
                     <div className="bg-white border border-[#e7e7e7] rounded-[10px] p-[30px] w-[560px]">
                       <div className="mb-[22px]">
                         <h2 className="text-[#1b1b1b] mb-[5px]">Event Image</h2>
@@ -120,9 +105,6 @@ const CreateEvents = () => {
                           />
                         </label>
                       </div>
-                      {errors.image && (
-                        <p className="text-red-500 mt-2">{errors.image}</p>
-                      )}
                     </div>
 
                     {/* Event Details */}
@@ -141,15 +123,12 @@ const CreateEvents = () => {
                         <input
                           type="text"
                           placeholder="Enter event title"
-                          value={event.title || ""}
+                          value={formData.title}
                           onChange={(e) =>
-                            setEvent({ ...event, title: e.target.value })
+                            setFormData({ ...formData, title: e.target.value })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
-                        {errors.title && (
-                          <p className="text-red-500">{errors.title}</p>
-                        )}
                       </div>
 
                       <div className="space-y-[7px]">
@@ -157,15 +136,15 @@ const CreateEvents = () => {
                         <textarea
                           placeholder="Describe your event..."
                           rows={5}
-                          value={event.description || ""}
+                          value={formData.description}
                           onChange={(e) =>
-                            setEvent({ ...event, description: e.target.value })
+                            setFormData({
+                              ...formData,
+                              description: e.target.value,
+                            })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none resize-none"
                         />
-                        {errors.description && (
-                          <p className="text-red-500">{errors.description}</p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -196,22 +175,25 @@ const CreateEvents = () => {
                     <div className="flex gap-[22px]">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Category</label>
+
                         <select
-                          value={event.category || ""}
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none appearance-none"
+                          placeholder="Select category"
+                          value={formData.category}
                           onChange={(e) =>
-                            setEvent({ ...event, category: e.target.value })
+                            setFormData({
+                              ...formData,
+                              category: e.target.value,
+                            })
                           }
-                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         >
-                          <option value="">Select category</option>
                           <option value="business">Business</option>
                           <option value="sports">Sports</option>
-                          <option value="festival">Festival</option>
-                          <option value="drinks">Drinks</option>
+                          <option value="festivals">Festivals</option>
+                          <option value="food-&-drinks">Food-&-Drinks</option>
+                          <option value="dating">Dating</option>
+                          <option value="hobbies">Hobbies</option>
                         </select>
-                        {errors.category && (
-                          <p className="text-red-500">{errors.category}</p>
-                        )}
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
@@ -219,29 +201,16 @@ const CreateEvents = () => {
                         <input
                           type="number"
                           placeholder="Max attendees"
-                          value={event.capacity || ""}
+                          value={formData.capacity}
                           onChange={(e) =>
-                            setEvent({ ...event, capacity: e.target.value })
+                            setFormData({
+                              ...formData,
+                              capacity: e.target.value,
+                            })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
-                        {errors.capacity && (
-                          <p className="text-red-500">{errors.capacity}</p>
-                        )}
                       </div>
-                    </div>
-
-                    <div className="mt-[22px] space-y-[7px]">
-                      <label className="text-[#1b1b1b]">Perks</label>
-                      <input
-                        type="text"
-                        placeholder="Free drinks, VIP access, souvenir..."
-                        value={event.perks || ""}
-                        onChange={(e) =>
-                          setEvent({ ...event, perks: e.target.value })
-                        }
-                        className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
-                      />
                     </div>
                   </div>
 
@@ -254,67 +223,35 @@ const CreateEvents = () => {
                       </p>
                     </div>
 
-                    <div className="flex gap-[22px] mb-[22px]">
+                    <div className="flex gap-[22px]">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Start Date</label>
                         <input
                           type="date"
-                          value={event.startDate || ""}
+                          value={formData.startDate}
                           onChange={(e) =>
-                            setEvent({ ...event, startDate: e.target.value })
+                            setFormData({
+                              ...formData,
+                              startDate: e.target.value,
+                            })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.startDate && (
-                          <p className="text-red-500">{errors.startDate}</p>
-                        )}
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">End Date</label>
                         <input
                           type="date"
-                          value={event.endDate || ""}
+                          value={formData.endDate}
                           onChange={(e) =>
-                            setEvent({ ...event, endDate: e.target.value })
+                            setFormData({
+                              ...formData,
+                              endDate: e.target.value,
+                            })
                           }
                           className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.endDate && (
-                          <p className="text-red-500">{errors.endDate}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-[22px]">
-                      <div className="flex-1 space-y-[7px]">
-                        <label className="text-[#1b1b1b]">Start Time</label>
-                        <input
-                          type="time"
-                          value={event.startTime || ""}
-                          onChange={(e) =>
-                            setEvent({ ...event, startTime: e.target.value })
-                          }
-                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
-                        />
-                        {errors.startTime && (
-                          <p className="text-red-500">{errors.startTime}</p>
-                        )}
-                      </div>
-
-                      <div className="flex-1 space-y-[7px]">
-                        <label className="text-[#1b1b1b]">End Time</label>
-                        <input
-                          type="time"
-                          value={event.endTime || ""}
-                          onChange={(e) =>
-                            setEvent({ ...event, endTime: e.target.value })
-                          }
-                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
-                        />
-                        {errors.endTime && (
-                          <p className="text-red-500">{errors.endTime}</p>
-                        )}
                       </div>
                     </div>
 
@@ -365,15 +302,15 @@ const CreateEvents = () => {
                       <input
                         type="text"
                         placeholder="Enter full address"
-                        value={event.address || ""}
+                        value={formData.address}
                         onChange={(e) =>
-                          setEvent({ ...event, address: e.target.value })
+                          setFormData({
+                            ...formData,
+                            address: e.target.value,
+                          })
                         }
                         className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                       />
-                      {errors.address && (
-                        <p className="text-red-500">{errors.address}</p>
-                      )}
                     </div>
                   </div>
 
@@ -383,7 +320,7 @@ const CreateEvents = () => {
                       Cancel
                     </button>
                     <button
-                      onClick={handleContinue}
+                      onClick={() => setCurrentStep(2)}
                       className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[310px] hover:bg-[#005a56] transition-colors"
                     >
                       Continue
@@ -399,7 +336,6 @@ const CreateEvents = () => {
   );
 };
 
-// ✅ ProgressSteps component (unchanged)
 function ProgressSteps({ currentStep }) {
   const steps = [
     { number: 1, label: "Create New Event" },
