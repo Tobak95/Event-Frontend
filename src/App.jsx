@@ -63,7 +63,9 @@ import EventAttendees from "./Pages/admin/events/EventAttendees";
 import CreateEvents from "./Pages/admin/create events/CreateEvents";
 import UserManagements from "./Pages/admin/userManagement/UserManagement";
 import Revenue from "./Pages/admin/revenue/Revenue";
-import Settings from "./Pages/admin/settings/Settings"
+import Settings from "./Pages/admin/settings/Settings";
+
+import EditEvent from "./Pages/admin/updateEvent/EditEvent";
 
 function App() {
   return (
@@ -121,7 +123,7 @@ function App() {
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
           />
-          <Route path="/eventDetails" element={<EventDetails />} />
+          <Route path="/eventDetails/:id" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/checkout1" element={<CheckoutOne />} />
           <Route path="/checkout2" element={<CheckOut2 />} />
@@ -143,17 +145,22 @@ function App() {
               element={<EventAttendees />}
             />
 
-          <Route
-            path="/dashboard/admin/create-events"
-            element={<CreateEvents />}
-          />
-          <Route
-            path="/dashboard/admin/userManagements"
-            element={<UserManagements />}
-          />
-          <Route path="/dashboard/admin/revenue" element={<Revenue />} />
-          <Route path="/dashboard/admin/settings" element={<Settings/>} />
-           </Route> 
+            <Route
+              path="/dashboard/admin/create-events"
+              element={<CreateEvents />}
+            />
+            <Route
+              path="/dashboard/admin/events/edit/:id"
+              element={<EditEvent />}
+            />
+
+            <Route
+              path="/dashboard/admin/userManagements"
+              element={<UserManagements />}
+            />
+            <Route path="/dashboard/admin/revenue" element={<Revenue />} />
+            <Route path="/dashboard/admin/settings" element={<Settings />} />
+          </Route>
         </Routes>
       </Suspense>
     </Router>

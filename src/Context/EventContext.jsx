@@ -2,6 +2,8 @@ import { axiosInstance } from "../Utils/axiosInstance";
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../Hooks/useAppContext";
+import SuspenseLoader from "../component/layout/SuspenseLoader";
+import { useParams } from "react-router-dom";
 
 export const EventContext = createContext();
 
@@ -9,7 +11,13 @@ const EventProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [singleEvent, setSingleEvent] = useState({});
+
   const { token } = useAppContext();
+
+  if (isLoading) {
+    <SuspenseLoader />;
+  }
 
   // Fetch events
   const fetchEvents = async () => {
@@ -30,6 +38,10 @@ const EventProvider = ({ children }) => {
   useEffect(() => {
     fetchEvents();
   }, []);
+
+  if (isLoading) {
+    <SuspenseLoader />;
+  }
 
   //createEvent
   // const createEvent = async (eventData, isDraft = true) => {
@@ -101,6 +113,23 @@ const EventProvider = ({ children }) => {
     }
   };
 
+  const getSingleEvent = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.get(`/eventra/single-event/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // console.log(response.data.event);
+      setSingleEvent(response.data.event);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      toast.error(error.response?.data?.message);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <EventContext.Provider
       value={{
@@ -111,6 +140,8 @@ const EventProvider = ({ children }) => {
         setEvents,
         setIsLoading,
         fetchEvents,
+        singleEvent,
+        getSingleEvent,
       }}
     >
       {children}

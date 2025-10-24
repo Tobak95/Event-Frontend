@@ -8,8 +8,8 @@ import Summary from "./Summary";
 
 const CreateEvents = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  // ✅ Step 1: Centralized form state
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -29,6 +29,7 @@ const CreateEvents = () => {
     const file = e.target.files[0];
     if (file) {
       setFormData({ ...formData, image: file });
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
@@ -87,15 +88,31 @@ const CreateEvents = () => {
                         </p>
                       </div>
 
-                      <div className="border-2 border-dashed border-[#6baba9] rounded-[10px] h-[351px] flex flex-col items-center justify-center gap-[10px]">
-                        <MdCloudUpload size={80} className="text-[#777777]" />
-                        <div className="text-center">
-                          <p className="text-[#777777]">
-                            Click to upload or drag and drop
-                          </p>
-                          <p className="text-[#777777]">PNG, JPG up to 10MB</p>
-                        </div>
-                        <label className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors cursor-pointer inline-block">
+                      <div className="border-2 border-dashed border-[#6baba9] rounded-[10px] h-[351px] flex flex-col items-center justify-center gap-[10px] relative overflow-hidden">
+                        {imagePreview ? (
+                          <img
+                            src={imagePreview}
+                            alt="Preview"
+                            className="w-full h-full object-cover rounded-[10px]"
+                          />
+                        ) : (
+                          <>
+                            <MdCloudUpload
+                              size={80}
+                              className="text-[#777777]"
+                            />
+                            <div className="text-center">
+                              <p className="text-[#777777]">
+                                Click to upload or drag and drop
+                              </p>
+                              <p className="text-[#777777]">
+                                PNG, JPG up to 10MB
+                              </p>
+                            </div>
+                          </>
+                        )}
+
+                        <label className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors cursor-pointer inline-block absolute bottom-4 bg-white/80 backdrop-blur-sm">
                           Choose File
                           <input
                             type="file"
