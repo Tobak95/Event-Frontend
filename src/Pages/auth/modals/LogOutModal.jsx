@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logoutIcon from "../../../assets/logoutIcon.png";
@@ -9,13 +8,8 @@ const LogoutModal = ({ isOpen, onClose }) => {
   const { logout } = useAppContext();
 
   const handleLogout = () => {
-    // Clear any stored auth data
-    // localStorage.removeItem("authToken");
-    // localStorage.removeItem("user");
-
-    // Navigate to login page
-    navigate("/login");
     logout();
+    navigate("/");
 
     // Close modal
     onClose();
