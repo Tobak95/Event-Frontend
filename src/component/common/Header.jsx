@@ -5,9 +5,11 @@ import { BsBell } from "react-icons/bs";
 import dashboardProfile from "../../assets/dashboardProfile.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 // import ThemeSwitcher from "./ThemeSwitcher";
+import { useAppContext } from "../../Hooks/useAppContext";
 
 const Header = ({ onToggleSidebar }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useAppContext();
 
   const handleRefresh = () => {
     // Handle refresh action
@@ -81,7 +83,9 @@ const Header = ({ onToggleSidebar }) => {
             </div>
             <div className="flex items-center">
               <div>
-                <p>David S</p>
+                <p>
+                  {user.firstname} {user.lastname.charAt(0)}
+                </p>
               </div>
               <div>
                 <RiArrowDropDownLine size={40} />

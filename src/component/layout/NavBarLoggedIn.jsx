@@ -80,6 +80,17 @@ const NavBarLoggedIn = ({
 
           <div className="hidden md:flex items-center gap-15">
             <div className="flex items-center gap-10">
+              {user.role === "admin" || user.role === "superAdmin" ? (
+                <button
+                  onClick={() => redirect("/dashboard/admin")}
+                  className="bg-[#006F6A] w-[100px] h-[40px] rounded-[8px] cursor-pointer block text-white"
+                >
+                  Dashboard
+                </button>
+              ) : (
+                ""
+              )}
+
               <NavLink
                 to="/discover"
                 className={({ isActive }) =>

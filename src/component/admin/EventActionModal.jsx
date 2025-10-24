@@ -1,10 +1,7 @@
-// component/admin/EventActionModal.jsx
 import React, { useEffect, useRef } from "react";
-import { FaTrash, FaCheckCircle, FaArrowLeft } from "react-icons/fa";
-import { IoCloseCircle } from "react-icons/io5";
-import { AiOutlineCloseSquare } from "react-icons/ai";
-import { PiBroom } from "react-icons/pi";
 import { GoTrash } from "react-icons/go";
+import { PiBroom } from "react-icons/pi";
+import { FaEdit } from "react-icons/fa";
 import tick from "../../assets/tick-publish.png";
 
 const EventActionModal = ({
@@ -13,6 +10,7 @@ const EventActionModal = ({
   onPublish,
   onUnpublish,
   onDelete,
+  onEdit,
 }) => {
   const modalRef = useRef(null);
 
@@ -28,55 +26,47 @@ const EventActionModal = ({
 
   if (!event) return null;
 
-  const isDraft = event.status === "Draft";
+  const isLive = event.status?.toLowerCase() === "live";
+  const isDraft = event.status?.toLowerCase() === "draft";
 
   return (
-    <div className="fixed  inset-0 flex justify-end bg-[#ffffff56] backdrop-blur-xs z-50">
+    <div className="fixed inset-0 flex justify-end bg-[#00000080] z-50">
       <div
         ref={modalRef}
-        className={`absolute top-[250px]  animate-slide-in  mt-2 bg-white rounded-[10px] shadow-2xl p-4 ${
-          isDraft ? "h-[100px] w-[180px]" : "h-[150px] w-[200px]"
-        }  `}
+        className="absolute top-[250px] right-[100px] bg-white rounded-[10px] shadow-2xl p-4 w-[200px] animate-slide-in"
       >
-        {isDraft ? (
+        {isLive && (
           <>
             <button
-              onClick={() => onPublish(event.id)}
-              className="flex items-center gap-2 text-[#006F6A]  mb-4  text-[16px] font-[400] px-2 cursor-pointer"
+              onClick={() => onUnpublish(event._id)}
+              className="flex items-center gap-2 text-[#4A4A4A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
-              <img src={tick} alt="" className="w-[19px] h-[19px]" />{" "}
-              <span>Publish Event</span>
+              <PiBroom size={20} color="#4A4A4A" /> <span>Move to Draft</span>
             </button>
 
             <button
-              onClick={() => onDelete(event.id)}
-              className="flex items-center gap-2 text-[#FF0000] hover:opacity-80 text-[16px] font-[400] px-2 cursor-pointer"
+              onClick={() => onDelete(event._id)}
+              className="flex items-center gap-2 text-[#FF0000] text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
-              <GoTrash size={22} color="#FF0000" /> <span>Delete Event</span>
+              <GoTrash size={20} color="#FF0000" /> <span>Delete Event</span>
             </button>
           </>
-        ) : (
+        )}
+
+        {isDraft && (
           <>
             <button
-              onClick={() => onUnpublish(event.id)}
-              className="flex items-center gap-2 text-[#4A4A4A] hover:opacity-80  text-[16px] font-[400] px-2 cursor-pointer"
+              onClick={() => onEdit(event._id)}
+              className="flex items-center gap-2 text-[#006F6A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
-              <AiOutlineCloseSquare size={25} color="#4A4A4A" />{" "}
-              <span>Unpublish Event</span>
+              <FaEdit size={18} color="#006F6A" /> <span>Edit Event</span>
             </button>
 
             <button
-              onClick={() => onUnpublish(event.id)}
-              className="flex items-center gap-2 text-[#4A4A4A] hover:opacity-80 my-6 text-[16px] font-[400] px-2 cursor-pointer"
+              onClick={() => onDelete(event._id)}
+              className="flex items-center gap-2 text-[#FF0000] text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
-              <PiBroom size={25} color="#4A4A4A" /> <span>Move to Draft</span>
-            </button>
-
-            <button
-              onClick={() => onDelete(event.id)}
-              className="flex items-center gap-2 text-[#FF0000] hover:opacity-80 text-[16px] font-[400] px-2 cursor-pointer"
-            >
-              <GoTrash size={25} color="#FF0000" /> <span>Delete Event</span>
+              <GoTrash size={20} color="#FF0000" /> <span>Delete Event</span>
             </button>
           </>
         )}
