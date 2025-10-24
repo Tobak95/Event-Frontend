@@ -30,7 +30,8 @@ const EventTable = ({ events, setEvents, eventType }) => {
 
   // ✏️ Edit event (redirect to create form)
   const handleEdit = (id) => {
-    redirect(`/dashboard/admin/edit-event/${id}`);
+    redirect(`/dashboard/admin/events/edit/${id}`);
+
     setSelectedEvent(null);
   };
 
