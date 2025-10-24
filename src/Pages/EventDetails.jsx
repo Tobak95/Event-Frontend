@@ -6,7 +6,7 @@ import EventDetailsAbout from "../component/EventDetailsAbout";
 import Footer from "../component/layout/Footer";
 import NavBar from "../component/layout/NavBar";
 import logo2 from ".././assets/logo2.png";
-import icon2 from ".././assets/icon2.png";
+import icon2 from ".././assets/Icon2.png";
 
 // const HeaderText = ({ title }) => {
 //   return (
