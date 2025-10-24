@@ -104,7 +104,7 @@ const UpcomingEvent = () => {
                   ${event.tickets?.[0]?.price || "N/A"}
                 </h6>
 
-                <Link to={"/eventDetails"}>
+                <Link to={`/eventDetails/${event._id}`}>
                   <button
                     className="w-[124px] h-[54px] rounded-[13px] 
                       border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer"

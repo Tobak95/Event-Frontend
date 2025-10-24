@@ -304,6 +304,7 @@ const Discover = () => {
                     minute: "2-digit",
                     hour12: true,
                   })}
+                  link={data._id}
                 />
               ))}
             </div>
