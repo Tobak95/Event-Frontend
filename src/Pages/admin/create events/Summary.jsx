@@ -74,6 +74,7 @@ export default function Summary({
         onClose={() => setShowModal(false)}
         onViewEvent={() => {
           setShowModal(false);
+          redirect("/dashboard/admin/events");
           toast.success(
             `Navigating to ${
               modalType === "draft" ? "draft events" : "published events"

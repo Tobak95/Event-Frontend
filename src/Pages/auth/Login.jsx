@@ -69,8 +69,8 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Login Failed");
-      setErrorMsg(error?.response?.data.message || "Login Failed");
+      toast.error(error?.response?.data.message);
+      // setErrorMsg(error?.response?.data.message || "Login Failed");
     } finally {
       setSubmitting(false);
     }

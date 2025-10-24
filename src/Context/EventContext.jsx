@@ -2,6 +2,7 @@ import { axiosInstance } from "../Utils/axiosInstance";
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../Hooks/useAppContext";
+import SuspenseLoader from "../component/layout/SuspenseLoader";
 
 export const EventContext = createContext();
 
@@ -10,6 +11,10 @@ const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { token } = useAppContext();
+
+  if (isLoading) {
+    <SuspenseLoader />;
+  }
 
   // Fetch events
   const fetchEvents = async () => {
@@ -30,6 +35,10 @@ const EventProvider = ({ children }) => {
   useEffect(() => {
     fetchEvents();
   }, []);
+
+  if (isLoading) {
+    <SuspenseLoader />;
+  }
 
   //createEvent
   // const createEvent = async (eventData, isDraft = true) => {
