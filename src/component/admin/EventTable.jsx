@@ -1,30 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import EventActionModal from "../../component/admin/EventActionModal";
+import { useEventContext } from "../../Hooks/useEventContext";
 
 const EventTable = ({ events, setEvents, eventType }) => {
   const redirect = useNavigate();
   const [selectedEvent, setSelectedEvent] = React.useState(null);
+  const { updateEventStatus, deleteEvent, isSubmitting } = useEventContext();
 
-  // 🟢 Publish event
-  const handlePublish = (id) => {
-    setEvents((prev) =>
-      prev.map((ev) => (ev._id === id ? { ...ev, status: "live" } : ev))
-    );
+  // Publish event
+  const handlePublish = async (id) => {
+    await updateEventStatus(id, "live");
     setSelectedEvent(null);
   };
 
-  // 🟡 Move to draft
-  const handleUnpublish = (id) => {
-    setEvents((prev) =>
-      prev.map((ev) => (ev._id === id ? { ...ev, status: "draft" } : ev))
-    );
+  // Move to draft
+  const handleUnpublish = async (id) => {
+    await updateEventStatus(id, "draft");
     setSelectedEvent(null);
   };
 
-  // 🔴 Delete event
-  const handleDelete = (id) => {
-    setEvents((prev) => prev.filter((ev) => ev._id !== id));
+  // Delete event
+  const handleDelete = async (id) => {
+    await deleteEvent(id);
     setSelectedEvent(null);
   };
 
@@ -117,6 +115,7 @@ const EventTable = ({ events, setEvents, eventType }) => {
           onUnpublish={handleUnpublish}
           onDelete={handleDelete}
           onEdit={handleEdit}
+          isSubmitting={isSubmitting}
         />
       )}
     </div>

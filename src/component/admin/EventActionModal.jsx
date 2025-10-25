@@ -11,6 +11,7 @@ const EventActionModal = ({
   onUnpublish,
   onDelete,
   onEdit,
+  isSubmitting,
 }) => {
   const modalRef = useRef(null);
 
@@ -38,10 +39,18 @@ const EventActionModal = ({
         {isLive && (
           <>
             <button
+              onClick={() => onEdit(event._id)}
+              className="flex items-center gap-2 text-[#006F6A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
+            >
+              <FaEdit size={18} color="#006F6A" /> <span>Edit Event</span>
+            </button>
+            <button
               onClick={() => onUnpublish(event._id)}
+              disabled={isSubmitting}
               className="flex items-center gap-2 text-[#4A4A4A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
-              <PiBroom size={20} color="#4A4A4A" /> <span>Move to Draft</span>
+              <PiBroom size={20} color="#4A4A4A" />{" "}
+              <span>{isSubmitting ? "Moving..." : "Move to Draft"}</span>
             </button>
 
             <button
@@ -56,12 +65,19 @@ const EventActionModal = ({
         {isDraft && (
           <>
             <button
+              onClick={() => onPublish(event._id)}
+              disabled={isSubmitting}
+              className="flex items-center gap-2 text-[#006F6A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
+            >
+              <img src={tick} alt="Publish" className="w-4 h-4" />
+              <span>{isSubmitting ? "Publishing..." : "Publish Event"}</span>
+            </button>{" "}
+            <button
               onClick={() => onEdit(event._id)}
               className="flex items-center gap-2 text-[#006F6A] mb-4 text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
             >
               <FaEdit size={18} color="#006F6A" /> <span>Edit Event</span>
-            </button>
-
+            </button>{" "}
             <button
               onClick={() => onDelete(event._id)}
               className="flex items-center gap-2 text-[#FF0000] text-[16px] font-[400] px-2 cursor-pointer hover:opacity-80"
