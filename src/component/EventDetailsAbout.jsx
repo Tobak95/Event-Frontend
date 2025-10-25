@@ -82,6 +82,7 @@ const OtherEvents = () => {
                 hour12: true,
               }
             )}`}
+            link={data._id}
           />
         ))}
       </div>

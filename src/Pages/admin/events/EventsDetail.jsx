@@ -10,6 +10,7 @@ import clock from "../../../assets/clock.png";
 import location from "../../../assets/location.png";
 import { TbShare3 } from "react-icons/tb";
 import { useEventContext } from "../../../Hooks/useEventContext";
+import SuspenseLoader from "../../../component/layout/SuspenseLoader";
 
 const EventsDetail = () => {
   const { id } = useParams();
@@ -21,6 +22,10 @@ const EventsDetail = () => {
       getSingleEvent(id);
     }
   }, [id]);
+
+  if (!singleEvent?._id) {
+    return <SuspenseLoader />;
+  }
 
   return (
     <div className="flex h-screen bg-base-200">
@@ -144,6 +149,44 @@ const EventsDetail = () => {
                     <th className="py-3">Ticket Status</th>
                   </tr>
                 </thead>
+                <tbody>
+                  {singleEvent.tickets.map((ticket) => (
+                    <tr
+                      key={ticket._id}
+                      className="bg-[#F6F6F6] h-[50px] text-center text-[16px] text-[#4A4A4A] font-medium"
+                    >
+                      <td className="py-3 pl-3 text-left">{ticket.name}</td>
+                      <td className="py-3">
+                        {ticket.price === 0 ? "Free" : `$${ticket.price}`}
+                      </td>
+                      <td className="py-3">
+                        {singleEvent.startDate
+                          ? new Date(singleEvent.startDate).toLocaleDateString(
+                              "en-US",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )
+                          : "No date"}{" "}
+                        -{" "}
+                        {singleEvent.startTime
+                          ? new Date(
+                              `1970-01-01T${singleEvent.startTime}`
+                            ).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            })
+                          : "No date"}
+                      </td>
+                      <td className="py-3">{ticket.sales || 0}</td>
+                      <td className="py-3">{ticket.status || "Unknown"}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </section>
