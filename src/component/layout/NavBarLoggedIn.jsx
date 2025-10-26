@@ -149,11 +149,11 @@ const NavBarLoggedIn = ({
                       My Tickets
                     </NavLink>
                     <NavLink
-                      to="/reset-password"
+                      to="/change-password"
                       className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
                       onClick={() => setDropdown(false)}
                     >
-                      Reset Password
+                      Change Password
                     </NavLink>
                     {isLogoutModalOpen && (
                       <LogoutModal
@@ -249,14 +249,14 @@ const NavBarLoggedIn = ({
                   </NavLink>
 
                   <NavLink
-                    to="/reset-password"
+                    to="/change-password"
                     className="px-4 py-2 text-black hover:bg-gray-100 text-center"
                     onClick={() => {
                       setDropdown(false);
                       setIsOpen(false);
                     }}
                   >
-                    Reset Password
+                    Change Password
                   </NavLink>
 
                   <button
