@@ -2,11 +2,13 @@ import React from "react";
 import { adminData } from "../../../../data";
 import { useState } from "react";
 import RemoveAdminModal from "../../../component/RemoveAdmiModal";
+import AddAdminForm from "../../../component/AddAdminForm";
 
 const AdminSettings = () => {
   const [admins, setAdmins] = useState(adminData);
   const [showModal, setShowModal] = useState(null);
   const [id, setId] = useState("");
+  const [addAdmin, setAddAdmin] = useState(false);
 
   // 🔹 Function to remove an admin
   const removeAdmin = (id) => {
@@ -20,7 +22,10 @@ const AdminSettings = () => {
           <h2 className="text-[24px] font-[700] text-[#000000]">
             {admins.length} {""} {""} Admins
           </h2>
-          <button className="bg-teal-700 hover:bg-teal-800 text-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+          <button
+            className="bg-teal-700 hover:bg-teal-800 text-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2"
+            onClick={() => setAddAdmin(true)}
+          >
             New Admin <span className="text-lg font-bold">+</span>
           </button>
         </div>
@@ -81,6 +86,8 @@ const AdminSettings = () => {
           remove={showModal}
         />
       )}
+
+      {addAdmin && <AddAdminForm onContinue={() => setAddAdmin(false)} />}
     </>
   );
 };
