@@ -11,6 +11,7 @@ import {
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import ChangePasswordModal from "../../../component/ChangePasswordModal";
 
 const parentVariant = {
   hide: { opacity: 0 },
@@ -211,7 +212,11 @@ const Revenue = () => {
               </div>
               <AnimatePresence>
                 {showModal && (
-                  <Modal setShowModal={() => setShowModal((prev) => !prev)} />
+                  // <Modal setShowModal={() => setShowModal((prev) => !prev)} />
+                  <ChangePasswordModal
+                    h2="Profile updated successfully"
+                    description="Your personal information has been uploaded successfully"
+                  />
                 )}
               </AnimatePresence>
             </div>
