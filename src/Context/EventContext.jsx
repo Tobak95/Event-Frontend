@@ -43,34 +43,7 @@ const EventProvider = ({ children }) => {
     <SuspenseLoader />;
   }
 
-  //createEvent
-  // const createEvent = async (eventData, isDraft = true) => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     const response = await axiosInstance.post(
-  //       "/eventra/create-event",
-  //       {
-  //         ...eventData,
-  //         status: isDraft ? "draft" : "live",
-  //       },
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     );
-
-  //     setEvents((prev) => [response.data.event, ...prev]);
-  //     toast.success(response.data.message || "Event created successfully!");
-  //     return response.data.event;
-  //   } catch (error) {
-  //     console.error("Error creating event:", error);
-  //     toast.error(
-  //       error.response?.data?.message || "Failed to create event. Try again."
-  //     );
-  //     return null;
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
+  
 
   const createEvent = async (eventData, isDraft = true) => {
     setIsSubmitting(true);
