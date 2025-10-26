@@ -6,7 +6,7 @@ import { useState } from 'react';
 const AdminSettings = () => {
   const [admins, setAdmins] = useState(adminData);
 
-  // 🔹 Function to remove an admin
+  // Function to remove an admin
   const removeAdmin = (id) => {
     setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== id));
   };

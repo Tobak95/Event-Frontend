@@ -34,26 +34,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     setErrorMessage("");
-    // console.log("login data:", { data });
-
-    // try {
-    //   const response = await axiosInstance.post("/auth/login", { ...data });
-    //   const { data: mydata } = response;
-    //   if (response.data === 200) {
-    //     console.log(mydata);
-    //   }
-    //   login(mydata.token, mydata.user);
-    //   toast.success("Login Successful");
-    //   if (mydata.user.role === "admin" && mydata.user.role === "superAdmin") {
-    //     navigate("/dashboard/admin");
-    //   } else {
-    //     navigate("/");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   setErrorMessage(error?.response?.data?.message || "Login Failed");
-    // }
-    // setSubmitting(false);
+ 
     try {
       const { data: mydata } = await axiosInstance.post("/auth/login", {
         ...data,
