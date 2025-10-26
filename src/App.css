@@ -108,4 +108,13 @@
 
 body {
 }
+
+.form-input {
+  width: 600px;
+  height: 47px;
+  border: 1px solid #A89E97;
+  border-radius: 10px;
+  padding-left: 0.5rem; /* same as Tailwind's px-2 */
+  padding-right: 0.5rem;
+}
  

@@ -247,3 +247,57 @@ export const recentTicketSales = [
     time: "10 PM",
   },
 ];
+
+
+
+export const notificationsList = [
+  {
+    title: "Financial Oversight",
+    description: "Revenue summaries and payout request",
+  },
+  {
+    title: "General Communication",
+    description: "Internal staff announcements",
+  },
+  {
+    title: "Admin & Staff Oversight",
+    description: "New admin accounts created / roles changes",
+  },
+  {
+    title: "System/Platform Updates",
+    description: "Maintenance, new features or policy changes",
+  },
+  {
+    title: "Security Alerts",
+    description:
+      "Suspicious login attempts, password changes, or account activities",
+  },
+];
+
+
+export const adminData = [
+  {
+    id: 1,
+    name: "Faith Dest",
+    email: "Faithyddd3@gmail.com",
+    date: "22 Aug 2025, 10:00 AM",
+  },
+  {
+    id: 2,
+    name: "Martins Opeyemi",
+    email: "Opeyemimartin@gmail.com",
+    date: "22 Aug 2025, 10:00 AM",
+  },
+  {
+    id: 3,
+    name: "Idowu Mensah",
+    email: "Idowumensah@gmail.com",
+    date: "22 Aug 2025, 10:00 AM",
+  },
+  {
+    id: 4,
+    name: "Sammy Kay",
+    email: "Sammykay00@gmail.com",
+    date: "22 Aug 2025, 10:00 AM",
+  },
+];
