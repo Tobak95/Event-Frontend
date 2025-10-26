@@ -9,7 +9,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate("/login");
 
     // Close modal
     onClose();

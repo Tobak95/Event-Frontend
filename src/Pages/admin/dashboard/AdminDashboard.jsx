@@ -18,15 +18,12 @@ const AdminDashboard = () => {
         <div className="overflow-y-auto flex-1">
           {/* workings here */}
 
-
-
-
-          <section className="p-7">
+          <section className="p-7 max-w-[1240px] mx-auto">
             <div className="flex justify-between">
               <h1 className="text-[32px] font-[700]">Dashboard</h1>
               <div className="flex items-center gap-2">
                 <Link to={"/dashboard/admin/create-events"}>
-                  <button className="flex items-center justify-center gap-2 bg-[#006F6A] w-[134px] h-[48px] text-[#FFFFFF] rounded-[8px]">
+                  <button className="flex items-center justify-center gap-2 bg-[#006F6A] w-[140px] h-[48px] text-[#FFFFFF] rounded-[8px] cursor-pointer hover:bg-[#047a74] px-2">
                     Create Event
                     <span>
                       <HiOutlinePlusSm />

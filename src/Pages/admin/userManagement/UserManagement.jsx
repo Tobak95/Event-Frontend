@@ -11,15 +11,27 @@ import {
 import { toast } from "react-toastify";
 import { axiosInstance } from "../../../Utils/axiosInstance";
 import { useAppContext } from "../../../Hooks/useAppContext";
+import Pagination from "../../../component/layout/Pagination";
 
 const UserManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { user, token } = useAppContext();
 
-  console.log("Token:", token);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  useEffect(() => {
+    if (token) {
+      getAllUsers();
+    }
+  }, [token]);
+  // console.log("Token:", token);
+
   const getAllUsers = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get("/auth/all-users", {
         headers: { Authorization: `Bearer ${token}` },
@@ -34,14 +46,10 @@ const UserManagement = () => {
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      getAllUsers();
-    }
-  }, [token]);
 
   //   const data = React.useMemo(() => [
   //   {
@@ -139,15 +147,22 @@ const UserManagement = () => {
   const data = React.useMemo(() => users, [users]);
 
   const filteredData = React.useMemo(() => {
-    return data.filter((user) => {
+    return users.filter((user) => {
       const query = searchQuery.toLowerCase();
       return (
-        user.firstname.toLowerCase().includes(query) ||
-        user.email.toLowerCase().includes(query) ||
-        user.phoneNumber.toLowerCase().includes(query)
+        user?.firstname?.toLowerCase().includes(query) ||
+        user?.email?.toLowerCase().includes(query) ||
+        user?.phoneNumber?.toLowerCase().includes(query)
       );
     });
-  }, [data, searchQuery]);
+  }, [users, searchQuery]);
+
+  const totalItems = filteredData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const paginatedData = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredData.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredData, currentPage, itemsPerPage]);
 
   const columns = React.useMemo(
     () => [
@@ -158,7 +173,7 @@ const UserManagement = () => {
           const firstName = row.original.firstname || "";
           const lastName = row.original.lastname || "";
           return (
-            <span className="text-[20px]">{`${firstName} ${lastName}`}</span>
+            <span className="text-[20px] font-medium">{`${firstName} ${lastName}`}</span>
           );
         },
       },
@@ -189,10 +204,11 @@ const UserManagement = () => {
   );
 
   const table = useReactTable({
-    data: filteredData,
+    data: paginatedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
   return (
     <div className="flex h-screen bg-base-200">
       <SideBar />
@@ -205,22 +221,24 @@ const UserManagement = () => {
             <h1 className="font-bold text-3xl">User Management</h1>
 
             <div className="flex py-8 items-center justify-between">
-              <h2 className="font-bold text-2xl">Users list</h2>
+              <h2 className="font-bold text-2xl">Users List</h2>
               <div className="relative w-full max-w-md">
-                <FaSearch className="absolute left-3 top-1/2 z-10 w-4 h-4 transform -translate-y-1/2  text-base-content/40" />
+                <FaSearch className="absolute left-3 top-1/2 z-10 w-4 h-4 transform -translate-y-1/2 text-base-content/40" />
                 <input
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 w-[452px] border-b input input-sm focus:outline-none focus:ring-0 focus:border-none"
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="pl-10 w-[452px] border-b input input-sm focus:outline-none focus:ring-0"
                 />
               </div>
             </div>
 
-            {/* Table */}
             <table className="min-w-full table-auto">
-              <thead className="">
+              <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
@@ -238,20 +256,48 @@ const UserManagement = () => {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id} className="hover:bg-gray-50">
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-2 text-gray-800">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
+                {loading ? (
+                  <tr>
+                    <td colSpan="100%" className="text-center py-8">
+                      <p className="text-[#006F6A] font-semibold text-lg">
+                        Loading users...
+                      </p>
+                    </td>
                   </tr>
-                ))}
+                ) : paginatedData.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan="100%"
+                      className="text-center py-8 text-[#777777]"
+                    >
+                      No users found
+                    </td>
+                  </tr>
+                ) : (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id} className="hover:bg-gray-50">
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} className="px-4 py-2 text-gray-800">
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
+
+            {totalPages > 1 && (
+              <Pagination
+                totalItems={totalItems}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+              />
+            )}
           </section>
         </div>
       </div>

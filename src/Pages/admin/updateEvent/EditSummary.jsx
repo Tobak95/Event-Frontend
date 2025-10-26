@@ -2,24 +2,23 @@ import React, { useEffect, useMemo, useState } from "react";
 import { MdLocationOn, MdCalendarToday } from "react-icons/md";
 import { FaLessThan, FaTicketAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
-import PublishSuccessModal from "./PublishSuccessModal";
+import PublishSuccessModal from "../create events/PublishSuccessModal";
 import { useEventContext } from "../../../Hooks/useEventContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-export default function Summary({
+export default function EditSummary({
   formData = {},
   setFormData = () => {},
   onBack,
 }) {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("publish");
-  console.log("🧾 Sending formData to backend:", formData);
-
-  const { isSubmitting, createEvent } = useEventContext();
-  const redirect = useNavigate();
-
-  // create image preview (works with File or a string URL)
   const [imagePreview, setImagePreview] = useState(null);
+  const redirect = useNavigate();
+  const { id } = useParams();
+
+  const { isSubmitting, updateEvent } = useEventContext();
+
   useEffect(() => {
     if (!formData?.image) {
       setImagePreview(null);
@@ -36,33 +35,39 @@ export default function Summary({
     };
   }, [formData?.image]);
 
-  // For display: format tickets (safeguard defaults)
   const tickets = useMemo(() => formData.tickets || [], [formData.tickets]);
 
-  // Publish
   const handlePublish = async () => {
     try {
       setModalType("publish");
-      const result = await createEvent(formData, false);
-      console.log(result);
 
-      if (result) setShowModal(true);
+      const updatedEvent = { ...formData, status: "live" };
+      const result = await updateEvent(id, updatedEvent);
+
+      if (result) {
+        toast.success("Event published successfully!");
+        setShowModal(true);
+      }
     } catch (err) {
       console.error("Publish failed:", err);
-      toast.error("Failed to publish event");
+      toast.error("Failed to publish event ❌");
     }
   };
 
-  // Save draft
   const handleSaveDraft = async () => {
     try {
       setModalType("draft");
-      const result = await createEvent(formData, true);
-      console.log(result);
-      if (result) setShowModal(true);
+
+      const updatedEvent = { ...formData, status: "draft" };
+      const result = await updateEvent(id, updatedEvent);
+
+      if (result) {
+        toast.success("Draft updated successfully!");
+        setShowModal(true);
+      }
     } catch (err) {
-      console.error("Draft failed:", err);
-      toast.error("Failed to save draft");
+      console.error("Draft update failed:", err);
+      toast.error("Failed to save draft ❌");
     }
   };
 
@@ -177,14 +182,14 @@ export default function Summary({
               disabled={isSubmitting}
               className="border border-[#006f6a] text-[#006f6a] px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#e6f1f0] transition-colors disabled:opacity-60"
             >
-              {isSubmitting ? "Saving..." : "Publish as Draft"}
+              {isSubmitting ? "Saving..." : "Save as Draft"}
             </button>
             <button
               onClick={handlePublish}
               disabled={isSubmitting}
               className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[234px] hover:bg-[#005a56] transition-colors disabled:opacity-60"
             >
-              {isSubmitting ? "Publishing..." : "Publish Event"}
+              {isSubmitting ? "Updating..." : "Publish Event"}
             </button>
           </div>
         </div>
@@ -236,8 +241,8 @@ function TicketCard({ type, price, eventName, location, date }) {
 /* ProgressSteps — local component */
 function ProgressSteps({ currentStep }) {
   const steps = [
-    { number: 1, label: "Create New Event" },
-    { number: 2, label: "Create Ticket" },
+    { number: 1, label: "Edit Event" },
+    { number: 2, label: "Edit Ticket" },
     { number: 3, label: "Summary" },
   ];
 
@@ -254,13 +259,20 @@ function ProgressSteps({ currentStep }) {
         </div>
 
         <div className="absolute w-full flex justify-between items-center px-[11px]">
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
-          </div>
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
-          </div>
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] z-10"></div>
+          {steps.map((step, i) => (
+            <div
+              key={i}
+              className={`w-[22px] h-[22px] rounded-full ${
+                i + 1 <= currentStep
+                  ? "bg-[#006F6A]"
+                  : "bg-white border-2 border-[#2B8783]"
+              } flex items-center justify-center z-10`}
+            >
+              {i + 1 < currentStep && (
+                <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 

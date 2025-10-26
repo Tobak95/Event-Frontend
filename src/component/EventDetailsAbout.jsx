@@ -4,6 +4,8 @@ import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
 import img3 from "../assets/img3.jpg";
 import { Link } from "react-router-dom";
+import { useEventContext } from "../Hooks/useEventContext";
+import { useAppContext } from "../Hooks/useAppContext";
 
 const Words = ({ title, paragraph }) => {
   return (
@@ -17,6 +19,7 @@ const Words = ({ title, paragraph }) => {
 };
 
 const OtherEvents = () => {
+  const { events } = useEventContext();
   const cardData = [
     {
       id: 1,
@@ -55,16 +58,31 @@ const OtherEvents = () => {
         Other events you may like
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 container mx-auto gap-12 ">
-        {cardData.map((data) => (
+        {events.slice(0, 3).map((data) => (
           <Card
-            key={data.id}
-            date={data.date}
-            h2={data.h2}
-            img={data.img}
-            location={data.location}
+            key={data._id}
+            date={new Date(data.startDate).toLocaleDateString("en-us", {
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            })}
+            h2={data.title}
+            img={data.image}
+            location={data.address}
             pTag1={data.pTag1}
-            price={data.price}
-            time={data.time}
+            price={`${data.tickets?.[0]?.price || "N/A"}`}
+            time={`${new Date(data.startDate).toLocaleDateString("en-us", {
+              day: "2-digit",
+              month: "short",
+            })} - ${new Date(`1970-01-01T${data.startTime}`).toLocaleTimeString(
+              [],
+              {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              }
+            )}`}
+            link={data._id}
           />
         ))}
       </div>

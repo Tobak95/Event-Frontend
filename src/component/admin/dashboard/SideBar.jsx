@@ -69,8 +69,8 @@ const SideBar = () => {
   );
 
   return (
-    <div className="flex flex-col w-[273px] h-screen  border-r-2 border-neutral/20 ">
-      <div className="px-4 py-6  border-b ">
+    <div className="flex flex-col w-[273px] h-screen ">
+      <div className="px-4 py-6   border-b border-neutral/20 ">
         <Link to={"/"}>
           <div className="flex ">
             <img src={Logo2} alt="eventra-Logo" className=" w-auto h-10 " />
@@ -79,7 +79,7 @@ const SideBar = () => {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="flex-1 px-2  space-y-2  lg:py-4">
+      <nav className="flex-1 px-2  space-y-2  lg:py-4  border-r border-neutral/20 ">
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
@@ -92,7 +92,7 @@ const SideBar = () => {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="p-4 space-y-2 border-t border-base-300">
+      <div className="p-4 space-y-2 border-t border-base-300  border-r border-neutral/20 ">
         <Link
           to="/dashboard/admin/settings"
           className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
