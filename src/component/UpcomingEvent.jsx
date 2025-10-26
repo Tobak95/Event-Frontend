@@ -4,9 +4,24 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { GoClock } from "react-icons/go";
 import { useEventContext } from "../Hooks/useEventContext";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// import { useAppContext } from "../Hooks/useAppContext";
 
 const UpcomingEvent = () => {
   const { events, isLoading } = useEventContext();
+  //  const navigate = useNavigate();
+  //   const { user } = useAppContext();
+
+
+  //  const handleGetTicket = () => {
+  //    if (!user) {
+  //      // optionally pass return location: { state: { from: location } }
+  //      navigate("/auth/login");
+  //      return;
+  //    }
+  //    // proceed to purchase/booking flow
+  //    navigate(`/events/${events.id}/tickets`);
+  //  };
 
   if (isLoading) {
     return (
@@ -106,6 +121,7 @@ const UpcomingEvent = () => {
 
                 <Link to={`/eventDetails/${event._id}`}>
                   <button
+                    // onClick={handleGetTicket}
                     className="w-[124px] h-[54px] rounded-[13px] 
                       border-[2.54px] border-[#006F6A] text-[#006F6A] text-[18px] cursor-pointer"
                   >
