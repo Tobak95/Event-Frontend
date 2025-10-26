@@ -17,7 +17,7 @@ const AdminSettings = () => {
 
   return (
     <>
-      <div className="overflow-x-auto  h-screen pl-7">
+      <div className="overflow-x-auto  h-screen px-5">
         <div className="flex justify-between items-center my-6">
           <h2 className="text-[24px] font-[700] text-[#000000]">
             {admins.length} {""} {""} Admins

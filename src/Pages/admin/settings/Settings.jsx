@@ -232,7 +232,7 @@ const Settings = () => {
             )}
 
             {activeButton === "Admin" && (
-              <article className="mt-5 pl-7">
+              <article className="mt-5 ">
                 <AdminSettings />
               </article>
             )}

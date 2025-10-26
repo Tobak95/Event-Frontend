@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Buttons, Inputs } from "./AdminChangePassword";
 import ModalChildren from "./ModalChildren";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { resetPasswordSchema } from "../Utils/formValidator";
+import { signUpSchema } from "../Utils/formValidator";
 import { useState } from "react";
 
 const FormInput = ({ id, label, register, placeholder, type }) => {
@@ -26,7 +26,7 @@ const AddAdminForm = ({ onContinue }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(resetPasswordSchema) });
+  } = useForm({ resolver: yupResolver(signUpSchema) });
   const [showPassword, setShowPassword] = useState(false);
   const submit = (payload) => {
     console.log(payload);
@@ -42,22 +42,28 @@ const AddAdminForm = ({ onContinue }) => {
           </div>
           <>
             <FormInput
-              id="firstName"
+              id="firstname"
               label="First Name"
               register={register}
               placeholder="Martins"
               type="text"
             />
+            {errors.firstname && (
+              <p className="text-red-500 mt-1">{errors.firstname.message}</p>
+            )}
           </>
 
           <>
             <FormInput
-              id="lastName"
+              id="lastname"
               label="Last Name"
               register={register}
               placeholder="Jemima"
               type="text"
             />
+            {errors.lastname && (
+              <p className="text-red-500 mt-1">{errors.lastname.message}</p>
+            )}
           </>
 
           <>
@@ -68,19 +74,25 @@ const AddAdminForm = ({ onContinue }) => {
               placeholder="martinsjemima@gmail.com"
               type="email"
             />
+            {errors.email && (
+              <p className="text-red-500 mt-1">{errors.email.message}</p>
+            )}
           </>
           <>
-            <label htmlFor="phone" className="text-[18px]">
+            <label htmlFor="phoneNumber" className="text-[18px]">
               Phone Number
             </label>
             <div className="border border-[#777777] rounded-lg px-2 flex items-center gap-1">
               <p>+234</p>
               <input
                 type="number"
-                id="phone"
+                id="phoneNumber"
                 className="py-4 flex-1 outline-none"
               />
             </div>
+            {errors.phoneNumber && (
+              <p className="text-red-500 mt-1">{errors.phoneNumber.message}</p>
+            )}
           </>
 
           <>

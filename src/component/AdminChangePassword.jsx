@@ -12,7 +12,7 @@ export const Inputs = ({ showPassword, setPassword, id, label, register }) => {
       <label htmlFor={id} className="text-[18px]">
         {label}
       </label>
-      <div className="flex items-center border border-[#777777] rounded-lg  px-2">
+      <div className="flex  border border-[#777777] rounded-lg  px-2">
         <input
           id={id}
           type={showPassword ? "text" : "password"}
@@ -25,11 +25,7 @@ export const Inputs = ({ showPassword, setPassword, id, label, register }) => {
           className="text-gray-400 hover:text-gray-500 focus:outline-none"
           onClick={setPassword}
         >
-          {showPassword ? (
-            <EyeOff className="h-4 w-4" />
-          ) : (
-            <Eye className="h-4 w-4" />
-          )}
+          {showPassword ? <EyeOff /> : <Eye />}
         </button>
       </div>
     </>
