@@ -54,16 +54,17 @@ const SideBar = () => {
       path: "/dashboard/admin/revenue",
       active: location.pathname === "/dashboard/admin/revenue",
     },
-    ...(String(userRole || "").toLowerCase() === "superAdmin"
-      ? [
-          {
-            icon: HiOutlineChartSquareBar,
-            label: "Revenue",
-            path: "/dashboard/admin/revenue",
-          },
-        ]
-      : []),
   ];
+
+   const normalizedRole = String(userRole || "").toLowerCase();
+   if (normalizedRole === "superAdmin") {
+     menuItems.push({
+       icon: HiOutlineChartSquareBar,
+       label: "Revenue",
+       path: "/dashboard/admin/revenue",
+       active: location.pathname === "/dashboard/admin/revenue",
+     });
+   }
 
   const MenuItem = ({ icon: Icon, label, path, active }) => (
     <Link
