@@ -111,21 +111,28 @@ const CheckOut2 = () => {
     }
 
     try {
-      // Get first selected ticket (or handle multiple if needed)
-      const ticketId = Object.keys(selectedTickets)[0];
-      const quantity = selectedTickets[ticketId];
+      // ✅ Get the selected ticket (only one type allowed)
+      const validTicket = Object.entries(selectedTickets).find(
+        ([_, qty]) => qty > 0
+      );
 
-      // Build payload
+      if (!validTicket) {
+        return toast.error(
+          "Please select at least one ticket before checkout."
+        );
+      }
+
+      const [ticketId, quantity] = validTicket;
+
       const payload = {
         firstname: formData.firstName,
         lastname: formData.lastName,
         email: formData.email,
         quantity,
       };
-      console.log("Token from context:", token);
-      console.log(formData);
+
       console.log("🧾 Payload being sent:", payload);
-      // Send to backend
+
       const res = await axiosInstance.post(
         `/payments/initialize/${ticketId}`,
         payload,
@@ -137,8 +144,7 @@ const CheckOut2 = () => {
       );
 
       if (res.data.status === "success") {
-        const redirectUrl = res.data.data.authorization_url;
-        window.location.href = redirectUrl; // ✅ Redirect to Paystack page
+        window.location.href = res.data.data.authorization_url;
       } else {
         toast.error(res.data.message || "Failed to initialize payment");
       }

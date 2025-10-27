@@ -117,7 +117,7 @@ function EventDetailsAbout({
   link,
 }) {
   return (
-    <div className="container mx-auto mt-12 mb-12">
+    <div className="container layout mx-auto mt-12 mb-12">
       <div className="flex flex-col-reverse lg:flex-row lg:items-start items-center justify-between px-4 gap-4">
         <div className="lg:w-[40%] flex flex-col gap-6">
           <Words paragraph={paragraph1} title={title1} />
