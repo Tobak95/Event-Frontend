@@ -10,7 +10,7 @@ const AdminSettings = () => {
   const [id, setId] = useState("");
   const [addAdmin, setAddAdmin] = useState(false);
 
-  // 🔹 Function to remove an admin
+  // Function to remove an admin
   const removeAdmin = (id) => {
     setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== id));
   };

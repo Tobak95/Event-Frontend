@@ -160,7 +160,10 @@ function App() {
               path="/dashboard/admin/userManagements"
               element={<UserManagements />}
             />
-            <Route path="/dashboard/admin/revenue" element={<Revenue />} />
+            <Route element={<ProtectedRoute allowedRoles={["superAdmin"]} />}>
+              
+              <Route path="/dashboard/admin/revenue" element={<Revenue />} />{" "}
+            </Route>
             <Route path="/dashboard/admin/settings" element={<Settings />} />
           </Route>
         </Routes>
