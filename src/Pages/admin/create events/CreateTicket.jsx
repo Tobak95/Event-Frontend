@@ -217,7 +217,8 @@ export default function CreateTicket({ onBack, onContinue }) {
             event.tickets.map((ticket, i) => (
               <TicketCard
                 key={i}
-                type={ticket.name}
+                name={ticket.name} // ticket name
+                type={ticket.type} // paid / free
                 price={
                   ticket.type === "free"
                     ? "Free"

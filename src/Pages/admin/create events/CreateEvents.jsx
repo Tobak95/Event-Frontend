@@ -36,8 +36,7 @@ const CreateEvents = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fakeUrl = URL.createObjectURL(file);
-      setEvent({ ...event, image: fakeUrl });
+      setEvent((prev) => ({ ...prev, image: file }));
     }
   };
 
@@ -47,6 +46,7 @@ const CreateEvents = () => {
       await eventValidation.validate(event, { abortEarly: false });
       setErrors({});
       setCurrentStep(2);
+      console.log(event);
     } catch (validationErr) {
       const newErrors = {};
       validationErr.inner.forEach((err) => {
