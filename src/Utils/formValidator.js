@@ -55,3 +55,11 @@ export const forgotPasswordSchema = Yup.object().shape({
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email is not valid")
     .required("Email is required"),
 });
+
+export const changePasswordSchema = Yup.object().shape({
+  oldPass: Yup.string().min(6, "Password must be at least 6 characters"),
+  newPass: Yup.string().min(6, "Password must be at least 6 characters"),
+  confirmPass: Yup.string()
+    .oneOf([Yup.ref("newPass")], "Passwords must match")
+    .required("Confirm password is required"),
+});
