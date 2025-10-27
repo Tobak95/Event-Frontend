@@ -7,6 +7,7 @@ import EventTable from "../../../component/admin/EventTable";
 import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../../../Hooks/useEventContext";
 import FilterModal from "../../../component/admin/FilterModal";
+import { RiseLoader } from "react-spinners";
 
 const Events = () => {
   const { events, isLoading, fetchEvents, setEvents } = useEventContext();
@@ -114,7 +115,9 @@ const Events = () => {
 
             {/* Table */}
             {isLoading ? (
-              <p>Loading events...</p>
+              <div className="flex items-center justify-center mt-50 ">
+                <RiseLoader size={20} color="#006F6A" />
+              </div>
             ) : (
               <EventTable
                 events={filteredEvents}

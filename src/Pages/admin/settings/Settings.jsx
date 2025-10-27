@@ -6,12 +6,16 @@ import { notificationsList } from "../../../../data";
 import AdminSettings from "./AdminSettings";
 import ChangePasswordModal from "../../../component/ChangePasswordModal";
 import AdminChangePassword from "../../../component/AdminChangePassword";
+import { useAppContext } from "../../../Hooks/useAppContext";
 
 const Settings = () => {
   const [activeButton, setActiveButton] = useState("Account");
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [showModal, setShowModal] = useState(null);
+
+  const { user } = useAppContext();
+  const isSuperAdmin = user?.role === "superAdmin";
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -37,17 +41,19 @@ const Settings = () => {
         <div className="overflow-y-auto flex-1">
           <section className=" relative">
             <div className="flex gap-5 p-7">
-              <button
-                onClick={() => setActiveButton("Account")}
-                className={`text-[#999999] 
+              {isSuperAdmin && (
+                <button
+                  onClick={() => setActiveButton("Account")}
+                  className={`text-[#999999] 
           ${
             activeButton === "Account"
               ? "text-black underline underline-offset-3  decoration-[#006F6A]"
               : ""
           }`}
-              >
-                Account
-              </button>
+                >
+                  Account
+                </button>
+              )}
 
               <button
                 onClick={() => setActiveButton("Admin")}

@@ -18,7 +18,7 @@ const AdminDashboard = () => {
         <div className="overflow-y-auto flex-1">
           {/* workings here */}
 
-          <section className="p-7 max-w-[1240px] mx-auto">
+          <section className="p-7 w-full lg:mx-0 ">
             <div className="flex justify-between">
               <h1 className="text-[32px] font-[700]">Dashboard</h1>
               <div className="flex items-center gap-2">
