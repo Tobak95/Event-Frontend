@@ -15,6 +15,8 @@ import { useAppContext } from "../../../Hooks/useAppContext";
 const SideBar = () => {
   const location = useLocation();
 
+   const isActive = (path) => location.pathname === path;
+   
   const { user } = useAppContext();
   const userRole = user?.role;
 
@@ -48,31 +50,24 @@ const SideBar = () => {
       path: "/dashboard/admin/userManagements",
       active: location.pathname === "/dashboard/admin/userManagements",
     },
-    {
+  ];
+
+  if (userRole === "superAdmin") {
+    menuItems.push({
       icon: HiOutlineChartSquareBar,
       label: "Revenue",
       path: "/dashboard/admin/revenue",
       active: location.pathname === "/dashboard/admin/revenue",
-    },
-  ];
-
-   const normalizedRole = String(userRole || "").toLowerCase();
-   if (normalizedRole === "superAdmin") {
-     menuItems.push({
-       icon: HiOutlineChartSquareBar,
-       label: "Revenue",
-       path: "/dashboard/admin/revenue",
-       active: location.pathname === "/dashboard/admin/revenue",
-     });
-   }
+    });
+  }
 
   const MenuItem = ({ icon: Icon, label, path, active }) => (
     <Link
       to={path}
       className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
         active
-          ? "bg-[#E6F1F0] text-[#006F6A]"
-          : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A] hover:font-[600]"
+          ? "bg-[#E6F1F0] text-[#006F6A] border-[2px] border-[#006F6A]"
+          : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A]  hover:font-[600]"
       }`}
     >
       <Icon className="w-6 h-6" />
@@ -107,7 +102,11 @@ const SideBar = () => {
       <div className="p-4 space-y-2 border-t border-base-300  border-r border-neutral/20 ">
         <Link
           to="/dashboard/admin/settings"
-          className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+          className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
+            isActive("/dashboard/admin/settings")
+              ? "bg-[#E6F1F0] text-[#006F6A] border-[2px] border-[#006F6A]"
+              : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A]  hover:font-[600]"
+          }`}
         >
           <GrPerformance className="w-5 h-5" />
           <span className="text-[20px]">Settings</span>
@@ -117,7 +116,7 @@ const SideBar = () => {
         )}
         <button
           onClick={handleLogout}
-          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-[#E6F1F0]   hover:text-base-content"
         >
           <BiLogOut className="w-5 h-5" />
           <span className="text-[20px]">Log Out</span>

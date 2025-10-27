@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { axiosInstance } from "../../../Utils/axiosInstance";
 import { useAppContext } from "../../../Hooks/useAppContext";
 import Pagination from "../../../component/layout/Pagination";
+import { RiseLoader } from "react-spinners";
 
 const UserManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,98 +52,6 @@ const UserManagement = () => {
     }
   };
 
-  //   const data = React.useMemo(() => [
-  //   {
-  //     name: 'Emily Carter',
-  //     email: 'emily.carter@example.com',
-  //     phone: '(555) 123-4567',
-  //     image: 'https://randomuser.me/api/portraits/women/44.jpg',
-  //   },
-  //   {
-  //     name: 'Liam Brooks',
-  //     email: 'liam.brooks@example.com',
-  //     phone: '(555) 234-5678',
-  //     image: 'https://randomuser.me/api/portraits/men/45.jpg',
-  //   },
-  //   {
-  //     name: 'Olivia Martin',
-  //     email: 'olivia.martin@example.com',
-  //     phone: '(555) 345-6789',
-  //     image: 'https://randomuser.me/api/portraits/women/46.jpg',
-  //   },
-  //   {
-  //     name: 'Noah Walker',
-  //     email: 'noah.walker@example.com',
-  //     phone: '(555) 456-7890',
-  //     image: 'https://randomuser.me/api/portraits/men/47.jpg',
-  //   },
-  //   {
-  //     name: 'Ava Thompson',
-  //     email: 'ava.thompson@example.com',
-  //     phone: '(555) 567-8901',
-  //     image: 'https://randomuser.me/api/portraits/women/48.jpg',
-  //   },
-  //   {
-  //     name: 'Ethan Scott',
-  //     email: 'ethan.scott@example.com',
-  //     phone: '(555) 678-9012',
-  //     image: 'https://randomuser.me/api/portraits/men/49.jpg',
-  //   },
-  //   {
-  //     name: 'Sophia Hall',
-  //     email: 'sophia.hall@example.com',
-  //     phone: '(555) 789-0123',
-  //     image: 'https://randomuser.me/api/portraits/women/50.jpg',
-  //   },
-  //   {
-  //     name: 'James Lee',
-  //     email: 'james.lee@example.com',
-  //     phone: '(555) 890-1234',
-  //     image: 'https://randomuser.me/api/portraits/men/51.jpg',
-  //   },
-  //   {
-  //     name: 'Isabella Young',
-  //     email: 'isabella.young@example.com',
-  //     phone: '(555) 901-2345',
-  //     image: 'https://randomuser.me/api/portraits/women/52.jpg',
-  //   },
-  //   {
-  //     name: 'Benjamin King',
-  //     email: 'benjamin.king@example.com',
-  //     phone: '(555) 012-3456',
-  //     image: 'https://randomuser.me/api/portraits/men/53.jpg',
-  //   },
-  //   {
-  //     name: 'Mia Wright',
-  //     email: 'mia.wright@example.com',
-  //     phone: '(555) 123-4568',
-  //     image: 'https://randomuser.me/api/portraits/women/54.jpg',
-  //   },
-  //   {
-  //     name: 'Alexander Green',
-  //     email: 'alex.green@example.com',
-  //     phone: '(555) 234-5679',
-  //     image: 'https://randomuser.me/api/portraits/men/55.jpg',
-  //   },
-  //   {
-  //     name: 'Charlotte Adams',
-  //     email: 'charlotte.adams@example.com',
-  //     phone: '(555) 345-6780',
-  //     image: 'https://randomuser.me/api/portraits/women/56.jpg',
-  //   },
-  //   {
-  //     name: 'Daniel Hill',
-  //     email: 'daniel.hill@example.com',
-  //     phone: '(555) 456-7891',
-  //     image: 'https://randomuser.me/api/portraits/men/57.jpg',
-  //   },
-  //   {
-  //     name: 'Amelia Nelson',
-  //     email: 'amelia.nelson@example.com',
-  //     phone: '(555) 567-8902',
-  //     image: 'https://randomuser.me/api/portraits/women/58.jpg',
-  //   },
-  // ], []);
 
   const data = React.useMemo(() => users, [users]);
 
@@ -256,12 +165,21 @@ const UserManagement = () => {
                 ))}
               </thead>
               <tbody>
+
+
+
+
+
+
+
+
+
                 {loading ? (
                   <tr>
                     <td colSpan="100%" className="text-center py-8">
-                      <p className="text-[#006F6A] font-semibold text-lg">
-                        Loading users...
-                      </p>
+                       <div className="flex items-center justify-center mt-50 ">
+                            <RiseLoader size={20} color="#006F6A" />
+                          </div>
                     </td>
                   </tr>
                 ) : paginatedData.length === 0 ? (
