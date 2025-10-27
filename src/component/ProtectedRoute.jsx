@@ -21,6 +21,11 @@ const ProtectedRoute = ({ allowedRoles }) => {
   if (!allowedRoles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
+  const role = String(user.role || "").toLowerCase();
+  const allowed = (allowedRoles || []).map((r) => String(r).toLowerCase());
+  if (allowed.length > 0 && !allowed.includes(role)) {
+    return <Navigate to="/" replace />;
+  }
 
   return <Outlet />;
 };

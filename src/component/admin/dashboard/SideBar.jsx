@@ -8,18 +8,20 @@ import { LiaUsersSolid } from "react-icons/lia";
 import { GrPerformance } from "react-icons/gr";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 import Logo2 from "../../../assets/logo2.png";
-import LogoutModal from "../../../Pages/auth/modals/LogOutModal"
+import LogoutModal from "../../../Pages/auth/modals/LogOutModal";
 import { useState } from "react";
+import { useAppContext } from "../../../Hooks/useAppContext";
 
 const SideBar = () => {
   const location = useLocation();
 
+  const { user } = useAppContext();
+  const userRole = user?.role;
+
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
- const handleLogout = () => {
-   setIsLogoutModalOpen((prev) => !prev);
- };
-
-
+  const handleLogout = () => {
+    setIsLogoutModalOpen((prev) => !prev);
+  };
 
   const menuItems = [
     {
@@ -53,6 +55,16 @@ const SideBar = () => {
       active: location.pathname === "/dashboard/admin/revenue",
     },
   ];
+
+   const normalizedRole = String(userRole || "").toLowerCase();
+   if (normalizedRole === "superAdmin") {
+     menuItems.push({
+       icon: HiOutlineChartSquareBar,
+       label: "Revenue",
+       path: "/dashboard/admin/revenue",
+       active: location.pathname === "/dashboard/admin/revenue",
+     });
+   }
 
   const MenuItem = ({ icon: Icon, label, path, active }) => (
     <Link

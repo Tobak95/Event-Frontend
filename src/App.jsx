@@ -25,6 +25,7 @@ const ResetPassword = lazy(() => import("./Pages/auth/ResetPassword"));
 const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
+const ChangePassword = lazy(() => import("./Pages/auth/ChangePassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
 const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"));
@@ -117,6 +118,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/verify" element={<VerifyEmail />} />
           <Route path="/check-email" element={<CheckYourEmail />} />
           <Route
@@ -158,7 +160,10 @@ function App() {
               path="/dashboard/admin/userManagements"
               element={<UserManagements />}
             />
-            <Route path="/dashboard/admin/revenue" element={<Revenue />} />
+            <Route element={<ProtectedRoute allowedRoles={["superAdmin"]} />}>
+              
+              <Route path="/dashboard/admin/revenue" element={<Revenue />} />{" "}
+            </Route>
             <Route path="/dashboard/admin/settings" element={<Settings />} />
           </Route>
         </Routes>

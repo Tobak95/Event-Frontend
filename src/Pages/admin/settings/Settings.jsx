@@ -4,11 +4,14 @@ import Header from "../../../component/common/Header";
 import { useState } from "react";
 import { notificationsList } from "../../../../data";
 import AdminSettings from "./AdminSettings";
+import ChangePasswordModal from "../../../component/ChangePasswordModal";
+import AdminChangePassword from "../../../component/AdminChangePassword";
 
 const Settings = () => {
   const [activeButton, setActiveButton] = useState("Account");
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [showModal, setShowModal] = useState(null);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -32,8 +35,8 @@ const Settings = () => {
       <div className="flex overflow-hidden flex-col flex-1">
         <Header />
         <div className="overflow-y-auto flex-1">
-          <section className="p-7">
-            <div className="flex gap-5">
+          <section className=" relative">
+            <div className="flex gap-5 p-7">
               <button
                 onClick={() => setActiveButton("Account")}
                 className={`text-[#999999] 
@@ -61,7 +64,7 @@ const Settings = () => {
 
             {/* Super-Admin Page on te DashBoard to create Admins */}
             {activeButton === "Account" && (
-              <article className="mt-5">
+              <article className="mt-5 pl-7">
                 {/* personal Information */}
                 <div className="flex">
                   <div className="w-[350px]">
@@ -146,7 +149,10 @@ const Settings = () => {
                         </div>
 
                         <div>
-                          <button className="text-white bg-[#006F6A] w-[156px] h-[48px] mt-8 rounded-[10px] ">
+                          <button
+                            className="text-white bg-[#006F6A] w-[156px] h-[48px] mt-8 rounded-[10px] "
+                            onClick={() => setShowModal("profileChange")}
+                          >
                             Save
                           </button>
                         </div>
@@ -212,7 +218,12 @@ const Settings = () => {
                         placeholder="**********"
                         className="form-input my-4"
                       />
-                      <p className="text-[#006F6A]">Change Password</p>
+                      <p
+                        className="text-[#006F6A]"
+                        onClick={() => setShowModal("passwordChange")}
+                      >
+                        Change Password
+                      </p>
                     </div>
                     <p>Last Changed</p>
                   </div>
@@ -221,9 +232,20 @@ const Settings = () => {
             )}
 
             {activeButton === "Admin" && (
-              <article className="mt-5">
+              <article className="mt-5 ">
                 <AdminSettings />
               </article>
+            )}
+
+            {showModal === "passwordChange" && (
+              <AdminChangePassword onContinue={() => setShowModal(null)} />
+            )}
+
+            {showModal === "profileChange" && (
+              <ChangePasswordModal
+                h2="Profile updated successfully"
+                description="Your personal information has been uploaded successfully"
+              />
             )}
           </section>
         </div>
