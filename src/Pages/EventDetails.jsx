@@ -103,6 +103,7 @@ function EventDetails() {
         price={`$${singleEvent?.tickets?.[0]?.price ?? "N/A"}`}
         title1="About this event"
         title2="Key Highlights"
+        link={singleEvent?._id}
       />
       <Footer />
     </>

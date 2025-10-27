@@ -17,6 +17,8 @@ const NavBarLoggedIn = ({
   menuColor = "#ffffff",
 }) => {
   const { user } = useAppContext();
+  // console.log("USER OBJECT:", user);
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -126,10 +128,15 @@ const NavBarLoggedIn = ({
                   onClick={() => setDropdown((prev) => !prev)}
                   className="flex items-center gap-1 cursor-pointer"
                 >
-                  <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-full flex items-center justify-center">
-                    <p className="text-[10px] font-[400] text-[#006F6A]">
+                  <div className=" w-[23px] h-[23px] rounded-full flex items-center justify-center">
+                    {/* <p className="text-[10px] font-[400] text-[#006F6A]">
                       {user.firstname?.charAt(0)}.{user.lastname?.charAt(0)}
-                    </p>
+                    </p> */}
+                    <img
+                      src={user.profilePicture}
+                      alt="fgggg"
+                      className="w-full object-cover rounded-full"
+                    />
                   </div>
                   <div className="flex items-center gap-3">
                     <p className={`font-[500] text-[16px] ${usernameColor}`}>

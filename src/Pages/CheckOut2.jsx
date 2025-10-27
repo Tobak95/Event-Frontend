@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import BrandLogo from "../assets/logo2.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
+import { useEventContext } from "../Hooks/useEventContext";
+import { toast } from "react-toastify";
+import { axiosInstance } from "../Utils/axiosInstance";
+import { useAppContext } from "../Hooks/useAppContext";
 
 const CheckOut2 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    selectedTickets = {},
+    ticketTypes = [],
+    subtotal = 0,
+    totalFees = 0,
+    total = 0,
+  } = location.state || {};
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     confirmEmail: "",
-    phone: "",
-    countryCode: "+234",
+    // phone: "",
+    // countryCode: "+234",
     sendToDifferentEmail: false,
-    otherEmail: "",
+    // otherEmail: "",
   });
+
+  const { singleEvent } = useEventContext();
+  const { token } = useAppContext();
 
   const [timer, setTimer] = useState(600);
   const [errors, setErrors] = useState({});
@@ -71,57 +86,104 @@ const CheckOut2 = () => {
     setDiscountApplied(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let tempErrors = {};
+
+    // Validate emails and phone
+    const tempErrors = {};
     if (formData.email !== formData.confirmEmail) {
       tempErrors.confirmEmail = "Emails do not match";
     }
-    if (!formData.phone) {
-      tempErrors.phone = "Phone number is required";
+    if (!formData.firstName.trim()) {
+      tempErrors.firstName = "First name is required";
     }
+    if (!formData.lastName.trim()) {
+      tempErrors.lastName = "Last name is required";
+    }
+    // if (!formData.phone.trim()) {
+    //   tempErrors.phone = "Phone number is required";
+    // }
 
     setErrors(tempErrors);
 
-    if (Object.keys(tempErrors).length === 0) {
-      console.log("Form submitted successfully");
+    if (Object.keys(tempErrors).length > 0) {
+      return toast.error("Please fix the errors in the form.");
+    }
+
+    try {
+      // Get first selected ticket (or handle multiple if needed)
+      const ticketId = Object.keys(selectedTickets)[0];
+      const quantity = selectedTickets[ticketId];
+
+      // Build payload
+      const payload = {
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        email: formData.email,
+        quantity,
+      };
+      console.log("Token from context:", token);
+      console.log(formData);
+      console.log("🧾 Payload being sent:", payload);
+      // Send to backend
+      const res = await axiosInstance.post(
+        `/payments/initialize/${ticketId}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.status === "success") {
+        const redirectUrl = res.data.data.authorization_url;
+        window.location.href = redirectUrl; // ✅ Redirect to Paystack page
+      } else {
+        toast.error(res.data.message || "Failed to initialize payment");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(
+        err.response?.data?.message || "Payment initialization failed"
+      );
     }
   };
 
-  const ticketTypes = [
-    { id: "regular", name: "Regular", price: 100 },
-    { id: "vip", name: "VIP", price: 200 },
-    { id: "vvip", name: "VVIP", price: 300 },
-  ];
+  // const ticketTypes = [
+  //   { id: "regular", name: "Regular", price: 100 },
+  //   { id: "vip", name: "VIP", price: 200 },
+  //   { id: "vvip", name: "VVIP", price: 300 },
+  // ];
 
-  const ticketQuantities = {
-    regular: 1,
-    vip: 0,
-    vvip: 0,
-  };
+  // const ticketQuantities = {
+  //   regular: 1,
+  //   vip: 0,
+  //   vvip: 0,
+  // };
 
-  const calculateSubtotal = () => {
-    return Object.keys(ticketQuantities).reduce((total, ticketId) => {
-      const ticket = ticketTypes.find((t) => t.id === ticketId);
-      return total + (ticketQuantities[ticketId] || 0) * ticket.price;
-    }, 0);
-  };
+  // const calculateSubtotal = () => {
+  //   return Object.keys(ticketQuantities).reduce((total, ticketId) => {
+  //     const ticket = ticketTypes.find((t) => t.id === ticketId);
+  //     return total + (ticketQuantities[ticketId] || 0) * ticket.price;
+  //   }, 0);
+  // };
 
-  const fee = 10;
-  const subtotal = calculateSubtotal();
-  const discount = discountApplied ? 5 : 0;
-  const total = subtotal + fee - discount;
+  // const fee = 10;
+  // const subtotal = calculateSubtotal();
+  // const discount = discountApplied ? 5 : 0;
+  // const total = subtotal + fee - discount;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 ">
-      <Link to={"/"}>
+      <Link to="/">
         <div className="flex items-center gap-3 mb-12">
           <img src={BrandLogo} alt="Logo" className="h-8" />
         </div>
       </Link>
 
       <div className="flex items-center gap-2 mb-4 lg:w-[503px] w-[303px] text-[#1B1B1B]">
-        <Link to={"/checkout1"}>
+        <Link to={`/checkout1/${singleEvent._id}`}>
           <FaArrowLeft className=" text-[20px] lg:text-[30px] cursor-pointer" />
         </Link>
         <h2 className="text-[20px] lg:text-[35px] font-[700]">
@@ -185,12 +247,14 @@ const CheckOut2 = () => {
                 className="w-full lg:w-[507px] h-[56px] border-[0.5px] border-[#969595] outline-0 rounded-[2.44px] lg:rounded-[6px] p-[10px] text-[12px] lg:text-[16px] placeholder:text-[#928A83] placeholder:font-[400]"
               />
               {errors[field.name] && (
-                <p className="text-sm text-red-600 mt-1">{errors.field.name}</p>
+                <p className="text-sm text-red-600 mt-1">
+                  {errors[field.name]}
+                </p>
               )}
             </div>
           ))}
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="flex gap-2 font-medium text-[#1B1B1B] text-[13px] lg:text-[18px]">
               <span className="text-red-700 text-[12px] lg:text-[24px] font-medium">
                 *
@@ -220,7 +284,7 @@ const CheckOut2 = () => {
             {errors.phone && (
               <p className="text-sm text-red-600 mt-1">{errors.phone}</p>
             )}
-          </div>
+          </div> */}
 
           <div className="mb-4">
             <p className="lg:font-medium font-[700] text-[12px] lg:text-[18px] text-[#4A4A4A] mb-6  lg:mb-4">
@@ -287,31 +351,31 @@ const CheckOut2 = () => {
         <div className="w-full md:w-[357px] h-auto border border-[#E9E9E9] bg-[#FFFFFF] rounded-[9.24px] lg:rounded-[10px] p-[13.86px] lg:p-[15px] shadow-sm">
           <div className="sticky top-6">
             <h3 className="text-[21.06px] lg:text-[22.79px] font-[700] text-[#191919] mb-6 text-center">
-              RAVEOLUTION
+              {singleEvent.title}
             </h3>
 
             <div className="space-y-7 mb-8">
               {ticketTypes.map(
                 (ticket) =>
-                  (ticketQuantities[ticket.id] || 0) > 0 && (
+                  (selectedTickets[ticket._id] || 0) > 0 && (
                     <div
-                      key={ticket.id}
+                      key={ticket._id}
                       className="flex justify-between text-[#4A4A4A]"
                     >
                       <span className="text-[16px] font-medium">
-                        {ticketQuantities[ticket.id] || 0}x {ticket.name}
+                        {selectedTickets[ticket._id]}x {ticket.name}
                       </span>
-                      <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
+                      <span className="font-[700] text-[#4A4A4A] text-[17px]">
                         $
                         {(
-                          (ticketQuantities[ticket.id] || 0) * ticket.price
+                          selectedTickets[ticket._id] * ticket.price
                         ).toLocaleString()}
                       </span>
                     </div>
                   )
               )}
 
-              {(ticketQuantities.regular > 0 ||
+              {/* {(ticketQuantities.regular > 0 ||
                 ticketQuantities.vip > 0 ||
                 ticketQuantities.vvip > 0) && (
                 <>
@@ -319,6 +383,33 @@ const CheckOut2 = () => {
                     <span className="text-[16px] font-medium">Fee</span>
                     <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
                       ${fee.toLocaleString()}
+                    </span>
+                  </div>
+
+                  {discountApplied && (
+                    <div className="flex justify-between pt-2 text-green-600">
+                      <span className="text-[16px] font-medium">Discount</span>
+                      <span className="font-[700] text-[17.09px]">
+                        -${discount.toLocaleString()}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-sm pt-5 ">
+                    <span className="text-[16px] font-medium">Subtotal</span>
+                    <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
+                      ${subtotal.toLocaleString()}
+                    </span>
+                  </div>
+                </>
+              )} */}
+
+              {Object.values(selectedTickets).some((qty) => qty > 0) && (
+                <>
+                  <div className="flex justify-between pt-5 border-t border-[#E9E9E9]">
+                    <span className="text-[16px] font-medium">Fee</span>
+                    <span className="font-[700] text-[#4A4A4A] text-[17.09px] ">
+                      ${totalFees.toLocaleString()}
                     </span>
                   </div>
 
