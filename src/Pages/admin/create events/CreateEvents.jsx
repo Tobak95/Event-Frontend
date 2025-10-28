@@ -31,11 +31,14 @@ const CreateEvents = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const { event, setEvent } = useEventContext();
   const [errors, setErrors] = useState({});
+  const [imagePreview, setImagePreview] = useState(null);
 
   // ✅ Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setImagePreview(imageURL);
       setEvent((prev) => ({ ...prev, image: file }));
     }
   };
@@ -102,16 +105,34 @@ const CreateEvents = () => {
                         </p>
                       </div>
 
-                      <div className="border-2 border-dashed border-[#6baba9] rounded-[10px] h-[351px] flex flex-col items-center justify-center gap-[10px]">
-                        <MdCloudUpload size={80} className="text-[#777777]" />
-                        <div className="text-center">
-                          <p className="text-[#777777]">
-                            Click to upload or drag and drop
-                          </p>
-                          <p className="text-[#777777]">PNG, JPG up to 10MB</p>
-                        </div>
-                        <label className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors cursor-pointer inline-block">
-                          Choose File
+                      <div className="border-2 border-dashed border-[#6baba9] rounded-[10px] h-[351px] flex flex-col items-center justify-center gap-[10px] relative overflow-hidden">
+                        {/* ✅ Show image preview if available */}
+                        {imagePreview ? (
+                          <img
+                            src={imagePreview}
+                            alt="Event preview"
+                            className="w-full h-full object-cover rounded-[10px]"
+                          />
+                        ) : (
+                          <>
+                            <MdCloudUpload
+                              size={80}
+                              className="text-[#777777]"
+                            />
+                            <div className="text-center">
+                              <p className="text-[#777777]">
+                                Click to upload or drag and drop
+                              </p>
+                              <p className="text-[#777777]">
+                                PNG, JPG up to 10MB
+                              </p>
+                            </div>
+                          </>
+                        )}
+
+                        {/* ✅ Upload button always visible */}
+                        <label className="border border-[#006f6a] text-[#006f6a] px-[12px] py-[10px] rounded-[8px] mt-[5px] hover:bg-[#006f6a] hover:text-white transition-colors cursor-pointer inline-block absolute bottom-[20px]">
+                          {imagePreview ? "Change Image" : "Choose File"}
                           <input
                             type="file"
                             accept="image/*"
@@ -120,7 +141,8 @@ const CreateEvents = () => {
                           />
                         </label>
                       </div>
-                      {errors.image && (
+
+                      {errors?.image && (
                         <p className="text-red-500 mt-2">{errors.image}</p>
                       )}
                     </div>
@@ -384,13 +406,9 @@ function ProgressSteps({ currentStep }) {
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-60">
         {steps.map((step) => (
-          <div
-            key={step.number}
-            className="text-center"
-            style={{ width: "33.33%" }}
-          >
+          <div key={step.number} className="" style={{ width: "33.33%" }}>
             <p className="text-[#161616]">{step.label}</p>
           </div>
         ))}

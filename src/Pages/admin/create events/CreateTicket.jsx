@@ -74,7 +74,10 @@ export default function CreateTicket({ onBack, onContinue }) {
       <div className="max-w-[1107px] mx-auto px-[30px] py-[40px]">
         {/* Progress Steps */}
         <div className="mb-[50px]">
-          <ProgressSteps currentStep={2} />
+          <ProgressSteps
+            currentStep={2}
+            onBack={() => setCurrentStep(currentStep - 1)}
+          />
         </div>
 
         {/* Ticket Form */}
@@ -149,7 +152,7 @@ export default function CreateTicket({ onBack, onContinue }) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   placeholder="Enter quantity"
-                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] outline-none border border-[#dbdbdb]"
+                  className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#333] text-[16px] text-start outline-none border border-[#dbdbdb]"
                 />
                 {formik.touched.quantityAvailable &&
                   formik.errors.quantityAvailable && (
