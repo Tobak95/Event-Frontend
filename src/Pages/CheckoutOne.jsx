@@ -1,59 +1,88 @@
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import BrandLogo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useEventContext } from "../Hooks/useEventContext";
+import { useParams } from "react-router-dom";
 
 const CheckoutOne = () => {
-  const ticketTypes = [
-    {
-      id: "regular",
-      name: "Regular",
-      price: 100,
-      fee: 10,
-    },
-    {
-      id: "vip",
-      name: "VIP",
-      price: 200,
-      fee: 10,
-    },
-    {
-      id: "vvip",
-      name: "VVIP",
-      price: 300,
-      fee: 10,
-    },
-  ];
+  // const { id } = useParams();
 
-  const [ticketQuantities, setTicketQuantities] = useState({
-    regular: 1,
-    vip: 0,
-    vvip: 0,
-  });
+  // useEffect(() => {
+  //   if (id) {
+  //     getSingleEvent(id);
+  //   }
+  // }, [id]);
 
-  const [dropdownOpen, setDropdownOpen] = useState({
-    regular: false,
-    vip: false,
-    vvip: false,
-  });
+  // const ticketTypes = [
+
+  //   {
+  //     id: "regular",
+  //     name: "Regular",
+  //     price: 100,
+  //     fee: 10,
+  //   },
+  //   {
+  //     id: "vip",
+  //     name: "VIP",
+  //     price: 200,
+  //     fee: 10,
+  //   },
+  //   {
+  //     id: "vvip",
+  //     name: "VVIP",
+  //     price: 300,
+  //     fee: 10,
+  //   },
+  // ];
+  const { singleEvent, getSingleEvent } = useEventContext();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) getSingleEvent(id);
+  }, [id]);
+
+  const ticketTypes = singleEvent?.tickets || [];
+
+  const [ticketQuantities, setTicketQuantities] = useState({});
+  const [dropdownOpen, setDropdownOpen] = useState({});
+
+  useEffect(() => {
+    if (singleEvent?.tickets) {
+      const initialQuantities = singleEvent.tickets.reduce((acc, ticket) => {
+        acc[ticket._id] = 0;
+        return acc;
+      }, {});
+      setTicketQuantities(initialQuantities);
+
+      const initialDropdowns = singleEvent.tickets.reduce((acc, ticket) => {
+        acc[ticket._id] = false;
+        return acc;
+      }, {});
+      setDropdownOpen(initialDropdowns);
+    }
+  }, [singleEvent]);
 
   // Calculate totals
   const calculateSubtotal = () => {
     return ticketTypes.reduce((total, ticket) => {
-      const quantity = ticketQuantities[ticket.id] || 0;
+      const quantity = ticketQuantities[ticket._id] || 0;
       const ticketTotal = quantity * ticket.price;
-      const feeTotal = quantity * ticket.fee;
-      return total + ticketTotal + feeTotal;
+
+      return total + ticketTotal;
     }, 0);
   };
+
   const calculateTotalFees = () => {
     return ticketTypes.reduce((total, ticket) => {
-      return total + (ticketQuantities[ticket.id] || 0) * ticket.fee;
+      const feePerTicket = ticket.price * 0.01; // 1% of price
+      const quantity = ticketQuantities[ticket._id] || 0;
+      return total + quantity * feePerTicket;
     }, 0);
   };
 
   const calculateTotal = () => {
-    return calculateSubtotal();
+    return calculateSubtotal() + calculateTotalFees();
   };
 
   const hasTicketsSelected = Object.values(ticketQuantities).some(
@@ -80,11 +109,11 @@ const CheckoutOne = () => {
   };
 
   const closeAllDropdowns = () => {
-    setDropdownOpen({
-      regular: false,
-      vip: false,
-      vvip: false,
-    });
+    const closedDropdowns = Object.keys(dropdownOpen).reduce((acc, key) => {
+      acc[key] = false;
+      return acc;
+    }, {});
+    setDropdownOpen(closedDropdowns);
   };
 
   // Close dropdown
@@ -108,7 +137,7 @@ const CheckoutOne = () => {
           <div className="lg:col-span-2">
             <div className="bg-white p-6">
               <div className="flex items-center justify-start mb-8">
-                <Link to={"/eventDetails"}>
+                <Link to={`/eventDetails/${singleEvent._id}`}>
                   <ArrowLeft
                     size={40}
                     className="text-gray-600 hover:text-gray-900 cursor-pointer mr-4"
@@ -123,7 +152,7 @@ const CheckoutOne = () => {
               <div className="space-y-6">
                 {ticketTypes.map((ticket) => (
                   <div
-                    key={ticket.id}
+                    key={ticket._id}
                     className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow relative"
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between">
@@ -134,9 +163,11 @@ const CheckoutOne = () => {
                         <p className="text-2xl font-semibold text-[26px] text-[#006F6A] mb-1">
                           $ {ticket.price.toLocaleString()}
                         </p>
+
                         <p className="text-sm text-gray-600">
-                          Includes ${ticket.fee} fee
+                          Includes ${(ticket.price * 0.01).toFixed(2)} fee
                         </p>
+
                         <p className="text-sm text-gray-600 mt-1">
                           This ticket admits one
                         </p>
@@ -147,32 +178,32 @@ const CheckoutOne = () => {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            toggleDropdown(ticket.id);
+                            toggleDropdown(ticket._id);
                           }}
                           className="flex items-center justify-between w-24 px-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 transition-colors"
                         >
                           <span className="text-lg font-semibold">
-                            {ticketQuantities[ticket.id] || 0}
+                            {ticketQuantities[ticket._id] || 0}
                           </span>
                           <ChevronDown
                             className={`h-4 w-4 transition-transform ${
-                              dropdownOpen[ticket.id] ? "rotate-180" : ""
+                              dropdownOpen[ticket._id] ? "rotate-180" : ""
                             }`}
                           />
                         </button>
 
                         {/* Dropdown Modal */}
-                        {dropdownOpen[ticket.id] && (
+                        {dropdownOpen[ticket._id] && (
                           <div className="absolute top-full left-0 mt-1 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             {[0, 1, 2, 3, 4, 5].map((quantity) => (
                               <button
                                 key={quantity}
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleQuantityChange(ticket.id, quantity);
+                                  handleQuantityChange(ticket._id, quantity);
                                 }}
                                 className={`w-full px-3 py-2 text-left hover:bg-gray-100 transition-colors ${
-                                  quantity === ticketQuantities[ticket.id]
+                                  quantity === ticketQuantities[ticket._id]
                                     ? "bg-[#006F6A] text-white"
                                     : "text-gray-900"
                                 } ${quantity === 0 ? "rounded-t-md" : ""} ${
@@ -196,24 +227,24 @@ const CheckoutOne = () => {
           <div className="lg:col-span-1">
             <div className="bg-[#FFFFFF] rounded-lg shadow-lg p-6 sticky top-6">
               <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">
-                RAVEOLUTION
+                {singleEvent?.title || "Event"}
               </h3>
 
               <div className="space-y-3 mb-4">
                 {ticketTypes.map(
                   (ticket) =>
-                    (ticketQuantities[ticket.id] || 0) > 0 && (
+                    (ticketQuantities[ticket._id] || 0) > 0 && (
                       <div
-                        key={ticket.id}
+                        key={ticket._id}
                         className="flex justify-between text-sm"
                       >
                         <span className="text-gray-600">
-                          {ticketQuantities[ticket.id] || 0}x {ticket.name}
+                          {ticketQuantities[ticket._id] || 0}x {ticket.name}
                         </span>
                         <span className="font-medium text-[#4A4A4A] text-[14px] ">
                           $
                           {(
-                            (ticketQuantities[ticket.id] || 0) * ticket.price
+                            (ticketQuantities[ticket._id] || 0) * ticket.price
                           ).toLocaleString()}
                         </span>
                       </div>
@@ -255,7 +286,17 @@ const CheckoutOne = () => {
                 )}
               </div>
 
-              <Link to={hasTicketsSelected ? "/checkout2" : "#"}>
+              <Link
+                to={`/checkout2/${singleEvent._id}`}
+                state={{
+                  selectedTickets: ticketQuantities,
+                  ticketTypes,
+                  subtotal: calculateSubtotal(),
+                  totalFees: calculateTotalFees(),
+                  total: calculateTotal(),
+                  eventTitle: singleEvent?.title,
+                }}
+              >
                 <button
                   disabled={!hasTicketsSelected}
                   className={`w-full ${

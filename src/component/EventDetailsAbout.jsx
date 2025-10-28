@@ -114,9 +114,10 @@ function EventDetailsAbout({
   paragraph1,
   paragraph2,
   time,
+  link,
 }) {
   return (
-    <div className="container mx-auto mt-12 mb-12">
+    <div className="container layout mx-auto mt-12 mb-12">
       <div className="flex flex-col-reverse lg:flex-row lg:items-start items-center justify-between px-4 gap-4">
         <div className="lg:w-[40%] flex flex-col gap-6">
           <Words paragraph={paragraph1} title={title1} />
@@ -134,7 +135,7 @@ function EventDetailsAbout({
             <p className="text-[12px] lg:text-[18px]">{time}</p>
           </div>
 
-          <Link to={"/checkout1"}>
+          <Link to={`/checkout1/${link}`}>
             <button className="text-[#fff] bg-[#2B8783] hover:bg-[#277773] cursor-pointer py-3  lg:py-4 px-8 lg:px-4 rounded-[5px]">
               Get a Ticket
             </button>
