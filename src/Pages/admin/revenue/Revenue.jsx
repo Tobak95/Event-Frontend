@@ -10,9 +10,10 @@ import {
 } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "motion/react";
 import { getRevenueDataApi } from "../../../api/api";
-import SuspenseLoader from "../../../component/layout/SuspenseLoader";
+import { TailSpin } from "react-loader-spinner";
 
 const parentVariant = {
   hide: { opacity: 0 },
@@ -189,8 +190,6 @@ const Revenue = () => {
     return formatted;
   };
 
-  console.log(date(event[0]?.eventDate));
-
   const getRevenueData = async () => {
     if (isLoading) return;
     setIsloading(true);
@@ -203,8 +202,6 @@ const Revenue = () => {
         });
         setEvent(data.data?.eventSalesSummary);
         console.log("ticketSold", data?.data?.eventSalesSummary);
-
-        console.log("data", data);
       }
     } catch (error) {
       console.error(error);
@@ -217,7 +214,20 @@ const Revenue = () => {
   }, []);
 
   if (isLoading) {
-    return <SuspenseLoader />;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <TailSpin
+          visible={true}
+          height="80"
+          width="80"
+          color="#006F6A"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
   }
 
   return (
@@ -227,9 +237,9 @@ const Revenue = () => {
       <div className="flex overflow-hidden flex-col flex-1 ">
         <Header />
 
-        <div className={`overflow-y-auto flex-1 relative`}>
+        <div className={`overflow-y-auto flex-1 `}>
           {/* workings here */}
-          <section className="p-7 relative">
+          <section className="p-7 ">
             <div className="space-y-2">
               <h2 className="font-bold text-3xl">Revenue Analysis</h2>
               <p className="text-[#4A4A4A] text-[20px]">
@@ -239,8 +249,8 @@ const Revenue = () => {
             </div>
 
             <HeadAnalytics
-              ticketSold={`₦ ${revenue.ticketSold}`}
-              totalRevenue={`₦ ${revenue.totalRevenue}`}
+              ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
+              totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
             />
             <div className="mt-8">
               <div className="flex justify-between">
@@ -291,19 +301,21 @@ const Revenue = () => {
               <div className="my-6" />
 
               <motion.tbody variants={parentVariant}>
-                {revenueAnalytics.map((item, i) => (
+                {event.map((item, i) => (
                   <motion.tr
                     key={i}
                     variants={childrenVariant}
                     className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px]"
                   >
-                    <td className="py-3">{item.event}</td>
+                    <td className="py-3">{item.eventTitle}</td>
                     <div className="-ml-20">
-                      <td>{item.date}</td>
+                      <td>{date(item.eventDate)}</td>
                     </div>
-                    <td className="py-3">{item.SoldTicket}</td>
+                    <td className="py-3">
+                      {`${item.ticketsSold} / ${item.totalTicketsCreated}`}
+                    </td>
                     <td className="py-3 text-[#006F6A] font-bold pl-12">
-                      {item.price}
+                      {`₦  ${item.revenue.toLocaleString()}`}
                     </td>
                   </motion.tr>
                 ))}
