@@ -4,6 +4,9 @@ import ModalChildren from "./ModalChildren";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpSchema } from "../Utils/formValidator";
 import { useState } from "react";
+import { axiosInstance } from "../Utils/axiosInstance";
+import { useAppContext } from "../Hooks/useAppContext";
+import { toast } from "react-toastify";
 
 const FormInput = ({ id, label, register, placeholder, type }) => {
   return (
@@ -28,13 +31,29 @@ const AddAdminForm = ({ onContinue }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signUpSchema) });
   const [showPassword, setShowPassword] = useState(false);
-  const submit = (payload) => {
-    console.log(payload);
+  const [submitting, setSubmitting] = useState(false);
+  const { token } = useAppContext();
+
+  const createAdmin = async (data) => {
+    setSubmitting(true);
+    try {
+      const response = await axiosInstance.post("/auth/create-admin", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // console.log(response.data);
+      toast.success("Admin created successfully");
+      onContinue();
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <ModalChildren onContinue={onContinue}>
-      <form onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(createAdmin)}>
         <div className="flex flex-col gap-2">
           <div className="space-y-2 mb-6">
             <h2 className="text-2xl font-bold">Add New Admin</h2>
@@ -88,6 +107,7 @@ const AddAdminForm = ({ onContinue }) => {
                 type="number"
                 id="phoneNumber"
                 className="py-4 flex-1 outline-none"
+                {...register("phoneNumber")}
               />
             </div>
             {errors.phoneNumber && (
@@ -99,7 +119,7 @@ const AddAdminForm = ({ onContinue }) => {
             <Inputs
               showPassword={showPassword}
               setPassword={setShowPassword}
-              id="newPassword"
+              id="password"
               label="New Password"
               register={register}
             />
@@ -126,6 +146,7 @@ const AddAdminForm = ({ onContinue }) => {
             cancel={onContinue}
             cancelTest="Cancel"
             proceedText="Add Admin"
+            submitting={submitting}
           />
         </div>
       </form>

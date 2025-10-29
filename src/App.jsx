@@ -127,8 +127,8 @@ function App() {
           />
           <Route path="/eventDetails/:id" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
-          <Route path="/checkout1" element={<CheckoutOne />} />
-          <Route path="/checkout2" element={<CheckOut2 />} />
+          <Route path="/checkout1/:id" element={<CheckoutOne />} />
+          <Route path="/checkout2/:id" element={<CheckOut2 />} />
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
           <Route path="/logout" element={<LogoutModal />} />
 
@@ -161,7 +161,6 @@ function App() {
               element={<UserManagements />}
             />
             <Route element={<ProtectedRoute allowedRoles={["superAdmin"]} />}>
-              
               <Route path="/dashboard/admin/revenue" element={<Revenue />} />{" "}
             </Route>
             <Route path="/dashboard/admin/settings" element={<Settings />} />

@@ -1,26 +1,72 @@
 import React from "react";
 import { adminData } from "../../../../data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RemoveAdminModal from "../../../component/RemoveAdmiModal";
 import AddAdminForm from "../../../component/AddAdminForm";
+import { toast } from "react-toastify";
+import { axiosInstance } from "../../../Utils/axiosInstance";
+import { useAppContext } from "../../../Hooks/useAppContext";
+import { RiseLoader } from "react-spinners";
 
 const AdminSettings = () => {
-  const [admins, setAdmins] = useState(adminData);
+  const [admins, setAdmins] = useState([]);
   const [showModal, setShowModal] = useState(null);
   const [id, setId] = useState("");
   const [addAdmin, setAddAdmin] = useState(false);
 
-  // Function to remove an admin
-  const removeAdmin = (id) => {
-    setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== id));
+  const [loading, setLoading] = useState(false);
+  const { user, token } = useAppContext();
+
+  const removeAdmin = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.delete(`/auth/delete-admin/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data);
+
+      toast.success("Admin deleted successfully ✅");
+      setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin._id !== id));
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.message || "Failed to delete admin");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  useEffect(() => {
+    if (token) {
+      getAllAdmin();
+    }
+  }, [token]);
+
+  const getAllAdmin = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axiosInstance.get("/auth/all-admin", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (user.role !== "superAdmin") {
+        toast.error("Forbidden: Unauthorized Access");
+        1;
+      }
+      console.log(response.data.users);
+      setAdmins(response.data.users);
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <div className="overflow-x-auto  h-screen px-5">
         <div className="flex justify-between items-center my-6">
           <h2 className="text-[24px] font-[700] text-[#000000]">
-            {admins.length} {""} {""} Admins
+            {admins.length} Admins
           </h2>
           <button
             className="bg-teal-700 hover:bg-teal-800 text-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2"
@@ -42,19 +88,30 @@ const AdminSettings = () => {
           <tbody>
             {admins.map((admin) => (
               <tr
-                key={admin.id}
+                key={admin._id}
                 className="border-t border-gray-100 hover:bg-gray-50 transition"
               >
                 <td className="text-[#000000] font-bold text-[20px] px-6 py-5  ">
-                  {admin.name}
+                  {admin.firstname} {admin.lastname}
                 </td>
                 <td className="px-6 py-4">{admin.email}</td>
-                <td className="px-6 py-4">{admin.date}</td>
+                <td className="px-6 py-4">
+                  {admin?.createdAt &&
+                    new Date(admin.createdAt).toLocaleString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      weekday: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                </td>
                 <td className="px-6 py-4">
                   <button
                     onClick={() => {
                       setShowModal("removeAdmin");
-                      setId(admin.id);
+                      setId(admin._id);
                     }}
                     className="text-red-600 hover:underline"
                   >
@@ -69,12 +126,12 @@ const AdminSettings = () => {
       {showModal === "removeAdmin" && (
         <RemoveAdminModal
           h2="Remove Admin"
-          description="Do you wish to remove this admin?, this action cannot be undone"
+          description="Do you wish to remove this admin? This action cannot be undone."
           onContinue={() => setShowModal(null)}
           remove={showModal}
-          onRemove={() => {
+          onRemove={async () => {
+            await removeAdmin(id);
             setShowModal("removed");
-            removeAdmin(id);
           }}
         />
       )}

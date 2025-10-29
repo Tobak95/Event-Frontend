@@ -214,8 +214,8 @@ const Discover = () => {
       <main>
         {/* Section for DISCOVER bACKGROUND */}
         <section
-          className="relative bg-cover bg-center lg:h-[642px] h-[297px]"
-          style={{ backgroundImage: "url(/bg.jpg)" }}
+          className="relative bg-cover bg-center lg:h-[642px] h-[297px] DiscoverImg"
+          // style={{ backgroundImage: "url('/Discoverimg.jpg')" }}
         >
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-black opacity-50"></div>

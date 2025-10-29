@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { adminResetPassword } from "../Utils/formValidator";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ChangePasswordModal from "./ChangePasswordModal";
+import { ClipLoader } from "react-spinners";
 
 export const Inputs = ({ showPassword, setPassword, id, label, register }) => {
   return (
@@ -32,7 +33,7 @@ export const Inputs = ({ showPassword, setPassword, id, label, register }) => {
   );
 };
 
-export const Buttons = ({ cancel, cancelTest, proceedText }) => {
+export const Buttons = ({ cancel, cancelTest, proceedText, submitting }) => {
   return (
     <div className="flex justify-end gap-2 mt-4 ">
       <button
@@ -44,8 +45,9 @@ export const Buttons = ({ cancel, cancelTest, proceedText }) => {
       <button
         className="bg-[#006F6A] hover:bg-[#03534f] text-white px-10 py-3 rounded-md cursor-pointer font-medium"
         type="submit"
+        disabled={submitting}
       >
-        {proceedText}
+        {submitting ? <ClipLoader size={20} color="#ffffff" /> : proceedText}
       </button>
     </div>
   );

@@ -63,3 +63,25 @@ export const changePasswordSchema = Yup.object().shape({
     .oneOf([Yup.ref("newPass")], "Passwords must match")
     .required("Confirm password is required"),
 });
+
+export const contact = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Please Enter a valid email")
+    .required("Please enter an email")
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email"),
+
+  message: Yup.string().required("Field is Required"),
+});
+
+export const createAdminSchema = Yup.object().shape({
+  firstname: Yup.string().required("First name is required"),
+  lastname: Yup.string().required("Last name is required"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format")
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email is invalid"),
+  phoneNumber: Yup.string()
+    .matches(/^\+?[1-9][0-9]{7,14}$/, "Phone number is not valid")
+    .required("Phone number is required"),
+});

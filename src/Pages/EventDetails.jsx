@@ -45,7 +45,7 @@ function EventDetails() {
         iconLogo={icon2}
       />
       {/* <HeaderText title={singleEvent?.title} /> */}
-      <div className="flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-40 mb-10">
+      <div className="layout flex flex-col gap-2 flex-wrap lg:items-center lg:flex-row container mx-auto px-4 mt-40 mb-10">
         <p
           className="text-[#777777] lg:text-[24px] text-[14px] cursor-pointer"
           onClick={() => redirect("/discover")}
@@ -103,6 +103,7 @@ function EventDetails() {
         price={`$${singleEvent?.tickets?.[0]?.price ?? "N/A"}`}
         title1="About this event"
         title2="Key Highlights"
+        link={singleEvent?._id}
       />
       <Footer />
     </>
