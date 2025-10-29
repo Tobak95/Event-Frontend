@@ -9,8 +9,11 @@ import {
   IoFilterSharp,
 } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "motion/react";
+import { getRevenueDataApi } from "../../../api/api";
+import { TailSpin } from "react-loader-spinner";
 
 const parentVariant = {
   hide: { opacity: 0 },
@@ -70,18 +73,18 @@ const revenueAnalytics = [
   },
 ];
 
-const HeadAnalytics = () => {
+const HeadAnalytics = ({ totalRevenue, ticketSold }) => {
   const data = [
     {
       h1: "Total Revenue",
-      h2: "$42,000",
+      h2: totalRevenue || "$10,000",
       p: "Last 30 days",
       pColor: "#004E4A",
       icon: icon1,
     },
     {
       h1: "Ticket Sold",
-      h2: "$3,800",
+      h2: ticketSold || "1,000",
       p: "+12% vs last month",
       pColor: "#D723A1",
       icon: ticket,
@@ -168,6 +171,64 @@ const Modal = ({ setShowModal }) => {
 
 const Revenue = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
+  const [revenue, setRevenue] = useState({ totalRevenue: 0, ticketSold: 0 });
+  const [event, setEvent] = useState([]);
+
+  const date = (iso) => {
+    const date = new Date(iso);
+    const formatted = date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Africa/Lagos", // or your local TZ
+    });
+
+    return formatted;
+  };
+
+  const getRevenueData = async () => {
+    if (isLoading) return;
+    setIsloading(true);
+    try {
+      const { data, status } = await getRevenueDataApi("/payments/revenue");
+      if (status === 200) {
+        setRevenue({
+          totalRevenue: data?.data?.totalRevenue,
+          ticketSold: data?.data?.totalTicketsSold,
+        });
+        setEvent(data.data?.eventSalesSummary);
+        console.log("ticketSold", data?.data?.eventSalesSummary);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsloading(false);
+    }
+  };
+  useEffect(() => {
+    getRevenueData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <TailSpin
+          visible={true}
+          height="80"
+          width="80"
+          color="#006F6A"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-base-200">
@@ -176,9 +237,9 @@ const Revenue = () => {
       <div className="flex overflow-hidden flex-col flex-1 ">
         <Header />
 
-        <div className={`overflow-y-auto flex-1 relative`}>
+        <div className={`overflow-y-auto flex-1 `}>
           {/* workings here */}
-          <section className="p-7 relative">
+          <section className="p-7 ">
             <div className="space-y-2">
               <h2 className="font-bold text-3xl">Revenue Analysis</h2>
               <p className="text-[#4A4A4A] text-[20px]">
@@ -187,7 +248,10 @@ const Revenue = () => {
               </p>
             </div>
 
-            <HeadAnalytics />
+            <HeadAnalytics
+              ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
+              totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
+            />
             <div className="mt-8">
               <div className="flex justify-between">
                 <h2 className="font-bold text-2xl">Detailed Revenue Data</h2>
@@ -237,12 +301,23 @@ const Revenue = () => {
               <div className="my-6" />
 
               <motion.tbody variants={parentVariant}>
-                {revenueAnalytics.map((item) => (
+                {event.map((item, i) => (
                   <motion.tr
-                    key={item.event}
+                    key={i}
                     variants={childrenVariant}
                     className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[20px] "
                   >
+
+                    <td className="py-3">{item.eventTitle}</td>
+                    <div className="-ml-20">
+                      <td>{date(item.eventDate)}</td>
+                    </div>
+                    <td className="py-3">
+                      {`${item.ticketsSold} / ${item.totalTicketsCreated}`}
+                    </td>
+                    <td className="py-3 text-[#006F6A] font-bold pl-12">
+                      {`₦  ${item.revenue.toLocaleString()}`}
+
                     <td className="py-3 pl-2">{item.event}</td>
 
                     <td className="pl-2">{item.date}</td>
