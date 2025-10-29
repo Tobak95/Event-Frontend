@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../component/layout/NavBar";
 import NavBarLoggedIn from "../component/layout/NavBarLoggedIn";
 import logo2 from "../assets/logo2.png";
@@ -16,10 +16,15 @@ import clock from "../assets/clock.png";
 import download from "../assets/download.png";
 import share from "../assets/share.png";
 import calender from "../assets/calendar.png";
+import { useAppContext } from "../Hooks/useAppContext";
+import { axiosInstance } from "../Utils/axiosInstance";
+import { toast } from "react-toastify";
 
 const Tickets = () => {
   const [category, setCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [myTickets, setMyTickets] = useState([]);
+  const { token } = useAppContext();
 
   const tickets = [
     {
@@ -69,11 +74,48 @@ const Tickets = () => {
     },
   ];
 
-  const filteredTickets = tickets.filter((ticket) => {
+  const getMyTicket = async () => {
+    try {
+      const response = await axiosInstance.get("/payments/myTicket", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data.data);
+
+      toast.success("Tickets fetched successfully");
+      setMyTickets(
+        Array.isArray(response.data?.data?.tickets)
+          ? response.data.data.tickets
+          : []
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getMyTicket();
+    }
+  }, [token]);
+
+  // const filteredTickets = myTickets.filter((ticket) => {
+  //   const matchesCategory = category === "All" || ticket.status === category;
+  //   const matchesSearch =
+  //     ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     ticket.location.toLowerCase().includes(searchTerm.toLowerCase());
+  //   return matchesCategory && matchesSearch;
+  // });
+
+  const filteredTickets = (myTickets || []).filter((ticket) => {
+    const title = ticket.event?.title || ticket.title || "";
+    const location = ticket.event?.location || ticket.location || "";
+
     const matchesCategory = category === "All" || ticket.status === category;
     const matchesSearch =
-      ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.location.toLowerCase().includes(searchTerm.toLowerCase());
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      location.toLowerCase().includes(searchTerm.toLowerCase());
+
     return matchesCategory && matchesSearch;
   });
 
@@ -93,12 +135,12 @@ const Tickets = () => {
         <div className="text-[7.19px] md:text-[14px] font-[400] flex items-center gap-[10px]">
           <div className="border-[0.3px] border-[#004441] bg-[#E6F1F0] rounded-[18px] w-[55.43px] h-[17.45px] md:w-[108px] md:h-[34px] flex justify-center items-center">
             <p className="text-[#004441] ">
-              {tickets.filter((t) => t.status === "Upcoming").length} Upcoming
+              {myTickets.filter((t) => t.status === "Upcoming").length} Upcoming
             </p>
           </div>
           <div className="flex justify-center items-center w-[41.06px] h-[17.45px] md:w-[80px] md:h-[34px] border-[0.3px] border-[#2B8783] bg-[#F8F6F6] rounded-[28px]">
             <p className="text-[#4A4A4A] ">
-              {tickets.filter((t) => t.status === "Past").length} Past
+              {myTickets.filter((t) => t.status === "Past").length} Past
             </p>
           </div>
         </div>
@@ -164,47 +206,58 @@ const Tickets = () => {
               className="flex flex-col md:flex-row-reverse md:justify-between gap-5 w-[345px] h-[410px] rounded-[19.49px] bg-[#FFFFFF] border-t-0 border-r-[0.77px] border-b-[4.8px] border-l-[0.77px] border-solid border-[#96C4C2] md:w-[625px] md:h-[248.52px] md:p-[12.83px] p-[20px]"
             >
               <img
-                src={ticket.img}
-                alt=""
-                className="lg:w-[271.94px] w-[285px]"
+                src={ticket.event?.eventImage}
+                alt={ticket.event?.title}
+                className="lg:w-[271.94px] w-[285px] rounded-[10px]"
               />
+
               <div>
                 <div className="flex flex-col gap-2">
-                  <h1 className="font-[700] md:text-[24px] text-[21.75px] w-[300px] md:w-[250px] text-[#000000]">
-                    {ticket.title}
+                  <h1 className="font-[700] md:text-[24px] text-[21.75px] text-[#000000]">
+                    {ticket.event?.title}
                   </h1>
+
                   <div className="flex items-center gap-2 text-[12.26px] font-[400] text-[#000000]">
                     <img src={location} alt="" />
-                    <p>{ticket.location}</p>
+                    <p>{ticket.event?.location}</p>
                   </div>
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-[12.26px] font-[400] text-[#000000]">
                       <img src={calender} alt="" />
-                      <p>{ticket.date}</p>
+                      <p>
+                        {new Date(ticket.createdAt).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          }
+                        )}
+                      </p>
                     </div>
                     <div className="flex items-center gap-2 text-[12.26px] font-[400] text-[#000000]">
                       <img src={clock} alt="" />
-                      <p>{ticket.time}</p>
+                      <p>
+                        {ticket.event?.eventStart} - {ticket.event?.eventEnd}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between text-[#000000] text-[20.25px] font-[700] mt-[10px] md:mt-[50px]">
-                  <p>${ticket.price.toFixed(2)}</p>
+
+                <div className="flex items-center justify-between text-[#000000] text-[16px] font-[600] mt-[10px] md:mt-[40px]">
+                  <p>{ticket.attendeeName}</p>
                   <div className="flex items-center gap-2">
                     <img
                       src={download}
                       alt=""
-                      className="md:w-[20px] md:h-[20px] w-[12.66px] h-[12.66px]"
+                      className="md:w-[20px] w-[12px]"
                     />
-                    <img
-                      src={share}
-                      alt=""
-                      className="md:w-[20px] md:h-[20px] w-[12.66px] h-[12.66px]"
-                    />
+                    <img src={share} alt="" className="md:w-[20px] w-[12px]" />
                     <img
                       src={arrowRight}
                       alt=""
-                      className="md:w-[20px] md:h-[20px] w-[12.66px] h-[12.66px]"
+                      className="md:w-[20px] w-[12px]"
                     />
                   </div>
                 </div>

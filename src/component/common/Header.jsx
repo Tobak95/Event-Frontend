@@ -5,14 +5,11 @@ import { BsBell } from "react-icons/bs";
 import dashboardProfile from "../../assets/dashboardProfile.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 // import ThemeSwitcher from "./ThemeSwitcher";
+import { useAppContext } from "../../Hooks/useAppContext";
 
 const Header = ({ onToggleSidebar }) => {
   const [searchQuery, setSearchQuery] = useState("");
-
-  const handleRefresh = () => {
-    // Handle refresh action
-    console.log("Refresh clicked");
-  };
+  const { user } = useAppContext();
 
   const handleNotifications = () => {
     // Handle notifications
@@ -20,7 +17,7 @@ const Header = ({ onToggleSidebar }) => {
   };
 
   return (
-    <header className="px-3 py-2 w-[-webkit-fill-available] border-b sm:px-6 lg:px-4 2xl:px-6 2xl:py-6 ">
+    <header className="px-3 py-2 w-[-webkit-fill-available]  border-b border-neutral/20  sm:px-6 lg:px-4 2xl:px-6 2xl:py-6 ">
       <div className="flex justify-between items-center">
         {/* Mobile Menu Button */}
         <button
@@ -50,15 +47,6 @@ const Header = ({ onToggleSidebar }) => {
           {/* Theme Switcher */}
           {/* <ThemeSwitcher className="2xl:w-5 2xl:h-5" /> */}
 
-          {/* Refresh Button */}
-          <button
-            onClick={handleRefresh}
-            className="btn btn-ghost btn-circle btn-xs sm:btn-sm lg:btn-md"
-            title="Refresh"
-          >
-            <SlRefresh className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
-          </button>
-
           {/* Notifications */}
           <button
             onClick={handleNotifications}
@@ -74,14 +62,16 @@ const Header = ({ onToggleSidebar }) => {
           <button className="w-[150px] h-[35px] flex items-center gap-2">
             <div>
               <img
-                src={dashboardProfile}
+                src={user.profilePicture}
                 alt="profile"
                 className="w-[35px] h-[35px] rounded-full  "
               />
             </div>
             <div className="flex items-center">
               <div>
-                <p>David S</p>
+                <p>
+                  {user.firstname} {user.lastname.charAt(0)}
+                </p>
               </div>
               <div>
                 <RiArrowDropDownLine size={40} />

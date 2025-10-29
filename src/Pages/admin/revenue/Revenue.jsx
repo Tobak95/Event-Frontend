@@ -287,10 +287,10 @@ const Revenue = () => {
               animate="open"
             >
               <thead>
-                <tr className="bg-[#f0efef]">
+                <tr className="bg-[#f0efef] ">
                   {["EVENT NAME", "DATE", "TICKETS SOLD", "TOTAL REVENUE"].map(
                     (data, i) => (
-                      <th key={i} className="py-3 text-[20px] font-bold">
+                      <th key={i} className="py-3 px-2 text-[20px] font-bold">
                         {data}
                       </th>
                     )
@@ -305,8 +305,9 @@ const Revenue = () => {
                   <motion.tr
                     key={i}
                     variants={childrenVariant}
-                    className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px]"
+                    className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[20px] "
                   >
+
                     <td className="py-3">{item.eventTitle}</td>
                     <div className="-ml-20">
                       <td>{date(item.eventDate)}</td>
@@ -316,6 +317,14 @@ const Revenue = () => {
                     </td>
                     <td className="py-3 text-[#006F6A] font-bold pl-12">
                       {`₦  ${item.revenue.toLocaleString()}`}
+
+                    <td className="py-3 pl-2">{item.event}</td>
+
+                    <td className="pl-2">{item.date}</td>
+
+                    <td className="py-3 pl-2">{item.SoldTicket}</td>
+                    <td className="py-3 text-[#006F6A] font-bold pl-2">
+                      {item.price}
                     </td>
                   </motion.tr>
                 ))}

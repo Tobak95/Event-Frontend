@@ -9,7 +9,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate("/login");
 
     // Close modal
     onClose();
@@ -25,7 +25,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
     <div className="flex fixed inset-0 z-50 justify-center items-center w-[100vw] h-screen">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 w-[100vw] h-screen bg-black/80 bg-opacity-50"
+        className="fixed inset-0 w-[100vw] h-screen bg-black/50 bg-opacity-50"
         onClick={handleCancel}
       />
 

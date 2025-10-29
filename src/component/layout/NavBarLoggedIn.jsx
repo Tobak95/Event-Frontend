@@ -17,6 +17,8 @@ const NavBarLoggedIn = ({
   menuColor = "#ffffff",
 }) => {
   const { user } = useAppContext();
+  // console.log("USER OBJECT:", user);
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -126,10 +128,15 @@ const NavBarLoggedIn = ({
                   onClick={() => setDropdown((prev) => !prev)}
                   className="flex items-center gap-1 cursor-pointer"
                 >
-                  <div className="bg-[#96C4C2] w-[23px] h-[23px] rounded-full flex items-center justify-center">
-                    <p className="text-[10px] font-[400] text-[#006F6A]">
+                  <div className=" w-[23px] h-[23px] rounded-full flex items-center justify-center">
+                    {/* <p className="text-[10px] font-[400] text-[#006F6A]">
                       {user.firstname?.charAt(0)}.{user.lastname?.charAt(0)}
-                    </p>
+                    </p> */}
+                    <img
+                      src={user.profilePicture}
+                      alt="fgggg"
+                      className="w-full object-cover rounded-full"
+                    />
                   </div>
                   <div className="flex items-center gap-3">
                     <p className={`font-[500] text-[16px] ${usernameColor}`}>
@@ -149,11 +156,11 @@ const NavBarLoggedIn = ({
                       My Tickets
                     </NavLink>
                     <NavLink
-                      to="/reset-password"
+                      to="/change-password"
                       className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
                       onClick={() => setDropdown(false)}
                     >
-                      Reset Password
+                      Change Password
                     </NavLink>
                     {isLogoutModalOpen && (
                       <LogoutModal
@@ -161,6 +168,19 @@ const NavBarLoggedIn = ({
                         onClose={handleLogout}
                       />
                     )}
+                    <div className="">
+                      {user.role === "admin" || user.role === "superAdmin" ? (
+                        <button
+                          onClick={() => redirect("/dashboard/admin")}
+                          className="px-4 h-[40px] rounded-[8px] cursor-pointer block text-black"
+                        >
+                          Dashboard
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -236,14 +256,14 @@ const NavBarLoggedIn = ({
                   </NavLink>
 
                   <NavLink
-                    to="/reset-password"
+                    to="/change-password"
                     className="px-4 py-2 text-black hover:bg-gray-100 text-center"
                     onClick={() => {
                       setDropdown(false);
                       setIsOpen(false);
                     }}
                   >
-                    Reset Password
+                    Change Password
                   </NavLink>
 
                   <button

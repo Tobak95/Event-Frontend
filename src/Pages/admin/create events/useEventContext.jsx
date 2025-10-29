@@ -1,7 +1,6 @@
-// src/pages/admin/events/useEventContext.js
 import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
-import api from "../../../api/api";
+import { api, setAuthToken } from "../../../api/api"; // ✅ import setAuthToken
 
 const EventContext = createContext();
 
@@ -13,12 +12,18 @@ export const EventProvider = ({ children }) => {
 
   const createEvent = async (formData, isDraft = false) => {
     setIsSubmitting(true);
+
     try {
+      // ✅ Get token from localStorage
+      const token = localStorage.getItem("accessToken"); // make sure key matches your AppProvider
+      setAuthToken(token); // ✅ attach token to Axios headers
+
       const payload = {
         ...event,
         ...formData,
         status: isDraft ? "draft" : "live",
       };
+
       const response = await api.post("/eventra/create-event", payload);
 
       if (response?.data?.success) {

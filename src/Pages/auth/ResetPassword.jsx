@@ -8,11 +8,15 @@ import { resetPasswordSchema } from "../../Utils/formValidator";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { axiosInstance } from "../../Utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { token } = useParams();
+  const redirect = useNavigate();
 
   const {
     register,
@@ -22,8 +26,6 @@ const ResetPassword = () => {
     resolver: yupResolver(resetPasswordSchema),
   });
 
-  //Reset Password
-
   const handleResetPassword = async (data) => {
     setSubmitting(true);
     try {
@@ -31,9 +33,10 @@ const ResetPassword = () => {
         token,
         password: data.password,
       });
-      if (response.status === 200) {
-        redirect("/login");
-      }
+
+      toast.success(response.data.message || "Password reset successfully!");
+
+      redirect("/login");
     } catch (error) {
       console.log(error);
       setErrorMessage(error?.response?.data?.message);
@@ -41,13 +44,6 @@ const ResetPassword = () => {
       setSubmitting(false);
     }
   };
-
-  // const onSubmit = (data) => {
-  //   setSubmitting(true);
-  //   setErrorMessage("");
-
-  //   setSubmitting(false);
-  // };
 
   return (
     <main className="">

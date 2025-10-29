@@ -8,23 +8,24 @@ const EventSchedule = ({ children }) => {
 
 function EventDetailsHeader({ title, image, date, time, location }) {
   return (
-    <div className="mx-w-[1440px] mx-auto">
+    <div className="mx-w-[1440px] mx-auto ">
       <div className="container mx-auto py-6 px-4">
-        <div className="flex flex-col lg:flex-row justify-between  items-center gap-2 lg:gap-6 w-full">
+        <div className="flex flex-col lg:flex-row  items-center gap-2 lg:gap-20 w-full">
           <div className="relative">
             <img
               src={image}
               alt={title}
-              className="lg:h-[406px] h-[283.9457092285156px] lg:w-[80%] rounded-[15px] relative z-10 object-cover"
+              className="lg:h-[406px] h-[283.9457092285156px] w-[467px] rounded-[15px] relative z-10 object-cover"
             />
-            <div className="absolute lg:w-[80%]  -top-4 left-4 w-full bg-[#004441] h-[406px] hidden lg:block" />
+            <div className="absolute lg:w-[80%]  -top-4 -right-5 w-full bg-[#004441] h-[406px] hidden lg:block" />
           </div>
 
           <div className="flex flex-col h-[70%] justify-evenly gap-4">
-            <p className="font-bold lg:text-5xl text-2xl text-[#000]">
+            <p className="font-bold lg:text-5xl text-2xl text-[#000] leading-tight">
               {title}
             </p>
-            <div className="flex flex-col gap-4 lg:gap-8">
+
+            <div className="flex flex-col gap-4 lg:gap-8 font-[400] text-[24px] text-[#1B1B1B]">
               <EventSchedule>
                 <LuCalendarDays />
                 <p className="">{date}</p>
