@@ -222,9 +222,33 @@ export default function EditTicket({
                   <div className="mt-4">
                     <h4 className="font-medium mb-2">Added Tickets:</h4>
                     <ul className="space-y-1">
-                      {formData.tickets.map((t, i) => (
-                        <li key={i} className="text-sm text-gray-700">
-                          • {t.name} — {t.type} — ${t.price}
+                      {formData.tickets.map((ticket, index) => (
+                        <li
+                          key={index}
+                          className="flex justify-between items-center border border-gray-300 rounded-md px-3 py-2 mb-2"
+                        >
+                          <div>
+                            <p className="font-medium">{ticket.name}</p>
+                            <p className="text-sm text-gray-500 capitalize">
+                              {ticket.type} • ${ticket.price}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              const updatedTickets = formData.tickets.filter(
+                                (_, i) => i !== index
+                              );
+                              setFormData({
+                                ...formData,
+                                tickets: updatedTickets,
+                              });
+                              toast.info(`Removed ${ticket.name}`);
+                            }}
+                            className="text-red-600 hover:text-red-800 text-sm border border-red-600 rounded px-2 py-1 transition-colors"
+                          >
+                            Remove
+                          </button>
                         </li>
                       ))}
                     </ul>
