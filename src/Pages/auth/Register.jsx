@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
 import signup from "../../assets/SignUp.jpg";
 import google from "../../assets/google.png";
@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { PiWarningCircle } from "react-icons/pi";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
+import { useAppContext } from "../../Hooks/useAppContext";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +21,8 @@ const Register = () => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const redirect = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { login } = useAppContext();
 
   const {
     register,
@@ -49,11 +53,45 @@ const Register = () => {
     }
   };
 
+  const handleGoogleRegister = () => {
+    window.location.href =
+      "https://events-backend-6jv2.onrender.com/auth/google";
+  };
 
-  const handleGoogleRegister = async () => {
+  useEffect(() => {
+    const token = searchParams.get("token");
+    const chosenEmail = searchParams.get("chosenEmail");
 
-    
-  }
+    if (token) {
+      const finalizeGoogleSignup = async () => {
+        try {
+          const response = await axiosInstance.post("/auth/finalize-google", {
+            token,
+            chosenEmail,
+          });
+
+          const { token: authToken, refreshToken, user } = response.data;
+          localStorage.setItem("token", authToken);
+          localStorage.setItem("refreshToken", refreshToken || "");
+          localStorage.setItem("user", JSON.stringify(user));
+          login(authToken, user);
+          toast.success("Login successful!");
+          const role = String(user.role || "").toLowerCase();
+          if (role === "admin" || role === "superAdmin") {
+            redirect("/dashboard/admin", { replace: true });
+          } else {
+            redirect("/", { replace: true });
+          }
+        } catch (error) {
+          console.error("Google finalize error:", error);
+          toast.error("Error finalizing Google sign-in");
+        }
+      };
+
+      finalizeGoogleSignup();
+    }
+  }, [searchParams, redirect]);
+
   return (
     <main className=" ">
       {/* Modal */}
@@ -296,6 +334,7 @@ const Register = () => {
 
                 <div className="mt-4">
                   <button
+                    onClick={handleGoogleRegister}
                     type="button"
                     className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors"
                   >

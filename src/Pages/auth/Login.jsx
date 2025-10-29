@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo2 from "../../assets/logo2.png";
 import { ClipLoader } from "react-spinners";
@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
 import partySpray from "../../assets/partySpray.jpg";
+import { useSearchParams } from "react-router-dom";
+
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,6 +24,7 @@ const Login = () => {
   const { login } = useAppContext();
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const {
     register,
@@ -34,7 +37,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     setErrorMessage("");
- 
+
     try {
       const { data: mydata } = await axiosInstance.post("/auth/login", {
         ...data,
@@ -55,14 +58,60 @@ const Login = () => {
     } finally {
       setSubmitting(false);
     }
-
-
-     const handleGoogleLogin = () => {
-       window.location.href = "https://events-backend-6jv2.onrender.com/api";
-       
-     };
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href =
+      "https://events-backend-6jv2.onrender.com/auth/google";
+  };
+
+  useEffect(() => {
+    const token = searchParams.get("token");
+    const chosenEmail = searchParams.get("chosenEmail");
+    if (!token) return;
+
+    const finalize = async () => {
+      setGoogleLoading(true);
+      try {
+        const res = await axiosInstance.post("/auth/finalize-google", {
+          token,
+          chosenEmail,
+        });
+
+        const { token: authToken, refreshToken, user } = res.data;
+        if (!authToken || !user) throw new Error("Invalid server response");
+
+        // persist tokens + user
+        localStorage.setItem("token", authToken);
+        localStorage.setItem("refreshToken", refreshToken || "");
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // update app context
+        login(authToken, user);
+        toast.success("Login successful");
+
+        // navigate based on role
+        const role = String(user.role || "").toLowerCase();
+        if (role === "admin" || role === "superAdmin") {
+          navigate("/dashboard/admin", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } catch (err) {
+        console.error("Finalize Google error:", err);
+        toast.error(
+          err?.response?.data?.message || err.message || "Google sign-in failed"
+        );
+      } finally {
+        setGoogleLoading(false);
+        // remove query params so temp token is not left in history
+        navigate(window.location.pathname, { replace: true });
+      }
+    };
+
+    finalize();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
   return (
     <main className="h-">
       <article className="grid p-3 lg:p-0 lg:grid-cols-2 ">
@@ -180,6 +229,7 @@ const Login = () => {
 
                 <div className="mt-4">
                   <button
+                    onSubmit={handleGoogleLogin}
                     type="button"
                     className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors"
                   >

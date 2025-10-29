@@ -36,6 +36,8 @@ const VerificationFromEmail = lazy(() =>
 const EventDetails = lazy(() => import("./Pages/EventDetails"));
 const CheckoutOne = lazy(() => import("./Pages/CheckoutOne"));
 const PaymentSuccess = lazy(() => import("./Pages/PaymentSuccess"));
+const FinalizeGoogle = lazy(() => import("./Pages/auth/FinalizeGoogle"));
+const ChooseEmail = lazy(() => import("./Pages/auth/ChooseEmail"));
 
 // ✅ Layout wrapper
 const Layout = ({ children }) => {
@@ -109,6 +111,8 @@ function App() {
           />
 
           {/* Auth & other routes (NO NAVBAR/FOOTER) */}
+          <Route path="/finalize-google" element={<FinalizeGoogle />} />
+          <Route path="/choose-email" element={<ChooseEmail />} />
           <Route
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
