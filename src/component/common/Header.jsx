@@ -75,7 +75,7 @@ const Header = ({ onToggleSidebar }) => {
                 </p>
               </div>
               <div>
-                <RiArrowDropDownLine size={40} />
+                {/* <RiArrowDropDownLine size={40} /> */}
               </div>
             </div>
           </button>
