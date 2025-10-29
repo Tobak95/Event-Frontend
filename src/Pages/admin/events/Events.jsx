@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import SideBar from "../../../component/admin/dashboard/SideBar";
 import Header from "../../../component/common/Header";
-import filter from "../../../assets/mi_filter.png";
+import filterIcon from "../../../assets/mi_filter.png";
 import search from "../../../assets/search01.png";
 import EventTable from "../../../component/admin/EventTable";
 import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../../../Hooks/useEventContext";
+import FilterModal from "../../../component/admin/FilterModal";
+import { RiseLoader } from "react-spinners";
 
 const Events = () => {
   const { events, isLoading, fetchEvents, setEvents } = useEventContext();
   const [eventType, setEventType] = useState("All Events");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({ type: "" });
+
   const redirect = useNavigate();
 
   useEffect(() => {
     fetchEvents();
   }, []);
 
+  // Filter events based on selected event type, search term, and paid/free filter
   const filteredEvents = events.filter((event) => {
     const matchesType =
       eventType === "All Events"
@@ -27,8 +33,20 @@ const Events = () => {
       ?.toLowerCase()
       .includes(searchTerm.toLowerCase());
 
-    return matchesType && matchesSearch;
+    const matchesFilter =
+      filters.type === ""
+        ? true
+        : filters.type === "Paid"
+        ? event.tickets[0].type.toLowerCase() === "paid"
+        : event.tickets[0].type.toLowerCase() === "free";
+
+    return matchesType && matchesSearch && matchesFilter;
   });
+
+  const handleApplyFilters = (newFilters) => {
+    setFilters(newFilters);
+    setIsFilterOpen(false);
+  };
 
   return (
     <div className="flex h-screen bg-base-200">
@@ -71,9 +89,13 @@ const Events = () => {
                   />
                 </div>
 
-                <button className="border border-[#ACACAC] bg-[#FFFFFF] rounded-[5px] flex items-center gap-1 py-[8.25px] px-[12px] w-[73px] h-[43px] cursor-pointer">
+                {/* Filter Button */}
+                <button
+                  onClick={() => setIsFilterOpen(true)}
+                  className="border border-[#ACACAC] bg-[#FFFFFF] rounded-[5px] flex items-center gap-1 py-[8.25px] px-[12px] w-[73px] h-[43px] cursor-pointer"
+                >
                   <img
-                    src={filter}
+                    src={filterIcon}
                     className="w-[17px] h-[17px]"
                     alt="filter"
                   />
@@ -93,7 +115,9 @@ const Events = () => {
 
             {/* Table */}
             {isLoading ? (
-              <p>Loading events...</p>
+              <div className="flex items-center justify-center mt-50 ">
+                <RiseLoader size={20} color="#006F6A" />
+              </div>
             ) : (
               <EventTable
                 events={filteredEvents}
@@ -104,6 +128,14 @@ const Events = () => {
           </section>
         </div>
       </div>
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        filters={filters}
+        onApply={handleApplyFilters}
+      />
     </div>
   );
 };

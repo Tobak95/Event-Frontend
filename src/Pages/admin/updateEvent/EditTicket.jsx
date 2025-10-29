@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaLessThan } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { axiosInstance } from "../../../Utils/axiosInstance";
 
-export default function CreateTicket({
+export default function EditTicket({
   onBack,
   onContinue,
   formData = { tickets: [] },
@@ -19,6 +21,38 @@ export default function CreateTicket({
     maxPerOrder: "",
   });
 
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
+
+  // 🟢 Fetch the event’s tickets from backend
+  const fetchSingleEvent = async () => {
+    try {
+      const res = await axiosInstance.get(`/eventra/single-event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const event = res.data.event;
+
+      // ✅ only update tickets (ignore other fields)
+      setFormData((prev) => ({
+        ...prev,
+        tickets: event.tickets || [],
+      }));
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      toast.error(error.response?.data?.message || "Failed to load tickets");
+    }
+  };
+
+  useEffect(() => {
+    if (id && token) {
+      fetchSingleEvent();
+    }
+  }, [id, token]);
+
+  // 🟢 Add a new ticket to formData
   const handleAddTicket = (e) => {
     e?.preventDefault?.();
     if (!ticket.name || !ticket.price) {
@@ -50,22 +84,20 @@ export default function CreateTicket({
       >
         <FaLessThan size={20} /> Back
       </button>
+
       <div className="max-w-[1107px] mx-auto">
         <div className="mb-[50px]">
-          <ProgressSteps
-            currentStep={2}
-            onBack={() => setCurrentStep(currentStep - 1)}
-          />
+          <ProgressSteps currentStep={2} />
         </div>
 
         <div className="space-y-[45px]">
           <div className="bg-white rounded-[10px] border border-[#777777] shadow-[0px_20px_46px_0px_rgba(0,0,0,0.08)] p-[30px]">
             <div className="space-y-[35px]">
               <div className="space-y-[25px]">
+                {/* 🟢 Ticket Inputs */}
                 <div className="flex gap-[21px]">
                   <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Ticket Name </label>
-
+                    <label className="text-black">Ticket Name</label>
                     <select
                       value={ticket.name}
                       onChange={(e) =>
@@ -95,15 +127,6 @@ export default function CreateTicket({
                         <option value="free">Free</option>
                       </select>
 
-                      {/* <input
-                        type="text"
-                        placeholder="Paid"
-                        value={ticket.type}
-                        onChange={(e) =>
-                          setTicket({ ...ticket, type: e.target.value })
-                        }
-                        className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                      /> */}
                       <MdKeyboardArrowDown
                         size={24}
                         className="absolute right-[15px] top-1/2 -translate-y-1/2 text-[#777777]"
@@ -112,6 +135,7 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* 🗓️ Ticket Availability */}
                 <div className="space-y-[12px]">
                   <label className="text-black">Ticket availability</label>
                   <div className="flex gap-[21px]">
@@ -136,6 +160,7 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* 💰 Price & Quantity */}
                 <div className="flex gap-[21px]">
                   <div className="flex-1 space-y-[12px]">
                     <label className="text-black">Price</label>
@@ -167,6 +192,7 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* 🎟️ Max per order */}
                 <div className="w-1/2 pr-[10.5px] space-y-[12px]">
                   <label className="text-black">Max tickets per order</label>
                   <input
@@ -181,6 +207,7 @@ export default function CreateTicket({
                 </div>
               </div>
 
+              {/* ➕ Add Ticket */}
               <button
                 onClick={handleAddTicket}
                 className="flex items-center gap-[7px] text-[#006f6a] hover:opacity-80 transition-opacity"
@@ -189,6 +216,7 @@ export default function CreateTicket({
                 <span>Create New Ticket</span>
               </button>
 
+              {/* 🧾 Display Tickets */}
               {Array.isArray(formData.tickets) &&
                 formData.tickets.length > 0 && (
                   <div className="mt-4">
@@ -205,6 +233,7 @@ export default function CreateTicket({
             </div>
           </div>
 
+          {/* 🔘 Buttons */}
           <div className="flex justify-end gap-[20px]">
             <button
               onClick={onBack}
@@ -227,8 +256,8 @@ export default function CreateTicket({
 
 function ProgressSteps({ currentStep }) {
   const steps = [
-    { number: 1, label: "Create New Event" },
-    { number: 2, label: "Create Ticket" },
+    { number: 1, label: "Edit Event" },
+    { number: 2, label: "Edit Ticket" },
     { number: 3, label: "Summary" },
   ];
 

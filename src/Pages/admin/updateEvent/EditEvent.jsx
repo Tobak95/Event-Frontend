@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideBar from "../../../component/admin/dashboard/SideBar";
 import Header from "../../../component/common/Header";
-import CreateTicket from "./CreateTicket";
 import { MdCloudUpload, MdKeyboardArrowDown } from "react-icons/md";
-import Layout from "./Layout";
-import Summary from "./Summary";
+import EditSummary from "./EditSummary";
+import EditTicket from "./EditTicket";
+import EditLayout from "./EditLayout";
+import { axiosInstance } from "../../../Utils/axiosInstance";
+import { useAppContext } from "../../../Hooks/useAppContext";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEventContext } from "../../../Hooks/useEventContext";
 
-const CreateEvents = () => {
+const EditEvent = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [imagePreview, setImagePreview] = useState(null);
+  const { id } = useParams();
+  const { token } = useAppContext();
+  const redirect = useNavigate();
+  const { singleEvent } = useEventContext();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -24,6 +32,44 @@ const CreateEvents = () => {
     endTime: "",
   });
 
+  const fetchSingleEvent = async () => {
+    try {
+      const res = await axiosInstance.get(`/eventra/single-event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const event = res.data.event;
+
+      setFormData({
+        title: event.title || "",
+        description: event.description || "",
+        category: event.category || "",
+        capacity: event.capacity || "",
+        perks: event.perks || "",
+        startDate: event.startDate?.split("T")[0] || "",
+        endDate: event.endDate?.split("T")[0] || "",
+        startTime: event.startTime || "",
+        endTime: event.endTime || "",
+        address: event.address || "",
+        image: event.image || null,
+        tickets: event.tickets || [],
+      });
+
+      if (event.image) setImagePreview(event.image);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      toast.error(error.response?.data?.message || "Failed to load event");
+    }
+  };
+
+  useEffect(() => {
+    if (id && token) {
+      fetchSingleEvent();
+    }
+  }, [id, token]);
+
   // Function to handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -36,9 +82,9 @@ const CreateEvents = () => {
   // ✅ Step 2: Switch between steps
   if (currentStep === 2) {
     return (
-      <Layout
+      <EditLayout
         Children={
-          <CreateTicket
+          <EditTicket
             formData={formData}
             setFormData={setFormData}
             onBack={() => setCurrentStep(1)}
@@ -51,9 +97,9 @@ const CreateEvents = () => {
 
   if (currentStep === 3) {
     return (
-      <Layout
+      <EditLayout
         Children={
-          <Summary
+          <EditSummary
             formData={formData}
             setFormData={setFormData}
             onBack={() => setCurrentStep(2)}
@@ -333,7 +379,12 @@ const CreateEvents = () => {
 
                   {/* Buttons */}
                   <div className="flex justify-end gap-[20px]">
-                    <button className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors">
+                    <button
+                      // onClick={() =>
+                      //   redirect(`dashboard/admin/events/${singleEvent._id}`)
+                      // }
+                      className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors"
+                    >
                       Cancel
                     </button>
                     <button
@@ -381,9 +432,13 @@ function ProgressSteps({ currentStep }) {
         </div>
       </div>
 
-      <div className="flex justify-between gap-60">
+      <div className="flex justify-between">
         {steps.map((step) => (
-          <div key={step.number} className="" style={{ width: "33.33%" }}>
+          <div
+            key={step.number}
+            className="text-center"
+            style={{ width: "33.33%" }}
+          >
             <p className="text-[#161616]">{step.label}</p>
           </div>
         ))}
@@ -392,4 +447,4 @@ function ProgressSteps({ currentStep }) {
   );
 }
 
-export default CreateEvents;
+export default EditEvent;
