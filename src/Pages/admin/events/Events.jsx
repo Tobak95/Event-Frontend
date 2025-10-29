@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../../../Hooks/useEventContext";
 import FilterModal from "../../../component/admin/FilterModal";
 import { RiseLoader } from "react-spinners";
+import Pagination from "../../../component/layout/Pagination";
 
 const Events = () => {
   const { events, isLoading, fetchEvents, setEvents } = useEventContext();
@@ -15,6 +16,10 @@ const Events = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({ type: "" });
+  
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8;
+  
 
   const redirect = useNavigate();
 

@@ -55,6 +55,12 @@ const Login = () => {
     } finally {
       setSubmitting(false);
     }
+
+
+     const handleGoogleLogin = () => {
+       window.location.href = "https://events-backend-6jv2.onrender.com/api";
+       
+     };
   };
 
   return (

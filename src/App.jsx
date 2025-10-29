@@ -129,7 +129,7 @@ function App() {
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/checkout1/:id" element={<CheckoutOne />} />
           <Route path="/checkout2/:id" element={<CheckOut2 />} />
-          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+          <Route path="/payment-result" element={<PaymentSuccess />} />
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}
