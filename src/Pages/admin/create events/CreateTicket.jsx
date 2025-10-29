@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaLessThan } from "react-icons/fa";
-import { MdKeyboardArrowDown, MdAdd } from "react-icons/md";
+import { MdKeyboardArrowDown, MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
 export default function CreateTicket({
@@ -18,19 +18,46 @@ export default function CreateTicket({
     quantityAvailable: "",
     maxPerOrder: "",
   });
+  const [editingIndex, setEditingIndex] = useState(null);
 
-  const handleAddTicket = (e) => {
-    e?.preventDefault?.();
-    if (!ticket.name || !ticket.price) {
-      toast.error("Please fill in at least ticket name and price.");
+  // ✅ Validate ticket fields before saving
+  const validateTicket = () => {
+    if (!ticket.name.trim()) return "Ticket name is required.";
+    if (!ticket.type.trim()) return "Ticket type is required.";
+    if (ticket.type === "paid" && !ticket.price)
+      return "Price is required for paid tickets.";
+    if (!ticket.startDate) return "Start date is required.";
+    if (!ticket.endDate) return "End date is required.";
+    if (new Date(ticket.startDate) > new Date(ticket.endDate))
+      return "Start date cannot be after end date.";
+    if (!ticket.quantityAvailable) return "Quantity available is required.";
+    if (!ticket.maxPerOrder) return "Max per order is required.";
+    return null;
+  };
+
+  // ✅ Add or Update Ticket
+  const handleAddOrUpdateTicket = (e) => {
+    e.preventDefault();
+    const error = validateTicket();
+    if (error) {
+      toast.error(error);
       return;
     }
 
-    setFormData({
-      ...formData,
-      tickets: [...(formData.tickets || []), ticket],
-    });
+    const updatedTickets = [...(formData.tickets || [])];
 
+    if (editingIndex !== null) {
+      updatedTickets[editingIndex] = ticket;
+      toast.success("Ticket updated successfully!");
+      setEditingIndex(null);
+    } else {
+      updatedTickets.push(ticket);
+      toast.success("Ticket added successfully!");
+    }
+
+    setFormData({ ...formData, tickets: updatedTickets });
+
+    // Reset form
     setTicket({
       name: "",
       type: "",
@@ -42,6 +69,19 @@ export default function CreateTicket({
     });
   };
 
+  // ✏️ Edit Ticket
+  const handleEdit = (index) => {
+    setTicket(formData.tickets[index]);
+    setEditingIndex(index);
+  };
+
+  // 🗑️ Delete Ticket
+  const handleDelete = (index) => {
+    const updatedTickets = formData.tickets.filter((_, i) => i !== index);
+    setFormData({ ...formData, tickets: updatedTickets });
+    toast.info("Ticket deleted.");
+  };
+
   return (
     <div className="min-h-screen bg-white p-[30px]">
       <button
@@ -50,22 +90,21 @@ export default function CreateTicket({
       >
         <FaLessThan size={20} /> Back
       </button>
+
       <div className="max-w-[1107px] mx-auto">
         <div className="mb-[50px]">
-          <ProgressSteps
-            currentStep={2}
-            onBack={() => setCurrentStep(currentStep - 1)}
-          />
+          <ProgressSteps currentStep={2} />
         </div>
 
         <div className="space-y-[45px]">
+          {/* Ticket Form */}
           <div className="bg-white rounded-[10px] border border-[#777777] shadow-[0px_20px_46px_0px_rgba(0,0,0,0.08)] p-[30px]">
-            <div className="space-y-[35px]">
+            <form onSubmit={handleAddOrUpdateTicket} className="space-y-[35px]">
               <div className="space-y-[25px]">
                 <div className="flex gap-[21px]">
+                  {/* Ticket Name */}
                   <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Ticket Name </label>
-
+                    <label className="text-black">Ticket Name</label>
                     <select
                       value={ticket.name}
                       onChange={(e) =>
@@ -73,15 +112,16 @@ export default function CreateTicket({
                       }
                       className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
                     >
-                      <option value="">Enter ticket name</option>
+                      <option value="">Select ticket name</option>
                       <option value="Regular">Regular</option>
                       <option value="VIP">VIP</option>
                       <option value="VVIP">VVIP</option>
                     </select>
                   </div>
 
+                  {/* Ticket Type */}
                   <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Ticket type</label>
+                    <label className="text-black">Ticket Type</label>
                     <div className="relative">
                       <select
                         value={ticket.type}
@@ -94,16 +134,6 @@ export default function CreateTicket({
                         <option value="paid">Paid</option>
                         <option value="free">Free</option>
                       </select>
-
-                      {/* <input
-                        type="text"
-                        placeholder="Paid"
-                        value={ticket.type}
-                        onChange={(e) =>
-                          setTicket({ ...ticket, type: e.target.value })
-                        }
-                        className="w-full bg-neutral-100 rounded-[8px] px-[15px] py-[18px] text-[#777777] text-center outline-none border border-[#dbdbdb]"
-                      /> */}
                       <MdKeyboardArrowDown
                         size={24}
                         className="absolute right-[15px] top-1/2 -translate-y-1/2 text-[#777777]"
@@ -112,12 +142,12 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* Availability */}
                 <div className="space-y-[12px]">
-                  <label className="text-black">Ticket availability</label>
+                  <label className="text-black">Ticket Availability</label>
                   <div className="flex gap-[21px]">
                     <input
                       type="date"
-                      placeholder="Enter start date"
                       value={ticket.startDate}
                       onChange={(e) =>
                         setTicket({ ...ticket, startDate: e.target.value })
@@ -126,7 +156,6 @@ export default function CreateTicket({
                     />
                     <input
                       type="date"
-                      placeholder="Enter end date"
                       value={ticket.endDate}
                       onChange={(e) =>
                         setTicket({ ...ticket, endDate: e.target.value })
@@ -136,6 +165,7 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* Price & Quantity */}
                 <div className="flex gap-[21px]">
                   <div className="flex-1 space-y-[12px]">
                     <label className="text-black">Price</label>
@@ -151,7 +181,7 @@ export default function CreateTicket({
                   </div>
 
                   <div className="flex-1 space-y-[12px]">
-                    <label className="text-black">Quantity available</label>
+                    <label className="text-black">Quantity Available</label>
                     <input
                       type="number"
                       placeholder="Enter quantity"
@@ -167,8 +197,9 @@ export default function CreateTicket({
                   </div>
                 </div>
 
+                {/* Max Per Order */}
                 <div className="w-1/2 pr-[10.5px] space-y-[12px]">
-                  <label className="text-black">Max tickets per order</label>
+                  <label className="text-black">Max Tickets per Order</label>
                   <input
                     type="number"
                     placeholder="Enter quantity"
@@ -182,29 +213,55 @@ export default function CreateTicket({
               </div>
 
               <button
-                onClick={handleAddTicket}
+                type="submit"
                 className="flex items-center gap-[7px] text-[#006f6a] hover:opacity-80 transition-opacity"
               >
                 <MdAdd size={32} className="text-[#006f6a]" />
-                <span>Create New Ticket</span>
+                <span>
+                  {editingIndex !== null
+                    ? "Update Ticket"
+                    : "Create New Ticket"}
+                </span>
               </button>
+            </form>
 
-              {Array.isArray(formData.tickets) &&
-                formData.tickets.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="font-medium mb-2">Added Tickets:</h4>
-                    <ul className="space-y-1">
-                      {formData.tickets.map((t, i) => (
-                        <li key={i} className="text-sm text-gray-700">
-                          • {t.name} — {t.type} — ${t.price}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-            </div>
+            {/* ✅ Ticket List */}
+            {Array.isArray(formData.tickets) && formData.tickets.length > 0 && (
+              <div className="mt-6">
+                <h4 className="font-medium mb-3">Added Tickets:</h4>
+                <ul className="space-y-2">
+                  {formData.tickets.map((ticket, index) => (
+                    <li
+                      key={index}
+                      className="flex justify-between items-center border border-gray-300 rounded-md px-3 py-2 mb-2"
+                    >
+                      <div>
+                        <p className="font-medium">{ticket.name}</p>
+                        <p className="text-sm text-gray-500 capitalize">
+                          {ticket.type} • ${ticket.price}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          const updatedTickets = formData.tickets.filter(
+                            (_, i) => i !== index
+                          );
+                          setFormData({ ...formData, tickets: updatedTickets });
+                          toast.info(`Removed ${ticket.name}`);
+                        }}
+                        className="text-red-600 hover:text-red-800 text-sm border border-red-600 rounded px-2 py-1 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
+          {/* Footer Buttons */}
           <div className="flex justify-end gap-[20px]">
             <button
               onClick={onBack}
@@ -225,6 +282,7 @@ export default function CreateTicket({
   );
 }
 
+// Progress Steps Component
 function ProgressSteps({ currentStep }) {
   const steps = [
     { number: 1, label: "Create New Event" },
@@ -245,9 +303,7 @@ function ProgressSteps({ currentStep }) {
         </div>
 
         <div className="absolute w-full flex justify-between items-center px-[11px]">
-          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#006F6A]"></div>
-          </div>
+          <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] flex items-center justify-center z-10"></div>
           <div className="w-[22px] h-[22px] rounded-full bg-[#006F6A] border-2 border-[#006F6A] z-10"></div>
           <div className="w-[22px] h-[22px] rounded-full bg-white border-2 border-[#2B8783] z-10"></div>
         </div>
