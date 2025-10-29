@@ -85,3 +85,11 @@ export const createAdminSchema = Yup.object().shape({
     .matches(/^\+?[1-9][0-9]{7,14}$/, "Phone number is not valid")
     .required("Phone number is required"),
 });
+
+export const updateAdminSchema = Yup.object().shape({
+  firstname: Yup.string().required("First name is required"),
+  lastname: Yup.string().required("Last name is required"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format"),
+});
