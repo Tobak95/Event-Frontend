@@ -17,9 +17,22 @@ const AdminSettings = () => {
   const [loading, setLoading] = useState(false);
   const { user, token } = useAppContext();
 
-  // Function to remove an admin
-  const removeAdmin = (id) => {
-    setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin._id !== id));
+  const removeAdmin = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.delete(`/auth/delete-admin/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data);
+
+      toast.success("Admin deleted successfully ✅");
+      setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin._id !== id));
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.message || "Failed to delete admin");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -87,7 +100,7 @@ const AdminSettings = () => {
                     new Date(admin.createdAt).toLocaleString("en-US", {
                       day: "numeric",
                       month: "short",
-                      weekday:"short",
+                      weekday: "short",
                       year: "numeric",
                       hour: "2-digit",
                       minute: "2-digit",
@@ -113,12 +126,12 @@ const AdminSettings = () => {
       {showModal === "removeAdmin" && (
         <RemoveAdminModal
           h2="Remove Admin"
-          description="Do you wish to remove this admin?, this action cannot be undone"
+          description="Do you wish to remove this admin? This action cannot be undone."
           onContinue={() => setShowModal(null)}
           remove={showModal}
-          onRemove={() => {
+          onRemove={async () => {
+            await removeAdmin(id);
             setShowModal("removed");
-            removeAdmin(id);
           }}
         />
       )}
