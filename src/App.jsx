@@ -25,6 +25,7 @@ const ResetPassword = lazy(() => import("./Pages/auth/ResetPassword"));
 const VerifyEmail = lazy(() => import("./Pages/ModalPages/VerifyEmail"));
 const Tickets = lazy(() => import("./Pages/Tickets"));
 const ForgotPassword = lazy(() => import("./Pages/auth/ForgotPassword"));
+const ChangePassword = lazy(() => import("./Pages/auth/ChangePassword"));
 const CheckYourEmail = lazy(() => import("./Pages/auth/CheckYourEmail"));
 const CheckOut2 = lazy(() => import("./Pages/CheckOut2"));
 const LogoutModal = lazy(() => import("./Pages/auth/modals/LogOutModal"));
@@ -63,7 +64,9 @@ import EventAttendees from "./Pages/admin/events/EventAttendees";
 import CreateEvents from "./Pages/admin/create events/CreateEvents";
 import UserManagements from "./Pages/admin/userManagement/UserManagement";
 import Revenue from "./Pages/admin/revenue/Revenue";
-import Settings from "./Pages/admin/settings/Settings"
+import Settings from "./Pages/admin/settings/Settings";
+
+import EditEvent from "./Pages/admin/updateEvent/EditEvent";
 
 function App() {
   return (
@@ -115,17 +118,18 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/verify" element={<VerifyEmail />} />
           <Route path="/check-email" element={<CheckYourEmail />} />
           <Route
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
           />
-          <Route path="/eventDetails" element={<EventDetails />} />
+          <Route path="/eventDetails/:id" element={<EventDetails />} />
           <Route path="/tickets" element={<Tickets />} />
-          <Route path="/checkout1" element={<CheckoutOne />} />
-          <Route path="/checkout2" element={<CheckOut2 />} />
-          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+          <Route path="/checkout1/:id" element={<CheckoutOne />} />
+          <Route path="/checkout2/:id" element={<CheckOut2 />} />
+          <Route path="/payment-result" element={<PaymentSuccess />} />
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}
@@ -143,17 +147,24 @@ function App() {
               element={<EventAttendees />}
             />
 
-          <Route
-            path="/dashboard/admin/create-events"
-            element={<CreateEvents />}
-          />
-          <Route
-            path="/dashboard/admin/userManagements"
-            element={<UserManagements />}
-          />
-          <Route path="/dashboard/admin/revenue" element={<Revenue />} />
-          <Route path="/dashboard/admin/settings" element={<Settings/>} />
-           </Route> 
+            <Route
+              path="/dashboard/admin/create-events"
+              element={<CreateEvents />}
+            />
+            <Route
+              path="/dashboard/admin/events/edit/:id"
+              element={<EditEvent />}
+            />
+
+            <Route
+              path="/dashboard/admin/userManagements"
+              element={<UserManagements />}
+            />
+            <Route element={<ProtectedRoute allowedRoles={["superAdmin"]} />}>
+              <Route path="/dashboard/admin/revenue" element={<Revenue />} />{" "}
+            </Route>
+            <Route path="/dashboard/admin/settings" element={<Settings />} />
+          </Route>
         </Routes>
       </Suspense>
     </Router>

@@ -33,10 +33,10 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }) => {
   };
 
   return (
-    <div className="fixed  inset-0 flex justify-end bg-[#ffffff56] backdrop-blur-xs z-50">
+    <div className="fixed  inset-0 flex justify-end bg-[#0f0808a6] z-50">
       <div
         ref={modalRef}
-        className="absolute top-[50px] w-[280px] h-[270px] bg-white shadow-xl p-5 overflow-y-hidden animate-slide-in rounded-[10px]"
+        className="absolute top-[50px] w-[280px] h-[180px] bg-white shadow-xl p-5 overflow-y-hidden animate-slide-in rounded-[10px]"
       >
         {/* Event Type */}
         <div className="mb-5">
@@ -59,34 +59,6 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }) => {
                   setLocalFilters((prev) => ({
                     ...prev,
                     type: prev.type === type ? "" : type,
-                  }))
-                }
-              />
-            </label>
-          ))}
-        </div>
-
-        {/* Status */}
-        <div className="mb-5">
-          <h3 className="font-medium text-[#000000] text-[20px] mb-2">
-            Status
-          </h3>
-          {["Live", "Draft"].map((status) => (
-            <label
-              key={status}
-              className="flex items-center justify-between mb-2"
-            >
-              <span className="text-[14px] text-[#4A4A4A] font-[400]">
-                {status}
-              </span>
-              <input
-                type="checkbox"
-                checked={localFilters.status === status}
-                className="w-[14px] h-[14px] rounded-[5px] border border-[#4A4A4A]"
-                onChange={() =>
-                  setLocalFilters((prev) => ({
-                    ...prev,
-                    status: prev.status === status ? "" : status,
                   }))
                 }
               />

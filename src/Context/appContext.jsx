@@ -33,7 +33,9 @@ const AppProvider = ({ children }) => {
   };
 
   return (
-    <appContext.Provider value={{ user, token, loading, login, logout }}>
+    <appContext.Provider
+      value={{ user, setUser, token, loading, login, logout }}
+    >
       {children}
     </appContext.Provider>
   );

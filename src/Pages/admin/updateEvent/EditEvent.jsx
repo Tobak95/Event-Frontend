@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideBar from "../../../component/admin/dashboard/SideBar";
 import Header from "../../../component/common/Header";
-import CreateTicket from "./CreateTicket";
 import { MdCloudUpload, MdKeyboardArrowDown } from "react-icons/md";
-import Layout from "./Layout";
-import Summary from "./Summary";
-import * as Yup from "yup";
+import EditSummary from "./EditSummary";
+import EditTicket from "./EditTicket";
+import EditLayout from "./EditLayout";
+import { axiosInstance } from "../../../Utils/axiosInstance";
+import { useAppContext } from "../../../Hooks/useAppContext";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEventContext } from "../../../Hooks/useEventContext";
 
-const CreateEvents = () => {
+const EditEvent = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [imagePreview, setImagePreview] = useState(null);
-  const [errors, setErrors] = useState({});
+  const { id } = useParams();
+  const { token } = useAppContext();
+  const redirect = useNavigate();
+  const { singleEvent } = useEventContext();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -26,94 +32,43 @@ const CreateEvents = () => {
     endTime: "",
   });
 
-  // Validation Schema
-  const eventValidationSchema = Yup.object().shape({
-    title: Yup.string()
-      .required("Event title is required")
-      .min(5, "Title must be at least 5 characters")
-      .max(100, "Title cannot exceed 100 characters"),
+  const fetchSingleEvent = async () => {
+    try {
+      const res = await axiosInstance.get(`/eventra/single-event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    description: Yup.string()
-      .required("Description is required")
-      .min(20, "Description must be at least 20 characters")
-      .max(1000, "Description cannot exceed 1000 characters"),
+      const event = res.data.event;
 
-    category: Yup.string()
-      .required("Please select a category")
-      .oneOf(
-        [
-          "business",
-          "sports",
-          "festivals",
-          "food-&-drinks",
-          "dating",
-          "hobbies",
-        ],
-        "Invalid category"
-      ),
+      setFormData({
+        title: event.title || "",
+        description: event.description || "",
+        category: event.category || "",
+        capacity: event.capacity || "",
+        perks: event.perks || "",
+        startDate: event.startDate?.split("T")[0] || "",
+        endDate: event.endDate?.split("T")[0] || "",
+        startTime: event.startTime || "",
+        endTime: event.endTime || "",
+        address: event.address || "",
+        image: event.image || null,
+        tickets: event.tickets || [],
+      });
 
-    capacity: Yup.number()
-      .required("Capacity is required")
-      .positive("Capacity must be a positive number")
-      .integer("Capacity must be a whole number")
-      .min(1, "Capacity must be at least 1")
-      .max(10000, "Capacity cannot exceed 10,000"),
+      if (event.image) setImagePreview(event.image);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      toast.error(error.response?.data?.message || "Failed to load event");
+    }
+  };
 
-    perks: Yup.string()
-      .required("Perks are required")
-      .min(10, "Perks must be at least 10 characters"),
-
-    startDate: Yup.date()
-      .required("Start date is required")
-      .min(new Date(), "Start date cannot be in the past"),
-
-    endDate: Yup.date()
-      .required("End date is required")
-      .min(Yup.ref("startDate"), "End date must be after start date"),
-
-    startTime: Yup.string()
-      .required("Start time is required")
-      .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Invalid time format"),
-
-    endTime: Yup.string()
-      .required("End time is required")
-      .test(
-        "is-after-start",
-        "End time must be after start time",
-        function (value) {
-          const { startTime, startDate, endDate } = this.parent;
-          if (!startTime || !value) return true;
-
-          const [startHour, startMinute] = startTime.split(":").map(Number);
-          const [endHour, endMinute] = value.split(":").map(Number);
-
-          const start = new Date(`2000-01-01T${startTime}`);
-          const end = new Date(`2000-01-01T${value}`);
-
-          // Same day: compare times
-          if (startDate === endDate) {
-            return end > start;
-          }
-          // Different days: allow any end time
-          return true;
-        }
-      ),
-
-    address: Yup.string()
-      .required("Address is required")
-      .min(10, "Address must be at least 10 characters"),
-
-    image: Yup.mixed()
-      .required("Event image is required")
-      .test("fileSize", "Image must be less than 10MB", (value) => {
-        return value && value.size <= 10 * 1024 * 1024;
-      })
-      .test("fileType", "Only PNG and JPG images are allowed", (value) => {
-        return (
-          value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type)
-        );
-      }),
-  });
+  useEffect(() => {
+    if (id && token) {
+      fetchSingleEvent();
+    }
+  }, [id, token]);
 
   // Function to handle image upload
   const handleImageUpload = (e) => {
@@ -123,25 +78,13 @@ const CreateEvents = () => {
       setImagePreview(URL.createObjectURL(file));
     }
   };
-  const handleContinue = async () => {
-    try {
-      await eventValidationSchema.validate(formData, { abortEarly: false });
-      setErrors({});
-      setCurrentStep(2);
-    } catch (validationErrors) {
-      const formattedErrors = {};
-      validationErrors.inner.forEach((err) => {
-        formattedErrors[err.path] = err.message;
-      });
-      setErrors(formattedErrors);
-    }
-  };
+
   // ✅ Step 2: Switch between steps
   if (currentStep === 2) {
     return (
-      <Layout
+      <EditLayout
         Children={
-          <CreateTicket
+          <EditTicket
             formData={formData}
             setFormData={setFormData}
             onBack={() => setCurrentStep(1)}
@@ -154,9 +97,9 @@ const CreateEvents = () => {
 
   if (currentStep === 3) {
     return (
-      <Layout
+      <EditLayout
         Children={
-          <Summary
+          <EditSummary
             formData={formData}
             setFormData={setFormData}
             onBack={() => setCurrentStep(2)}
@@ -225,11 +168,6 @@ const CreateEvents = () => {
                           />
                         </label>
                       </div>
-                      {errors.image && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {errors.image}
-                        </p>
-                      )}
                     </div>
 
                     {/* Event Details */}
@@ -249,17 +187,11 @@ const CreateEvents = () => {
                           type="text"
                           placeholder="Enter event title"
                           value={formData.title}
-                          onChange={(e) => {
-                            setFormData({ ...formData, title: e.target.value });
-                            setErrors({ ...errors, title: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none ${
-                            errors.title ? "border border-red-500" : ""
-                          }`}
+                          onChange={(e) =>
+                            setFormData({ ...formData, title: e.target.value })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
-                        {errors.title && (
-                          <p className="text-red-500 text-sm">{errors.title}</p>
-                        )}
                       </div>
 
                       <div className="space-y-[7px]">
@@ -268,22 +200,14 @@ const CreateEvents = () => {
                           placeholder="Describe your event..."
                           rows={5}
                           value={formData.description}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               description: e.target.value,
-                            });
-                            setErrors({ ...errors, description: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none resize-none ${
-                            errors.description ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none resize-none"
                         />
-                        {errors.description && (
-                          <p className="text-red-500 text-sm">
-                            {errors.description}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -297,57 +221,42 @@ const CreateEvents = () => {
                       <p className="text-[#777777]">
                         Moments you won't forget.
                       </p>
-                    </div>
-
-                    <div className="mb-4">
                       <input
                         type="text"
-                        className={`w-full h-[55px] rounded-[10px] p-[10px] bg-neutral-100 outline-none ${
-                          errors.perks ? "border border-red-500" : ""
-                        }`}
+                        className="w-full h-[55px] rounded-[10px] p-[10px] bg-neutral-100 outline-none"
                         placeholder="Enter perks of the night"
                         value={formData.perks}
-                        onChange={(e) => {
-                          setFormData({ ...formData, perks: e.target.value });
-                          setErrors({ ...errors, perks: null });
-                        }}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            perks: e.target.value,
+                          })
+                        }
                       />
-                      {errors.perks && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.perks}
-                        </p>
-                      )}
                     </div>
 
                     <div className="flex gap-[22px]">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Category</label>
+
                         <select
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none appearance-none ${
-                            errors.category ? "border border-red-500" : ""
-                          }`}
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none appearance-none"
+                          placeholder="Select category"
                           value={formData.category}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               category: e.target.value,
-                            });
-                            setErrors({ ...errors, category: null });
-                          }}
+                            })
+                          }
                         >
-                          <option value="">Select category</option>
                           <option value="business">Business</option>
                           <option value="sports">Sports</option>
                           <option value="festivals">Festivals</option>
-                          <option value="food-&-drinks">Food & Drinks</option>
+                          <option value="food-&-drinks">Food-&-Drinks</option>
                           <option value="dating">Dating</option>
                           <option value="hobbies">Hobbies</option>
                         </select>
-                        {errors.category && (
-                          <p className="text-red-500 text-sm">
-                            {errors.category}
-                          </p>
-                        )}
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
@@ -356,22 +265,14 @@ const CreateEvents = () => {
                           type="number"
                           placeholder="Max attendees"
                           value={formData.capacity}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               capacity: e.target.value,
-                            });
-                            setErrors({ ...errors, capacity: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none ${
-                            errors.capacity ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                         />
-                        {errors.capacity && (
-                          <p className="text-red-500 text-sm">
-                            {errors.capacity}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -385,28 +286,20 @@ const CreateEvents = () => {
                       </p>
                     </div>
 
-                    <div className="flex gap-[22px] mb-5">
+                    <div className="flex gap-[22px]">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Start Date</label>
                         <input
                           type="date"
                           value={formData.startDate}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               startDate: e.target.value,
-                            });
-                            setErrors({ ...errors, startDate: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] outline-none ${
-                            errors.startDate ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.startDate && (
-                          <p className="text-red-500 text-sm">
-                            {errors.startDate}
-                          </p>
-                        )}
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
@@ -414,47 +307,31 @@ const CreateEvents = () => {
                         <input
                           type="date"
                           value={formData.endDate}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               endDate: e.target.value,
-                            });
-                            setErrors({ ...errors, endDate: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] outline-none ${
-                            errors.endDate ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.endDate && (
-                          <p className="text-red-500 text-sm">
-                            {errors.endDate}
-                          </p>
-                        )}
                       </div>
                     </div>
 
-                    <div className="flex gap-[22px]">
+                    <div className="flex gap-[22px] my-5">
                       <div className="flex-1 space-y-[7px]">
                         <label className="text-[#1b1b1b]">Start Time</label>
                         <input
                           type="time"
                           value={formData.startTime}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               startTime: e.target.value,
-                            });
-                            setErrors({ ...errors, startTime: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] outline-none ${
-                            errors.startTime ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.startTime && (
-                          <p className="text-red-500 text-sm">
-                            {errors.startTime}
-                          </p>
-                        )}
                       </div>
 
                       <div className="flex-1 space-y-[7px]">
@@ -462,22 +339,14 @@ const CreateEvents = () => {
                         <input
                           type="time"
                           value={formData.endTime}
-                          onChange={(e) => {
+                          onChange={(e) =>
                             setFormData({
                               ...formData,
                               endTime: e.target.value,
-                            });
-                            setErrors({ ...errors, endTime: null });
-                          }}
-                          className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] outline-none ${
-                            errors.endTime ? "border border-red-500" : ""
-                          }`}
+                            })
+                          }
+                          className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#1b1b1b] outline-none"
                         />
-                        {errors.endTime && (
-                          <p className="text-red-500 text-sm">
-                            {errors.endTime}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -497,27 +366,29 @@ const CreateEvents = () => {
                         type="text"
                         placeholder="Enter full address"
                         value={formData.address}
-                        onChange={(e) => {
-                          setFormData({ ...formData, address: e.target.value });
-                          setErrors({ ...errors, address: null });
-                        }}
-                        className={`w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none ${
-                          errors.address ? "border border-red-500" : ""
-                        }`}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            address: e.target.value,
+                          })
+                        }
+                        className="w-full bg-neutral-100 rounded-[10px] px-[20px] py-[16px] text-[#777777] outline-none"
                       />
-                      {errors.address && (
-                        <p className="text-red-500 text-sm">{errors.address}</p>
-                      )}
                     </div>
                   </div>
 
                   {/* Buttons */}
                   <div className="flex justify-end gap-[20px]">
-                    <button className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors">
+                    <button
+                      // onClick={() =>
+                      //   redirect(`dashboard/admin/events/${singleEvent._id}`)
+                      // }
+                      className="border border-[#4a4a4a] text-[#161616] px-[16px] py-[16px] rounded-[8px] w-[300px] hover:bg-gray-50 transition-colors"
+                    >
                       Cancel
                     </button>
                     <button
-                      onClick={handleContinue}
+                      onClick={() => setCurrentStep(2)}
                       className="bg-[#006f6a] text-white px-[16px] py-[16px] rounded-[8px] w-[310px] hover:bg-[#005a56] transition-colors"
                     >
                       Continue
@@ -561,9 +432,13 @@ function ProgressSteps({ currentStep }) {
         </div>
       </div>
 
-      <div className="flex justify-between gap-60">
+      <div className="flex justify-between">
         {steps.map((step) => (
-          <div key={step.number} className="" style={{ width: "33.33%" }}>
+          <div
+            key={step.number}
+            className="text-center"
+            style={{ width: "33.33%" }}
+          >
             <p className="text-[#161616]">{step.label}</p>
           </div>
         ))}
@@ -572,4 +447,4 @@ function ProgressSteps({ currentStep }) {
   );
 }
 
-export default CreateEvents;
+export default EditEvent;

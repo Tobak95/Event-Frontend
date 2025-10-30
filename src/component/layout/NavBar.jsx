@@ -75,8 +75,6 @@ const NavBar = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -173,7 +171,7 @@ const NavBar = ({
                       </p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <p className={`font-[500] text-[16px] ${usernameColor}`}>
+                      <p className={`font-[500] text-[16px] ${menuColor}`}>
                         {user.firstname}.
                         {user.lastname?.charAt(0).toUpperCase()}
                       </p>
@@ -191,7 +189,7 @@ const NavBar = ({
                         My Tickets
                       </NavLink>
                       <NavLink
-                        to="/reset-password"
+                        to="/change-password"
                         className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
                         onClick={() => setDropdown(false)}
                       >
@@ -296,7 +294,7 @@ const NavBar = ({
                     </NavLink>
 
                     <NavLink
-                      to="/reset-password"
+                      to="/change-password"
                       className="px-4 py-2 text-black hover:bg-gray-100 text-center"
                       onClick={() => {
                         setDropdown(false);

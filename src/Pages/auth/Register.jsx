@@ -49,6 +49,11 @@ const Register = () => {
     }
   };
 
+
+  const handleGoogleRegister = async () => {
+
+    
+  }
   return (
     <main className=" ">
       {/* Modal */}

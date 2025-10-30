@@ -8,18 +8,22 @@ import { LiaUsersSolid } from "react-icons/lia";
 import { GrPerformance } from "react-icons/gr";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 import Logo2 from "../../../assets/logo2.png";
-import LogoutModal from "../../../Pages/auth/modals/LogOutModal"
+import LogoutModal from "../../../Pages/auth/modals/LogOutModal";
 import { useState } from "react";
+import { useAppContext } from "../../../Hooks/useAppContext";
 
 const SideBar = () => {
   const location = useLocation();
 
+   const isActive = (path) => location.pathname === path;
+   
+  const { user } = useAppContext();
+  const userRole = user?.role;
+
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
- const handleLogout = () => {
-   setIsLogoutModalOpen((prev) => !prev);
- };
-
-
+  const handleLogout = () => {
+    setIsLogoutModalOpen((prev) => !prev);
+  };
 
   const menuItems = [
     {
@@ -46,21 +50,24 @@ const SideBar = () => {
       path: "/dashboard/admin/userManagements",
       active: location.pathname === "/dashboard/admin/userManagements",
     },
-    {
+  ];
+
+  if (userRole === "superAdmin") {
+    menuItems.push({
       icon: HiOutlineChartSquareBar,
       label: "Revenue",
       path: "/dashboard/admin/revenue",
       active: location.pathname === "/dashboard/admin/revenue",
-    },
-  ];
+    });
+  }
 
   const MenuItem = ({ icon: Icon, label, path, active }) => (
     <Link
       to={path}
       className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
         active
-          ? "bg-[#E6F1F0] text-[#006F6A]"
-          : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A] hover:font-[600]"
+          ? "bg-[#E6F1F0] text-[#006F6A] border-[2px] border-[#006F6A]"
+          : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A]  hover:font-[600]"
       }`}
     >
       <Icon className="w-6 h-6" />
@@ -69,8 +76,8 @@ const SideBar = () => {
   );
 
   return (
-    <div className="flex flex-col w-[273px] h-screen  border-r-2 border-neutral/20 ">
-      <div className="px-4 py-6  border-b ">
+    <div className="flex flex-col w-[273px] h-screen ">
+      <div className="px-4 py-6   border-b border-neutral/20 ">
         <Link to={"/"}>
           <div className="flex ">
             <img src={Logo2} alt="eventra-Logo" className=" w-auto h-10 " />
@@ -79,7 +86,7 @@ const SideBar = () => {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="flex-1 px-2  space-y-2  lg:py-4">
+      <nav className="flex-1 px-2  space-y-2  lg:py-4  border-r border-neutral/20 ">
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
@@ -92,10 +99,14 @@ const SideBar = () => {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="p-4 space-y-2 border-t border-base-300">
+      <div className="p-4 space-y-2 border-t border-base-300  border-r border-neutral/20 ">
         <Link
           to="/dashboard/admin/settings"
-          className="flex items-center px-4 py-3 space-x-3 text-sm font-medium rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+          className={`flex items-center space-x-3 px-4 py-3 text-[20px] text-[#1D1D1D] font-medium rounded-lg transition-colors ${
+            isActive("/dashboard/admin/settings")
+              ? "bg-[#E6F1F0] text-[#006F6A] border-[2px] border-[#006F6A]"
+              : "text-base-content/70 hover:bg-[#E6F1F0] hover:text-[#006F6A]  hover:font-[600]"
+          }`}
         >
           <GrPerformance className="w-5 h-5" />
           <span className="text-[20px]">Settings</span>
@@ -105,7 +116,7 @@ const SideBar = () => {
         )}
         <button
           onClick={handleLogout}
-          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-base-200 hover:text-base-content"
+          className="flex items-center px-4 py-3 space-x-3 w-full text-sm font-medium text-left rounded-lg transition-colors text-base-content/70 hover:bg-[#E6F1F0]   hover:text-base-content"
         >
           <BiLogOut className="w-5 h-5" />
           <span className="text-[20px]">Log Out</span>
