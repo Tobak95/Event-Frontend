@@ -201,8 +201,8 @@ const Revenue = () => {
               </div>
 
               <HeadAnalytics
-                ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
-                totalRevenue={`${revenue.totalRevenue.toLocaleString()}`}
+                ticketSold={`${revenue.ticketSold.toLocaleString()}`}
+                totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
               />
               <div className="mt-8">
                 <div className="flex justify-between">
