@@ -11,7 +11,6 @@ const Header = ({ onToggleSidebar }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAppContext();
 
- 
   const handleNotifications = () => {
     // Handle notifications
     console.log("Notifications clicked");
@@ -63,7 +62,7 @@ const Header = ({ onToggleSidebar }) => {
           <button className="w-[150px] h-[35px] flex items-center gap-2">
             <div>
               <img
-                src={dashboardProfile}
+                src={user.profilePicture}
                 alt="profile"
                 className="w-[35px] h-[35px] rounded-full  "
               />
