@@ -135,7 +135,7 @@ const NavBarLoggedIn = ({
                     <img
                       src={user.profilePicture}
                       alt="fgggg"
-                      className="w-full object-cover rounded-full"
+                      className="w-[25px] h-[25px] object-cover rounded-full"
                     />
                   </div>
                   <div className="flex items-center gap-3">

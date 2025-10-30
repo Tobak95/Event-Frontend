@@ -36,6 +36,8 @@ const VerificationFromEmail = lazy(() =>
 const EventDetails = lazy(() => import("./Pages/EventDetails"));
 const CheckoutOne = lazy(() => import("./Pages/CheckoutOne"));
 const PaymentSuccess = lazy(() => import("./Pages/PaymentSuccess"));
+const FinalizeGoogle = lazy(() => import("./Pages/auth/FinalizeGoogle"));
+const ChooseEmail = lazy(() => import("./Pages/auth/ChooseEmail"));
 
 // ✅ Layout wrapper
 const Layout = ({ children }) => {
@@ -109,6 +111,8 @@ function App() {
           />
 
           {/* Auth & other routes (NO NAVBAR/FOOTER) */}
+          <Route path="/finalize-google" element={<FinalizeGoogle />} />
+          <Route path="/choose-email" element={<ChooseEmail />} />
           <Route
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
@@ -125,11 +129,17 @@ function App() {
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
           />
-          <Route path="/eventDetails/:id" element={<EventDetails />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="/checkout1/:id" element={<CheckoutOne />} />
-          <Route path="/checkout2/:id" element={<CheckOut2 />} />
-          <Route path="/payment-result" element={<PaymentSuccess />} />
+          <Route
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin", "superAdmin"]} />
+            }
+          >
+            <Route path="/eventDetails/:id" element={<EventDetails />} />
+            <Route path="/tickets" element={<Tickets />} />
+            <Route path="/checkout1/:id" element={<CheckoutOne />} />
+            <Route path="/checkout2/:id" element={<CheckOut2 />} />
+            <Route path="/payment-result" element={<PaymentSuccess />} />
+          </Route>
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}

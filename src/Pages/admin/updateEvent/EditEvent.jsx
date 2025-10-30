@@ -292,6 +292,7 @@ const EditEvent = () => {
                         <input
                           type="date"
                           value={formData.startDate}
+                          min={new Date().toISOString().split("T")[0]}
                           onChange={(e) =>
                             setFormData({
                               ...formData,
@@ -307,6 +308,10 @@ const EditEvent = () => {
                         <input
                           type="date"
                           value={formData.endDate}
+                          min={
+                            formData.startDate ||
+                            new Date().toISOString().split("T")[0]
+                          }
                           onChange={(e) =>
                             setFormData({
                               ...formData,
