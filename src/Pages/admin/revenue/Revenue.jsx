@@ -307,7 +307,6 @@ const Revenue = () => {
                     variants={childrenVariant}
                     className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[20px] "
                   >
-
                     <td className="py-3">{item.eventTitle}</td>
                     <div className="-ml-20">
                       <td>{date(item.eventDate)}</td>
@@ -317,14 +316,6 @@ const Revenue = () => {
                     </td>
                     <td className="py-3 text-[#006F6A] font-bold pl-12">
                       {`₦  ${item.revenue.toLocaleString()}`}
-
-                    <td className="py-3 pl-2">{item.event}</td>
-
-                    <td className="pl-2">{item.date}</td>
-
-                    <td className="py-3 pl-2">{item.SoldTicket}</td>
-                    <td className="py-3 text-[#006F6A] font-bold pl-2">
-                      {item.price}
                     </td>
                   </motion.tr>
                 ))}
