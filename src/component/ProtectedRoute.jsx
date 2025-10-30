@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppContext } from "../Hooks/useAppContext";
 import SuspenseLoader from "./layout/SuspenseLoader";
+import { toast } from "react-toastify";
 
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, loading } = useAppContext();
@@ -15,6 +16,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   }
 
   if (!user) {
+    toast.error("Login to Continue");
     return <Navigate to="/login" replace />;
   }
 
