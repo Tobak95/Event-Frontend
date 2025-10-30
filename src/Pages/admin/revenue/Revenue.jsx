@@ -28,51 +28,6 @@ const childrenVariant = {
   open: { opacity: 1, y: 0, transition: { ease: "easeIn", duration: 0.3 } },
 };
 
-const revenueAnalytics = [
-  {
-    event: "Rhythm & Soul Tour",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "200/300",
-    price: "$2,236",
-  },
-  {
-    event: "Heat Wave Block Party",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "200/300",
-    price: "$2,236",
-  },
-  {
-    event: "Illashizzy Water Grave",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "400/500",
-    price: "$4,472",
-  },
-  {
-    event: "Katakata Rangers Motion",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "200/300",
-    price: "$2,236",
-  },
-  {
-    event: "Rhythm & Soul Tour",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "600/700",
-    price: "$6,708",
-  },
-  {
-    event: "The Phantom Opera",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "200/300",
-    price: "$2,240",
-  },
-  {
-    event: "Sky High Roof Top",
-    date: "12 May 2025  5:00 pm",
-    SoldTicket: "300/600",
-    price: "$3,354",
-  },
-];
-
 const HeadAnalytics = ({ totalRevenue, ticketSold }) => {
   const data = [
     {
@@ -211,24 +166,8 @@ const Revenue = () => {
   };
   useEffect(() => {
     getRevenueData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <TailSpin
-          visible={true}
-          height="80"
-          width="80"
-          color="#006F6A"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      </div>
-    );
-  }
 
   return (
     <div className="flex h-screen bg-base-200">
@@ -236,121 +175,138 @@ const Revenue = () => {
 
       <div className="flex overflow-hidden flex-col flex-1 ">
         <Header />
-
-        <div className={`overflow-y-auto flex-1 `}>
-          {/* workings here */}
-          <section className="p-7 ">
-            <div className="space-y-2">
-              <h2 className="font-bold text-3xl">Revenue Analysis</h2>
-              <p className="text-[#4A4A4A] text-[20px]">
-                An overview of revenue performance by categories to total
-                revenue
-              </p>
-            </div>
-
-            <HeadAnalytics
-              ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
-              totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
+        {isLoading ? (
+          <div className="flex items-center justify-center min-h-screen">
+            <TailSpin
+              visible={true}
+              height="60"
+              width="60"
+              color="#006F6A"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+              wrapperStyle={{}}
+              wrapperClass=""
             />
-            <div className="mt-8">
-              <div className="flex justify-between">
-                <h2 className="font-bold text-2xl">Detailed Revenue Data</h2>
-                <div className="flex gap-6">
-                  <div className="border border-[#D5D9E0] rounded-sm flex items-center p-3 gap-1 shadow-sm">
-                    <FiSearch size={22} />
-                    <input
-                      type="text"
-                      placeholder="Search event..."
-                      className="outline-none flex-1"
-                    />
-                  </div>
-                  <div
-                    className="flex gap-1 border border-[#D5D9E0] p-3 shadow-sm rounded-[8px] cursor-pointer hover:bg-[#f0f0f0]"
-                    onClick={() => setShowModal(true)}
-                  >
-                    <IoFilterSharp size={22} />
-                    <p className="text-[#232323]">Filter</p>
+          </div>
+        ) : (
+          <div className={`overflow-y-auto flex-1 `}>
+            {/* workings here */}
+            <section className="p-7 ">
+              <div className="space-y-2">
+                <h2 className="font-bold text-3xl">Revenue Analysis</h2>
+                <p className="text-[#4A4A4A] text-[20px]">
+                  An overview of revenue performance by categories to total
+                  revenue
+                </p>
+              </div>
+
+              <HeadAnalytics
+                ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
+                totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
+              />
+              <div className="mt-8">
+                <div className="flex justify-between">
+                  <h2 className="font-bold text-2xl">Detailed Revenue Data</h2>
+                  <div className="flex gap-6">
+                    <div className="border border-[#D5D9E0] rounded-sm flex items-center p-3 gap-1 shadow-sm">
+                      <FiSearch size={22} />
+                      <input
+                        type="text"
+                        placeholder="Search event..."
+                        className="outline-none flex-1"
+                      />
+                    </div>
+                    <div
+                      className="flex gap-1 border border-[#D5D9E0] p-3 shadow-sm rounded-[8px] cursor-pointer hover:bg-[#f0f0f0]"
+                      onClick={() => setShowModal(true)}
+                    >
+                      <IoFilterSharp size={22} />
+                      <p className="text-[#232323]">Filter</p>
+                    </div>
                   </div>
                 </div>
+                <AnimatePresence>
+                  {showModal && (
+                    <Modal setShowModal={() => setShowModal((prev) => !prev)} />
+                  )}
+                </AnimatePresence>
               </div>
-              <AnimatePresence>
-                {showModal && (
-                  <Modal setShowModal={() => setShowModal((prev) => !prev)} />
-                )}
-              </AnimatePresence>
-            </div>
 
-            <motion.table
-              className="w-full border-collapse mt-8 text-left"
-              variants={parentVariant}
-              initial="hide"
-              animate="open"
-            >
-              <thead>
-                <tr className="bg-[#f0efef]">
-                  {["EVENT NAME", "DATE", "TICKETS SOLD", "TOTAL REVENUE"].map(
-                    (data, i) => (
+              <motion.table
+                className="w-full border-collapse mt-8 text-left"
+                variants={parentVariant}
+                initial="hide"
+                animate="open"
+              >
+                <thead>
+                  <tr className="bg-[#f0efef]">
+                    {[
+                      "EVENT NAME",
+                      "DATE",
+                      "TICKETS SOLD",
+                      "TOTAL REVENUE",
+                    ].map((data, i) => (
                       <th key={i} className="py-3 text-[20px] font-bold">
                         {data}
                       </th>
-                    )
-                  )}
-                </tr>
-              </thead>
+                    ))}
+                  </tr>
+                </thead>
 
-              <div className="my-6" />
+                <div className="my-6" />
 
-              <motion.tbody variants={parentVariant}>
-                {event.map((item, i) => (
-                  <motion.tr
-                    key={i}
-                    variants={childrenVariant}
-                    className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px]"
-                  >
-                    <td className="py-3">{item.eventTitle}</td>
-                    <div className="-ml-20">
-                      <td>{date(item.eventDate)}</td>
-                    </div>
-                    <td className="py-3">
-                      {`${item.ticketsSold} / ${item.totalTicketsCreated}`}
-                    </td>
-                    <td className="py-3 text-[#006F6A] font-bold pl-12">
-                      {`₦  ${item.revenue.toLocaleString()}`}
-                    </td>
-                  </motion.tr>
-                ))}
-              </motion.tbody>
-            </motion.table>
-
-            <div className="divider mt-10" />
-
-            <div className="flex justify-between items-center -mt-4">
-              <div className="flex items-center gap-14">
-                <p>Showing</p>
-                <p>1 / 10</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
-                  <IoChevronBackOutline size={26} />
-                </div>
-                <div className="space-x-2">
-                  {[1, 2, 3].map((item) => (
-                    <button
-                      className={`border ${
-                        item === 1 ? "border-[#FFCF00]" : "border-gray-300"
-                      } rounded-full py-1 px-2`}
+                <motion.tbody variants={parentVariant}>
+                  {event.map((item, i) => (
+                    <motion.tr
+                      key={i}
+                      variants={childrenVariant}
+                      className="border-b border-[#000000]/20 hover:bg-[#F9FAFB] transition-colors text-[24px]"
                     >
-                      {item}
-                    </button>
+                      <td className="py-3">{item.eventTitle}</td>
+                      <div className="-ml-20">
+                        <td>{date(item.eventDate)}</td>
+                      </div>
+                      <td className="py-3">
+                        {`${item.ticketsSold}/${item.totalTicketsCreated}`}
+                      </td>
+                      <td className="py-3 text-[#006F6A] font-bold pl-12">
+                        {`₦  ${item.revenue.toLocaleString()}`}
+                      </td>
+                    </motion.tr>
                   ))}
+                </motion.tbody>
+              </motion.table>
+
+              <div className="divider mt-10" />
+
+              <div className="flex justify-between items-center -mt-4">
+                <div className="flex items-center gap-14">
+                  <p>Showing</p>
+                  <p>1 / 10</p>
                 </div>
-                <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
-                  <IoChevronForward size={26} />
+                <div className="flex items-center gap-2">
+                  <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
+                    <IoChevronBackOutline size={26} />
+                  </div>
+                  <div className="space-x-2">
+                    {[1, 2, 3].map((item) => (
+                      <button
+                        className={`border ${
+                          item === 1 ? "border-[#FFCF00]" : "border-gray-300"
+                        } rounded-full py-1 px-2`}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="border border-[#DBDBDB] rounded-full p-2 cursor-pointer">
+                    <IoChevronForward size={26} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+        )}
       </div>
     </div>
   );
