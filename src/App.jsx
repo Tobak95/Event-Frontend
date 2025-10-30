@@ -129,11 +129,17 @@ function App() {
             path="/verify-email/:token"
             element={<VerificationFromEmail />}
           />
-          <Route path="/eventDetails/:id" element={<EventDetails />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="/checkout1/:id" element={<CheckoutOne />} />
-          <Route path="/checkout2/:id" element={<CheckOut2 />} />
-          <Route path="/payment-result" element={<PaymentSuccess />} />
+          <Route
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin", "superAdmin"]} />
+            }
+          >
+            <Route path="/eventDetails/:id" element={<EventDetails />} />
+            <Route path="/tickets" element={<Tickets />} />
+            <Route path="/checkout1/:id" element={<CheckoutOne />} />
+            <Route path="/checkout2/:id" element={<CheckOut2 />} />
+            <Route path="/payment-result" element={<PaymentSuccess />} />
+          </Route>
           <Route path="/logout" element={<LogoutModal />} />
 
           {/* DashBoard ROutes */}

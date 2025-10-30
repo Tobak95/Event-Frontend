@@ -336,7 +336,7 @@ const Register = () => {
                   <button
                     onClick={handleGoogleRegister}
                     type="button"
-                    className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors"
+                    className="w-full inline-flex justify-center py-2.5 px-4 border rounded-md shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transition-colors cursor-not-allowed"
                   >
                     <div className="flex gap-2 cursor-pointer items-center">
                       <div className="w-4 h-4 rounded-sm flex items-center justify-center text-xs">
