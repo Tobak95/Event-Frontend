@@ -62,7 +62,7 @@ const HeadAnalytics = ({ totalRevenue, ticketSold }) => {
           <div className="flex justify-between items-center w-full">
             <div className="space-y-4">
               <h1 className="text-[#4A4A4A] text-[24px]">{item.h1}</h1>
-              <h2 className="text-[32px] text-[#000000] font-[700]">
+              <h2 className="text-[32px] text-[#000000] font-[700] ">
                 {item.h2}
               </h2>
               <p className={` text-[14px]`} style={{ color: item.pColor }}>
@@ -202,7 +202,7 @@ const Revenue = () => {
 
               <HeadAnalytics
                 ticketSold={`₦ ${revenue.ticketSold.toLocaleString()}`}
-                totalRevenue={`₦ ${revenue.totalRevenue.toLocaleString()}`}
+                totalRevenue={`${revenue.totalRevenue.toLocaleString()}`}
               />
               <div className="mt-8">
                 <div className="flex justify-between">

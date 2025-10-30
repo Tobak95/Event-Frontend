@@ -21,9 +21,9 @@ export const getRevenueDataApi = async (part)=>{
 }
 
 // Axios instance
-export const api = axios.create({
-  baseURL: "https://events-backend-6jv2.onrender.com/api",
-});
+// export const api = axios.create({
+//   baseURL: "https://events-backend-6jv2.onrender.com/api",
+// });
 
 // Helper to set token dynamically
 export const setAuthToken = (token) => {
